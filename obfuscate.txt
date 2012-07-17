@@ -1,6 +1,5 @@
-abcdefijlnorstuy
-
-obfuscated
+possible characters: abcdefijlnorstuy
+sample string:       obfuscated
 
 undefined   = ([][{}]+[])
 [object]    = ({}+{})
