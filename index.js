@@ -1,4 +1,4 @@
-// jun this in you console:
+// run this in your console:
 
 ([]+{}+[])[!!{}+![]]+([]+
 {}+[])[!!{}+!![]]+(!{}+[]
