@@ -1,19 +1,23 @@
-possible characters: abcdefijlnorstuy
+possible characters: abcdefijlnorstuy NOI []
 sample string:       obfuscated
 
-undefined   = ([][{}]+[])
-[object]    = ({}+{})
-false       = (!{}+[])
-true        = ([]+!!{})
-NaN         = ({}-{}+[])
-Infinity    = (!!{}/![])
+undefined        = ([][{}]+[])
+[object Object]  = ({}+[])
+false            = (!{}+[])
+true             = ([]+!!{})
+NaN              = ({}-{}+[])
+Infinity         = (!!{}/![])
 
 0 = !{}+![]
+0 = +!{}
 1 = !!{}+![]
+1 = +!![]
+1 = +!+{}
 2 = ![]+!!{}+!![]
 2 = !!{}+!![]
+2 = +!+[]+!!{}
 3 = ![]+!!{}+!!{}+!![]
-5 = (!!{}+!![])*(!!{}+!![])+!!{}
+5 = (!!{}+!![])*(![]+!!{}+!![])+!!{}
 
 
 o ([]+{}+[])[1]
