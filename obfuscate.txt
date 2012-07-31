@@ -1,12 +1,16 @@
 possible characters: abcdefijlnorstuy NOI []
 sample string:       obfuscated
 
-undefined        = ([][{}]+[])
-[object Object]  = ({}+[])
-false            = (!{}+[])
-true             = ([]+!!{})
-NaN              = ({}-{}+[])
-Infinity         = (!!{}/![]+[])
+undefined        = [][{}]
+undefined        = [][[]]
+[object Object]  = {}+[]
+false            = ![]
+true             = !![]
+NaN              = {}-{}+[]
+NaN              = +[][[]]
+NaN              = +[![]]
+Infinity         = !!{}/![]+[]
+
 
 0 = !{}+![]
 0 = +!{}
