@@ -6,7 +6,7 @@
   
   var MAPPING = {
     'a':   '("false")[1]',
-    'b':   '(window+[])[2]',
+    'b':   '(GLOBAL+[])[2]',
     'c':   '([]["filter"]+[])[3]',
     'd':   '("undefined")[2]',
     'e':   '("true")[3]',
@@ -14,7 +14,7 @@
     'g':   '([]+String)[14]',
     'h':   '(+(17))["toString"](18)',
     'i':   '([false]+undefined)[10]',
-    'j':   '(window+"")[3]',
+    'j':   '(GLOBAL+"")[3]',
     'k':   '(+(20))["toString"](21)',
     'l':   '("false")[2]',
     'm':   '(Number+"")[11]',
@@ -64,7 +64,7 @@
     '"':   '("")["link"]()[8]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'window["escape"]("<")[0]',
+    '%':   'GLOBAL["escape"]("<")[0]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
     '(':   '([]["filter"]+"")[15]',
@@ -75,7 +75,7 @@
     '-':   USE_CHAR_CODE,
     '.':   USE_CHAR_CODE,
     '/':   '("")["sub"]()[6]',
-    ':':   'window["Date"]()[21]',
+    ':':   'GLOBAL["Date"]()[21]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["sub"]()[0]',
     '=':   '("")["fontcolor"]()[11]',
@@ -83,7 +83,7 @@
     '?':   USE_CHAR_CODE,
     '@':   USE_CHAR_CODE,
     '[':   USE_CHAR_CODE,
-    '\\':  'window["unescape"]("%"+(5)+"c")[0]',
+    '\\':  'GLOBAL["unescape"]("%"+(5)+"c")[0]',
     ']':   USE_CHAR_CODE,
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
@@ -109,6 +109,8 @@
     'Boolean':  '![]',
     'Function':  '[]["sort"]'
   }
+  
+  var GLOBAL = '[]["sort"]["constructor"]("return this")()';
   
   function fillMissingChars(){
     for (var key in MAPPING){
@@ -145,7 +147,7 @@
         replacement = CONSTRUCTORS[key];
         
         regEx = new RegExp("\\b" + key, "gi");
-        value = value.replace(regEx, "(" + replacement + ")['constructor']");
+        value = value.replace(regEx, '(' + replacement + ')["constructor"]');
       }
       
       for (key in SIMPLE){
@@ -165,7 +167,9 @@
         value = value.replace(regEx, "+[" + MAPPING[key] + "]");
       }
       
-      value = value.replace(/""/gi, "[]+[]");
+      value = value.replace(/GLOBAL/gi, GLOBAL);
+      
+      value = value.replace(/\+""/gi, "+[]");
       
       try {
         eval(value);
@@ -191,7 +195,7 @@
       if (input.indexOf(key) === 0){
         replacement = SIMPLE[key];
         length = key.length;
-        if (recursive && input.length === length) {
+        if (input.length === length) {
           replacement += "+[]";
         }
       }
@@ -204,9 +208,7 @@
     
     return (recursive ? "" : " + \n" ) + "/* " + input + " */ " + replacement + swap(next, false);
   }
-  
-  window = this;
-  
+    
   function encode(input){
     var output = swap(input, true);
     var evaluated = eval(output);
