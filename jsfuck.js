@@ -4,6 +4,22 @@
   
   var MIN = 32, MAX = 126;
   
+  var SIMPLE = {
+    'false':      '![]',
+    'true':       '!![]',
+    'undefined':  '[][[]]',
+    'NaN':        '+[![]]',
+    'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])'
+  };
+  
+  var CONSTRUCTORS = {
+    'Array':    '[]',
+    'Number':   '+[]',
+    'String':   '[]+[]',
+    'Boolean':  '![]',
+    'Function':  '[]["sort"]'
+  };
+  
   var MAPPING = {
     'a':   '("false")[1]',
     'b':   '(GLOBAL+[])[2]',
@@ -13,13 +29,13 @@
     'f':   '("false")[0]', 
     'g':   '([]+String)[14]',
     'h':   '(+(17))["toString"](18)',
-    'i':   '([false]+undefined)[10]',
+    'i':   '("undefined")[5]',
     'j':   '(GLOBAL+"")[3]',
     'k':   '(+(20))["toString"](21)',
     'l':   '("false")[2]',
     'm':   '(Number+"")[11]',
     'n':   '("undefined")[1]',
-    'o':   '(true+[]["filter"])[10]', // todo
+    'o':   '([]["filter"]+"")[6]',
     'p':   '(+(25))["toString"](30)',
     'q':   '(+(26))["toString"](30)',
     'r':   '("true")[1]',
@@ -29,7 +45,7 @@
     'v':   '(+(31))["toString"](32)',
     'w':   '(+(32))["toString"](33)',
     'x':   '(+(33))["toString"](34)',
-    'y':   '(NaN+[Infinity])[10]',  // TODO: Shorten  
+    'y':   '("Infinity")[7]',
     'z':   '(+(35))["toString"](36)',
     
     'A':   '(Array+"")[9]',
@@ -94,22 +110,6 @@
     '~':   USE_CHAR_CODE
   };
   
-  var SIMPLE = {
-    'false':      '![]',
-    'true':       '!![]',
-    'undefined':  '[][[]]',
-    'NaN':        '+[![]]',
-    'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])'
-  };
-  
-  var CONSTRUCTORS = {
-    'Number':   '+[]',
-    'String':   '[]+[]',
-    'Array':    '[]',
-    'Boolean':  '![]',
-    'Function':  '[]["sort"]'
-  }
-  
   var GLOBAL = '[]["sort"]["constructor"]("return this")()';
   
   function fillMissingChars(){
@@ -136,7 +136,14 @@
   }
   
   function replaceMap(){
-    var character = "", value, original, regEx, replacement;
+    var character = "", value, original;
+    
+    function replace(pattern, replacement){
+      value = value.replace(
+        new RegExp(pattern, "gi"), 
+        replacement
+      );
+    }
     
     for (var i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
@@ -144,32 +151,21 @@
       original = value;
       
       for (key in CONSTRUCTORS){
-        replacement = CONSTRUCTORS[key];
-        
-        regEx = new RegExp("\\b" + key, "gi");
-        value = value.replace(regEx, '(' + replacement + ')["constructor"]');
+        replace("\\b" + key, '(' + CONSTRUCTORS[key] + ')["constructor"]');
       }
       
       for (key in SIMPLE){
-        replacement = SIMPLE[key];
-        
-        // replace quotes symbols
-        regEx = new RegExp('"' + key + '"', "gi");
-        value = value.replace(regEx, replacement + "+[]");
-
-        // replace left symbols
-        regEx = new RegExp(key, "gi");        
-        value = value.replace(regEx, "(" + replacement + ")");
+        replace('"' + key + '"', SIMPLE[key] + "+[]");
+        replace(key, SIMPLE[key]);
       }
       
       for (key = 0; key < 10; key++){
-        regEx = new RegExp(key, "gi");        
-        value = value.replace(regEx, "+[" + MAPPING[key] + "]");
+        replace(key, "+[" + MAPPING[key] + "]");
       }
       
-      value = value.replace(/GLOBAL/gi, GLOBAL);
-      
-      value = value.replace(/\+""/gi, "+[]");
+      replace("GLOBAL", GLOBAL);
+      replace('\\+""', "+[]");
+      replace('""', "[]+[]");
       
       try {
         eval(value);
@@ -210,9 +206,8 @@
   }
     
   function encode(input){
-    var output = swap(input, true);
-    var evaluated = eval(output);
-    
+    var output = swap(input, true),
+      evaluated = eval(output);
     
     if (input == evaluated){
       console.log(output);
@@ -228,12 +223,13 @@
   fillMissingChars();
   replaceMap();
   
+  
+  
   var input = "true\"false\"InfinityundefinedNaNalert(1);";
   for (var i = MIN; i <= MAX; i++){
     input += String.fromCharCode(i);
   }
   encode(input);
-  //encode("f")
   
   console.log("\nDONE")
   
