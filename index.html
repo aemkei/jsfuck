@@ -1,9 +1,93 @@
 <html>
 <head>
-  <title>V2 - V3 Referenz </title>
+  <title>JSFuck - Write any JavaScript with 6 Characters: []()!+</title>
+  <style>
+    
+    body {
+      padding: 20px;
+    }
+    
+    body, * {
+      font-family: monospace;
+      font-size: 14px;
+    }
+    
+    h1 {
+      font-size: 2em;
+    }
+    
+    h3 {
+      font-weight: bold;
+    }
+    
+    textarea {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      height: 200px;
+      margin: 1em 0;
+    }
+    
+    .checkbox {
+      display: inline-block;
+    }
+    
+  </style>
 </head>
 <body>
-  <h1>Error 404 <br> Document could not be found</h1>
+  <h1>JSFuck []()!+</h1>
+  
+  <p>JSFuck is an esoteric and educational programming style based on the
+  atomic parts of JavaScript. It uses only six different characters to
+  write and execute code.</p>
+
+  <input id="input" type="text" value="alert(1)"/> 
+  <button id="encode" type="text">Encode</button>
+  
+  <div class="checkbox">
+    <input id="eval" type="checkbox" checked />
+    <label for="eval">Eval Source</label>
+  </div>
+  
+  <textarea id="output"></textarea>
+  <div id="stats"></div>
+  
+  <h3>Links</h3>
+  
+  <p>
+    * View source on <a href="http://github.com/aemkei/jsfuck">GitHub</a> <br>
+    * Follow <a href="http://twitter.com/aemkei">@aemkei</a> (Martin Kleppe) <br>
+    * Original discussion at <a href="http://sla.ckers.org/forum/read.php?24,32930">Sla.ckers.org</a>
+  </p>
+
   <script src="jsfuck.js"></script>
+  <script>
+
+    function $(id){
+      return document.getElementById(id);
+    }
+  
+    $("encode").onclick = function(){
+      var output = JSFuck.encode($("input").value, $("eval").checked);
+      $("output").value = output;
+      $("stats").innerHTML = output.length + " chars";
+    }
+    
+    $("encode").onclick();
+  </script>
+  
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-57649-11']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
 </body>
 </html>

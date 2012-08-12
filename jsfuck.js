@@ -166,12 +166,6 @@
       replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
       replace('""', "[]+[]");
-            
-      try {
-        // eval(value);
-      } catch (e) {
-        throw "Can't convert " + character + "\n" + original + "\n" + value;
-      }
       
       MAPPING[character] = value;
     }
@@ -225,14 +219,23 @@
     }
   }
 
-  function encode(input, recursive){
+  function encode(input, wrapWithEval){
     var output = [];
-    
+        
     input.replace(/./g, function(c){
       output.push(MAPPING[c]);
     });
+
+    output = output.join("+");
+
+    if (wrapWithEval){
+      
+      output = "[][" + encode("filter") + "]" +
+        "[" + encode("constructor") + "]" +
+        "(" + output + ")()"
+    }
     
-    return output.join("+");
+    return output;
   }
       
   var time = new Date();
