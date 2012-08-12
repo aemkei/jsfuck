@@ -166,15 +166,50 @@
       replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
       replace('""', "[]+[]");
-      
+            
       try {
-        eval(value);
+        // eval(value);
       } catch (e) {
         throw "Can't convert " + character + "\n" + original + "\n" + value;
       }
       
       MAPPING[character] = value;
     }
+  }
+  
+  function replaceStrings(){
+    
+    var regEx = /[^\[\]\(\)\!\+]{1}/g,
+      all, value, missing;
+    
+    function findMissing(){
+      var all, value;
+      missing = {};
+      for (all in MAPPING){
+        value = MAPPING[all];
+        if (regEx.test(value)){
+          missing[all] = value;
+        }
+      }
+    }
+    
+    for (all in MAPPING){
+      value = MAPPING[all].replace(/\"/g, "");
+      MAPPING[all] = value;
+      console.log(all, value);
+    }
+    
+    findMissing();
+    
+    for (all in missing){
+      missing[all] =  MAPPING[all].replace(regEx, function(c){ 
+        return missing[c] ? c : MAPPING[c];
+      });
+      
+    }
+    
+    console.log(missing);
+    
   }
 
   function swap(input, recursive){
@@ -222,8 +257,11 @@
   fillMissingDigits();
   fillMissingChars();
   replaceMap();
+  replaceStrings();
   
   
+  
+  return
   
   var input = "true\"false\"InfinityundefinedNaNalert(1);";
   for (var i = MIN; i <= MAX; i++){
