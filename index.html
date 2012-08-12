@@ -61,6 +61,26 @@
     * Follow <a href="http://twitter.com/aemkei">@aemkei</a> (Martin Kleppe) <br>
     * Original discussion at <a href="http://sla.ckers.org/forum/read.php?24,32930">Sla.ckers.org</a>
   </p>
+  
+  <h3>Basics</h3>
+  
+  <pre>
+* 'false'       =>  ![]
+* 'true'        =>  !![]
+* 'undefined'   =>  [][[]]
+* 'NaN'         =>  +[![]]
+
+* 'Array'       =>  []
+* 'Number'      =>  +[]
+* 'String'      =>  []+[]
+* 'Boolean'     =>  ![]
+* 'Function'    =>  []["sort"]
+ 
+* eval          =>  []["sort"]["constructor"]( CODE )()
+* window        =>  []["sort"]["constructor"]("return this")()
+  </pre>
+
+  <p>See the full list <a href="https://github.com/aemkei/jsfuck/blob/master/jsfuck.js">here.</a></p>
 
   <script src="jsfuck.js"></script>
   <script>

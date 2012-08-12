@@ -34,3 +34,26 @@ The following source will do an `alert(1)`:
 ]]+(!![]+[])[+[[+[]]]]+(!![]+[])[+[[!+[]+!+[]+!+[]]]]+(!![]+[])[+[[+!+[]]]]]+
 [])[+[[+!+[]]]+[[!+[]+!+[]+!+[]+!+[]+!+[]+!+[]]]])()
 ``` 
+
+### Basics
+              
+    'false'       =>  ![]
+    'true'        =>  !![]
+    'undefined'   =>  [][[]]
+    'NaN'         =>  +[![]]
+
+    'Array'       =>  []
+    'Number'      =>  +[]
+    'String'      =>  []+[]
+    'Boolean'     =>  ![]
+    'Function'    =>  []["sort"]
+    
+    eval          =>  []["sort"]["constructor"]( CODE )()
+    window        =>  []["sort"]["constructor"]("return this")()
+    
+See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).
+
+### Links
+
+* Follow [@aemkei](http://twitter.com/aemkei) (Martin Kleppe) <br>
+* Original discussion at Sla.ckers.org](http://sla.ckers.org/forum/read.php?24,32930)
