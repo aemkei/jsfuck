@@ -1,4 +1,4 @@
-# JSFuck []()!+
+# JSFuck `[]()!+`
 
 JSFuck is an esoteric and educational programming style based on the atomic parts of JavaScript. It uses only six different characters to write and execute code.
 
