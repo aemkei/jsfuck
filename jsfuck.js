@@ -50,7 +50,7 @@
     
     'A':   '(Array+"")[9]',
     'B':   '(Boolean+"")[9]',
-    'C':   'Function("return \'\\\\"+(103)+"\'")()',
+    'C':   'GLOBAL["unescape"]("%"+(43)+"c")[0]',
     'D':   USE_CHAR_CODE,
     'E':   USE_CHAR_CODE,
     'F':   '(Function+"")[9]',
@@ -82,7 +82,7 @@
     '$':   USE_CHAR_CODE,
     '%':   'GLOBAL["escape"]("<")[0]',
     '&':   USE_CHAR_CODE,
-    '\'':  USE_CHAR_CODE,
+    '\'':  'GLOBAL["unescape"]("%"+(27)+"c")[0]',
     '(':   '([]["filter"]+"")[15]',
     ')':   '([]["filter"]+"")[16]',
     '*':   USE_CHAR_CODE,
@@ -178,97 +178,71 @@
   }
   
   function replaceStrings(){
-    
     var regEx = /[^\[\]\(\)\!\+]{1}/g,
       all, value, missing;
+      
+      count = MAX - MIN;
+      
     
     function findMissing(){
-      var all, value;
+      var all, value, done = false;
+      
       missing = {};
+
       for (all in MAPPING){
+        
         value = MAPPING[all];
-        if (regEx.test(value)){
+
+        if (value.match(regEx)){
           missing[all] = value;
+          done = true;
         }
       }
+      
+      return done;
     }
     
     for (all in MAPPING){
-      value = MAPPING[all].replace(/\"/g, "");
-      MAPPING[all] = value;
-      console.log(all, value);
-    }
-    
-    findMissing();
-    
-    for (all in missing){
-      missing[all] =  MAPPING[all].replace(regEx, function(c){ 
-        return missing[c] ? c : MAPPING[c];
+      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, function(a, b){ 
+        return b.split("").join("+");
       });
-      
     }
     
-    console.log(missing);
-    
-  }
-
-  function swap(input, recursive){
-    
-    if (input == "") { return ""; }
-    
-    var character = input[0], 
-      length = 1, 
-      replacement, 
-      next,
-      key;
-    
-    for (key in SIMPLE){
-      if (input.indexOf(key) === 0){
-        replacement = SIMPLE[key];
-        length = key.length;
-        if (input.length === length) {
-          replacement += "+[]";
-        }
+    while (findMissing()){
+      for (all in missing){
+        value = MAPPING[all];
+        value = value.replace(regEx, function(c){ 
+          return missing[c] ? c : MAPPING[c];
+        });
+              
+        MAPPING[all] = value;
+        missing[all] = value;
+      }
+      
+      if (count-- == 0){
+        console.error("Could not compile the following chars:", missing);
       }
     }
-    
-    replacement = replacement || MAPPING[character];
-    
-    next = input.substr(length);
-    input = input.substr(0, length);
-    
-    return (recursive ? "" : " + \n" ) + "/* " + input + " */ " + replacement + swap(next, false);
   }
+
+  function encode(input, recursive){
+    var output = [];
     
-  function encode(input){
-    var output = swap(input, true),
-      evaluated = eval(output);
+    input.replace(/./g, function(c){
+      output.push(MAPPING[c]);
+    });
     
-    if (input == evaluated){
-      console.log(output);
-      console.log(input);
-    } else {
-      console.error("FAILED");
-      console.log(input);
-      console.log(evaluated);
-    }
+    return output.join("+");
   }
+      
+  var time = new Date();
   
   fillMissingDigits();
   fillMissingChars();
   replaceMap();
   replaceStrings();
   
-  
-  
-  return
-  
-  var input = "true\"false\"InfinityundefinedNaNalert(1);";
-  for (var i = MIN; i <= MAX; i++){
-    input += String.fromCharCode(i);
-  }
-  encode(input);
-  
-  console.log("\nDONE")
-  
+  this.JSFuck = {
+    encode: encode
+  };
 })();
