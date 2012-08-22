@@ -255,4 +255,4 @@
   self.JSFuck = {
     encode: encode
   };
-})(exports || window);
+})(typeof(exports) == "undefined" ? window : exports);
