@@ -221,12 +221,20 @@
 
   function encode(input, wrapWithEval){
     var output = [];
+
+    if (!input){
+      return "";
+    }
         
     input.replace(/./g, function(c){
       output.push(MAPPING[c]);
     });
 
     output = output.join("+");
+    
+    if (/^\d$/.test(input)){
+      output += "+[]";
+    }
 
     if (wrapWithEval){
       
