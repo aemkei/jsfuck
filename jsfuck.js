@@ -1,3 +1,5 @@
+/*! JSFuck 1.0 - http://jsfuck.com */
+
 (function(){
   
   var USE_CHAR_CODE = "USE_CHAR_CODE";
@@ -9,7 +11,7 @@
     'true':       '!![]',
     'undefined':  '[][[]]',
     'NaN':        '+[![]]',
-    'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])'
+    'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])' // +"1e1000"
   };
   
   var CONSTRUCTORS = {
@@ -237,7 +239,6 @@
     }
 
     if (wrapWithEval){
-      
       output = "[][" + encode("filter") + "]" +
         "[" + encode("constructor") + "]" +
         "(" + output + ")()"
@@ -246,8 +247,6 @@
     return output;
   }
       
-  var time = new Date();
-  
   fillMissingDigits();
   fillMissingChars();
   replaceMap();
