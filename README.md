@@ -37,19 +37,21 @@ The following source will do an `alert(1)`:
 
 ### Basics
               
-    'false'       =>  ![]
-    'true'        =>  !![]
-    'undefined'   =>  [][[]]
-    'NaN'         =>  +[![]]
-
-    'Array'       =>  []
-    'Number'      =>  +[]
-    'String'      =>  []+[]
-    'Boolean'     =>  ![]
-    'Function'    =>  []["sort"]
-    
-    eval          =>  []["sort"]["constructor"]( CODE )()
-    window        =>  []["sort"]["constructor"]("return this")()
+    false       =>  ![]
+    true        =>  !![]
+    undefined   =>  [][[]]
+    NaN         =>  +[![]]
+    0           =>  +[]
+    1           =>  +!+[]
+    2           =>  !+[]+!+[]
+    10          =>  [+!+[]]+[+[]]
+    Array       =>  []
+    Number      =>  +[]
+    String      =>  []+[]
+    Boolean     =>  ![]
+    Function    =>  []["filter"]
+    eval        =>  []["filter"]["constructor"]( CODE )()
+    window      =>  []["filter"]["constructor"]("return this")()
     
 See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).
 
