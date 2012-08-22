@@ -18,6 +18,10 @@
     
     h1 {
       font-size: 2em;
+      position: absolute;
+      top: 70px;
+      font-weight: normal;
+      left: 140px;
     }
     
     h2 {
@@ -35,7 +39,7 @@
       font-weight: bold;
     }
         
-    p, li, textarea {
+    p, li, textarea, .actions {
       width: 100%;
       max-width: 600px;
     }
@@ -54,6 +58,14 @@
       display: inline-block;
     }
     
+    .actions a {
+      float: right;
+    }
+    
+    .actions {
+      clear: both;
+    }
+    
   </style>
 </head>
 <body>
@@ -66,6 +78,9 @@
   write and execute code.</p>
   
   <p>It does not depend on a browser, so you can even run it on Node.js.</p>
+  
+  <p>Use the form below to convert your own script. Uncheck "eval source" to
+  get back a plain string.</p>
 
   <input id="input" type="text" value="alert(1)"/> 
   <button id="encode" type="text">Encode</button>
@@ -76,7 +91,10 @@
   </div>
   
   <textarea id="output"></textarea>
-  <div id="stats"></div>
+  <div class="actions">
+    <span id="stats"></span>
+    <a id="run" href="#">Run This</a>
+  </div>
   
   <h3>Links</h3>
   
@@ -90,19 +108,22 @@
   <h3>Basics</h3>
   
   <ul class="pre">
-    <li>'false'       =>  ![]</li>
-    <li>'true'        =>  !![]</li>
-    <li>'undefined'   =>  [][[]]</li>
-    <li>'NaN'         =>  +[![]]</li>
-    
-    <li>'Array'       =>  []</li>
-    <li>'Number'      =>  +[]</li>
-    <li>'String'      =>  []+[]</li>
-    <li>'Boolean'     =>  ![]</li>
-    <li>'Function'    =>  []["sort"]</li>
+    <li>false       =>  ![]</li>
+    <li>true        =>  !![]</li>
+    <li>undefined   =>  [][[]]</li>
+    <li>NaN         =>  +[![]]</li>
+    <li>0           =>  +[]</li>
+    <li>1           =>  +!+[]</li>
+    <li>2           =>  !+[]+!+[]</li>
+    <li>10          =>  [+!+[]]+[+[]]</li>
+    <li>Array       =>  []</li>
+    <li>Number      =>  +[]</li>
+    <li>String      =>  []+[]</li>
+    <li>Boolean     =>  ![]</li>
+    <li>Function    =>  []["sort"]</li>
 
-    <li>eval          =>  []["sort"]["constructor"]( CODE )()</li>
-    <li>window        =>  []["sort"]["constructor"]("return this")()</li>
+    <li>eval        =>  []["sort"]["constructor"]( CODE )()</li>
+    <li>window      =>  []["sort"]["constructor"]("return this")()</li>
   </ul>
 
   <p>See the full list <a href="https://github.com/aemkei/jsfuck/blob/master/jsfuck.js">here</a>.</p>
@@ -113,14 +134,26 @@
     function $(id){
       return document.getElementById(id);
     }
-  
-    $("encode").onclick = function(){
+    
+    function encode(){
       var output = JSFuck.encode($("input").value, $("eval").checked);
       $("output").value = output;
       $("stats").innerHTML = output.length + " chars";
     }
+  
+    $("encode").onclick = encode;
+    $("eval").onchange = encode;
     
-    $("encode").onclick();
+    encode();
+    
+    $("run").onclick = function(){
+      value = eval($("output").value);
+
+      if (!$("eval").checked){
+        alert('"' + value + '"');
+      }
+      return false;
+    };
   </script>
   
   <script type="text/javascript">
