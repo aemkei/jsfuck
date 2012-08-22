@@ -93,7 +93,7 @@
   
   <textarea id="output"></textarea>
   <div class="actions">
-    <span id="stats"></span>
+    <span id="stats">…</span>
     <a id="run" href="#">Run This</a>
   </div>
   
@@ -103,7 +103,13 @@
     <li>View source on <a href="http://github.com/aemkei/jsfuck">GitHub</a></li>
     <li>Follow <a href="http://twitter.com/aemkei">@aemkei</a> (Martin Kleppe)</li>
     <li>Original discussion at <a href="http://sla.ckers.org/forum/read.php?24,32930">Sla.ckers.org</a></li>
-    <li>Alternatives: <a href="http://patriciopalladino.com/files/hieroglyphy/">Hieroglyphy</a> (8 chars), <a href="http://utf-8.jp/public/jsfuck.html">utf-8.jp</a> (broken)</li>
+  </ul>
+  
+  <h3>Alternatives</h3>
+  <ul>
+    <li><a href="http://patriciopalladino.com/files/hieroglyphy/">Hieroglyphy</a> (8 chars, browser only)</li>
+    <li><a href="http://utf-8.jp/public/jsfuck.html">utf-8.jp</a> (broken)</li>
+    <li><a href="http://discogscounter.getfreehosting.co.uk/js-noalnum.php">JS-NoAlnum</a> (broken)</li>
   </ul>
   
   <h3>Basics</h3>
@@ -121,10 +127,10 @@
     <li>Number      =>  +[]</li>
     <li>String      =>  []+[]</li>
     <li>Boolean     =>  ![]</li>
-    <li>Function    =>  []["sort"]</li>
+    <li>Function    =>  []["filter"]</li>
 
-    <li>eval        =>  []["sort"]["constructor"]( CODE )()</li>
-    <li>window      =>  []["sort"]["constructor"]("return this")()</li>
+    <li>eval        =>  []["filter"]["constructor"]( CODE )()</li>
+    <li>window      =>  []["filter"]["constructor"]("return this")()</li>
   </ul>
 
   <p>See the full list <a href="https://github.com/aemkei/jsfuck/blob/master/jsfuck.js">here</a>.</p>
