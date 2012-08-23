@@ -19,7 +19,7 @@
     'Number':   '+[]',
     'String':   '[]+[]',
     'Boolean':  '![]',
-    'Function':  '[]["sort"]'
+    'Function':  '[]["filter"]'
   };
   
   var MAPPING = {
@@ -30,7 +30,7 @@
     'e':   '("true")[3]',
     'f':   '("false")[0]', 
     'g':   '([]+String)[14]',
-    'h':   '(+(17))["toString"](18)',
+    'h':   '(+(17))["toString"](20)',
     'i':   '("undefined")[5]',
     'j':   '(GLOBAL+"")[3]',
     'k':   '(+(20))["toString"](21)',
@@ -52,7 +52,7 @@
     
     'A':   '(Array+"")[9]',
     'B':   '(Boolean+"")[9]',
-    'C':   'GLOBAL["unescape"]("%"+(43)+"c")[0]',
+    'C':   'GLOBAL["unescape"]("%"+(43))[0]',
     'D':   USE_CHAR_CODE,
     'E':   USE_CHAR_CODE,
     'F':   '(Function+"")[9]',
@@ -79,25 +79,25 @@
     
     ' ':   '([]["filter"]+[])[8]',
     '!':   USE_CHAR_CODE,
-    '"':   '("")["link"]()[8]',
+    '"':   '("")["link"](0)[10]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
     '%':   'GLOBAL["escape"]("<")[0]',
     '&':   USE_CHAR_CODE,
-    '\'':  'GLOBAL["unescape"]("%"+(27)+"c")[0]',
+    '\'':  'GLOBAL["unescape"]("%"+(27))[0]',
     '(':   '([]["filter"]+"")[15]',
     ')':   '([]["filter"]+"")[16]',
     '*':   USE_CHAR_CODE,
-    '+':   USE_CHAR_CODE,
-    ',':   USE_CHAR_CODE,
+    '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
+    ',':   '[[]]["concat"]([][[]])+[]',
     '-':   USE_CHAR_CODE,
     '.':   USE_CHAR_CODE,
-    '/':   '("")["sub"]()[6]',
+    '/':   '("")["link"]()[21]',
     ':':   'GLOBAL["Date"]()[21]',
     ';':   USE_CHAR_CODE,
-    '<':   '("")["sub"]()[0]',
+    '<':   '("")["link"]()[0]',
     '=':   '("")["fontcolor"]()[11]',
-    '>':   '("")["sub"]()[10]',
+    '>':   '("")["link"]([])[10]',
     '?':   USE_CHAR_CODE,
     '@':   USE_CHAR_CODE,
     '[':   USE_CHAR_CODE,
@@ -112,7 +112,7 @@
     '~':   USE_CHAR_CODE
   };
   
-  var GLOBAL = '[]["sort"]["constructor"]("return this")()';
+  var GLOBAL = '[]["filter"]["constructor"]("return this")()';
   
   function fillMissingChars(){
     for (var key in MAPPING){
