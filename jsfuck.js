@@ -1,6 +1,6 @@
 /*! JSFuck 1.0 - http://jsfuck.com */
 
-(function(){
+(function(self){
   
   var USE_CHAR_CODE = "USE_CHAR_CODE";
   
@@ -252,7 +252,7 @@
   replaceMap();
   replaceStrings();
   
-  this.JSFuck = {
+  self.JSFuck = {
     encode: encode
   };
-})();
+})(typeof(exports) == "undefined" ? window : exports);
