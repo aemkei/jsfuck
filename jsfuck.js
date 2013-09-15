@@ -1,11 +1,11 @@
 /*! JSFuck 1.0 - http://jsfuck.com */
 
 (function(self){
-  
+
   var USE_CHAR_CODE = "USE_CHAR_CODE";
-  
+
   var MIN = 32, MAX = 126;
-  
+
   var SIMPLE = {
     'false':      '![]',
     'true':       '!![]',
@@ -13,7 +13,7 @@
     'NaN':        '+[![]]',
     'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])' // +"1e1000"
   };
-  
+
   var CONSTRUCTORS = {
     'Array':    '[]',
     'Number':   '+[]',
@@ -21,14 +21,14 @@
     'Boolean':  '![]',
     'Function':  '[]["filter"]'
   };
-  
+
   var MAPPING = {
     'a':   '("false")[1]',
     'b':   '(GLOBAL+[])[2]',
     'c':   '([]["filter"]+[])[3]',
     'd':   '("undefined")[2]',
     'e':   '("true")[3]',
-    'f':   '("false")[0]', 
+    'f':   '("false")[0]',
     'g':   '([]+String)[14]',
     'h':   '(+(17))["toString"](20)',
     'i':   '("undefined")[5]',
@@ -49,7 +49,7 @@
     'x':   '(+(33))["toString"](34)',
     'y':   '("Infinity")[7]',
     'z':   '(+(35))["toString"](36)',
-    
+
     'A':   '(Array+"")[9]',
     'B':   '(Boolean+"")[9]',
     'C':   'GLOBAL["unescape"]("%"+(43))[0]',
@@ -76,7 +76,7 @@
     'X':   USE_CHAR_CODE,
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
-    
+
     ' ':   '([]["filter"]+[])[8]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["link"](0)[10]',
@@ -111,9 +111,9 @@
     '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
   };
-  
+
   var GLOBAL = '[]["filter"]["constructor"]("return this")()';
-  
+
   function fillMissingChars(){
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
@@ -121,72 +121,72 @@
       }
     }
   }
-  
+
   function fillMissingDigits(){
     var output, number, i;
-    
+
     for (number = 0; number < 10; number++){
-      
+
       output = "+[]";
-      
+
       if (number > 0){ output = "+!" + output; }
       for (i = 1; i < number; i++){ output = "+!+[]" + output; }
       if (number > 1){ output = output.substr(1); }
-      
+
       MAPPING[number] = "[" + output + "]";
     }
   }
-  
+
   function replaceMap(){
     var character = "", value, original;
-    
+
     function replace(pattern, replacement){
       value = value.replace(
-        new RegExp(pattern, "gi"), 
+        new RegExp(pattern, "gi"),
         replacement
       );
     }
-    
+
     for (var i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
       value = MAPPING[character];
       original = value;
-      
+
       for (key in CONSTRUCTORS){
         replace("\\b" + key, '(' + CONSTRUCTORS[key] + ')["constructor"]');
       }
-      
+
       for (key in SIMPLE){
         replace('"' + key + '"', SIMPLE[key] + "+[]");
         replace(key, SIMPLE[key]);
       }
-      
+
       for (key = 0; key < 10; key++){
         replace(key, "+[" + MAPPING[key] + "]");
       }
-      
+
       replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
       replace('""', "[]+[]");
-      
+
       MAPPING[character] = value;
     }
   }
-  
+
   function replaceStrings(){
     var regEx = /[^\[\]\(\)\!\+]{1}/g,
       all, value, missing;
-      
+
       count = MAX - MIN;
-      
-    
+
+
     function findMissing(){
       var all, value, done = false;
-      
+
       missing = {};
 
       for (all in MAPPING){
-        
+
         value = MAPPING[all];
 
         if (value.match(regEx)){
@@ -194,27 +194,27 @@
           done = true;
         }
       }
-      
+
       return done;
     }
-    
+
     for (all in MAPPING){
-      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, function(a, b){ 
+      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, function(a, b){
         return b.split("").join("+");
       });
     }
-    
+
     while (findMissing()){
       for (all in missing){
         value = MAPPING[all];
-        value = value.replace(regEx, function(c){ 
+        value = value.replace(regEx, function(c){
           return missing[c] ? c : MAPPING[c];
         });
-              
+
         MAPPING[all] = value;
         missing[all] = value;
       }
-      
+
       if (count-- == 0){
         console.error("Could not compile the following chars:", missing);
       }
@@ -227,13 +227,13 @@
     if (!input){
       return "";
     }
-        
+
     input.replace(/./g, function(c){
-      output.push(MAPPING[c]);
+      output.push(MAPPING[c] || 'String["fromCharCode"](' + c.charCodeAt(0) + ')' );
     });
 
     output = output.join("+");
-    
+
     if (/^\d$/.test(input)){
       output += "+[]";
     }
@@ -243,15 +243,15 @@
         "[" + encode("constructor") + "]" +
         "(" + output + ")()"
     }
-    
+
     return output;
   }
-      
+
   fillMissingDigits();
   fillMissingChars();
   replaceMap();
   replaceStrings();
-  
+
   self.JSFuck = {
     encode: encode
   };
