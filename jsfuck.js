@@ -24,7 +24,7 @@
 
   var MAPPING = {
     'a':   '("false")[1]',
-    'b':   '(GLOBAL+"")[2]',
+    'b':   '(+(11))["toString"](20)',
     'c':   '([]["filter"]+"")[3]',
     'd':   '("undefined")[2]',
     'e':   '("true")[3]',
@@ -32,7 +32,7 @@
     'g':   '(String+"")[14]',
     'h':   '(+(17))["toString"](20)',
     'i':   '("undefined")[5]',
-    'j':   '(GLOBAL+"")[3]',
+    'j':   '(+(19))["toString"](20)',
     'k':   '(+(20))["toString"](21)',
     'l':   '("false")[2]',
     'm':   '(Number+"")[11]',
