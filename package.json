@@ -1,0 +1,28 @@
+{
+  "name": "jsfuck",
+  "version": "0.1.0",
+  "description": "Write any JavaScript with just 6 characters: []()!+",
+  "main": "jsfuck.js",
+  "bin": "fuck.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aemkei/jsfuck.git"
+  },
+  "keywords": [
+    "esoteric",
+    "obfuscation"
+  ],
+  "author": {
+    "name": "Martin Kleppe",
+    "url": "https://github.com/aemkei"
+  },
+  "licenses": [
+    {
+      "type": "WTFPL",
+      "url": "https://raw.github.com/aemkei/jsfuck/master/LICENSE.txt"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/aemkei/jsfuck/issues"
+  }
+}

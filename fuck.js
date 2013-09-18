@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 var lib = require("./jsfuck.js");
 
 if(process.argv.length !== 3) {
-	console.error("Usage: node fuck.js <js file>");
+	console.error("Usage: jsfuck <js file>");
 	return;
 }
 
