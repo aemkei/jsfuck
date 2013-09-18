@@ -229,7 +229,21 @@
     }
 
     input.replace(/./g, function(c){
-      output.push(MAPPING[c] || 'String["fromCharCode"](' + c.charCodeAt(0) + ')' );
+
+      var replacement = MAPPING[c];
+
+      if (replacement){
+        output.push(MAPPING[c]); 
+      } else {
+
+        replacement =
+          "([]+[])[" + encode("constructor") + "]" +
+          "[" + encode("fromCharCode") + "]" +
+          "(" + encode(c.charCodeAt(0) + "") + ")";
+ 
+        output.push(replacement);
+        MAPPING[c] = replacement;
+      }
     });
 
     output = output.join("+");

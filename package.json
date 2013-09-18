@@ -1,6 +1,6 @@
 {
   "name": "jsfuck",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write any JavaScript with just 6 characters: []()!+",
   "main": "jsfuck.js",
   "bin": "fuck.js",
