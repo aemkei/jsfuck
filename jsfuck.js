@@ -100,7 +100,7 @@
     '>':   '("")["link"]([])[10]',
     '?':   USE_CHAR_CODE,
     '@':   USE_CHAR_CODE,
-    '[':   USE_CHAR_CODE,
+    '[':   '(GLOBAL+[])[0]', 
     '\\':  'GLOBAL["unescape"]("%"+(5)+"c")[0]',
     ']':   USE_CHAR_CODE,
     '^':   USE_CHAR_CODE,
