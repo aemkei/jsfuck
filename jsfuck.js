@@ -52,7 +52,7 @@
 
     'A':   '(Array+"")[9]',
     'B':   '(Boolean+"")[9]',
-    'C':   'GLOBAL["unescape"]("%"+(43))[0]',
+    'C':   USE_CHAR_CODE,
     'D':   USE_CHAR_CODE,
     'E':   USE_CHAR_CODE,
     'F':   '(Function+"")[9]',
@@ -84,7 +84,7 @@
     '$':   USE_CHAR_CODE,
     '%':   'GLOBAL["escape"]("<")[0]',
     '&':   USE_CHAR_CODE,
-    '\'':  'GLOBAL["unescape"]("%"+(27))[0]',
+    '\'':  USE_CHAR_CODE,
     '(':   '([]["filter"]+"")[15]',
     ')':   '([]["filter"]+"")[16]',
     '*':   USE_CHAR_CODE,
@@ -101,7 +101,7 @@
     '?':   USE_CHAR_CODE,
     '@':   USE_CHAR_CODE,
     '[':   '(GLOBAL+"")[0]',
-    '\\':  'GLOBAL["unescape"]("%"+(5)+"c")[0]',
+    '\\':  USE_CHAR_CODE,
     ']':   USE_CHAR_CODE,
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
@@ -117,7 +117,7 @@
   function fillMissingChars(){
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
-        MAPPING[key] = 'String["fromCharCode"](' + key.charCodeAt(0) + ')';
+        MAPPING[key] = 'GLOBAL["unescape"]("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
       }
     }
   }
