@@ -1,4 +1,4 @@
-/*! JSFuck 1.0 - http://jsfuck.com */
+/*! JSFuck 0.1.2 - http://jsfuck.com */
 
 (function(self){
 
