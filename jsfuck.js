@@ -229,21 +229,29 @@
       return "";
     }
 
-    input.replace(/./g, function(c){
+    var r = "";
+    for (var i in SIMPLE) {
+      r += i + "|";
+    }
+    r+=".";
 
-      var replacement = MAPPING[c];
-
-      if (replacement){
-        output.push(MAPPING[c]); 
+    input.replace(new RegExp(r, 'g'), function(c) {
+      var replacement = SIMPLE[c];
+      if (replacement) {
+        output.push("[" + replacement + "]+[]");
       } else {
-
-        replacement =
-          "([]+[])[" + encode("constructor") + "]" +
-          "[" + encode("fromCharCode") + "]" +
-          "(" + encode(c.charCodeAt(0) + "") + ")";
- 
-        output.push(replacement);
-        MAPPING[c] = replacement;
+        replacement = MAPPING[c];
+        if (replacement){
+          output.push(replacement);
+        } else {
+          replacement =
+            "([]+[])[" + encode("constructor") + "]" +
+            "[" + encode("fromCharCode") + "]" +
+            "(" + encode(c.charCodeAt(0) + "") + ")";
+   
+          output.push(replacement);
+          MAPPING[c] = replacement;
+        }
       }
     });
 
