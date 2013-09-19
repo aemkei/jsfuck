@@ -56,20 +56,20 @@
     'D':   'Function("return escape")()("=")[2]',
     'E':   'Function("return escape")()(">")[2]',
     'F':   '(+false+Function)[10]',
-    'G':   USE_CHAR_CODE,
+    'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
-    'J':   USE_CHAR_CODE,
+    //'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
     'L':   USE_CHAR_CODE,
-    'M':   USE_CHAR_CODE,
+    'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
-    'O':   USE_CHAR_CODE,
+    //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   USE_CHAR_CODE,
     'S':   '(+false+String)[10]',
-    'T':   USE_CHAR_CODE,
+    'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
@@ -89,7 +89,7 @@
     ')':   '(true+[]["filter"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
-    ',':   '[[]]["concat"]([][[]])+""',
+    ',':   '[[]]["concat"]([[]])+""',
     '-':   '(+(.0000000001)+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
     '/':   '(false+[+false])["italics"]()[10]',
@@ -150,6 +150,7 @@
     for (i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
       value = MAPPING[character];
+      if(!value) {continue;}
       original = value;
 
       for (key in CONSTRUCTORS){
@@ -244,13 +245,31 @@
         if (replacement){
           output.push(replacement);
         } else {
-          replacement =
-            "([]+[])[" + encode("constructor") + "]" +
-            "[" + encode("fromCharCode") + "]" +
-            "(" + encode(c.charCodeAt(0) + "") + ")";
-   
-          output.push(replacement);
-          MAPPING[c] = replacement;
+          if (c === "J") {
+            replacement =
+              "([][" + encode("filter") + "]" +
+              "[" + encode("constructor") + "]" +
+              "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          } else if (c === "O") {
+            replacement =
+              "([][" + encode("filter") + "]" +
+              "[" + encode("constructor") + "]" +
+              "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          } else {
+            replacement =
+              "([]+[])[" + encode("constructor") + "]" +
+              "[" + encode("fromCharCode") + "]" +
+              "(" + encode(c.charCodeAt(0) + "") + ")";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          }
         }
       }
     });
