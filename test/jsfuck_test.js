@@ -8,6 +8,23 @@ var JSFuck = require('../jsfuck.js').JSFuck,
 
 		test.strictEqual(value, unencoded, 'encoding "' + value + '" failed');
 	};
+var MIN = 32, MAX = 126;
+var fs = require('fs');
+
+exports['integration'] = {
+	'test': function(test) {
+		var file = fs.openSync('output.txt', 'w+');
+
+		for (var i = MIN; i < MAX; i++) {
+			var c = String.fromCharCode(i),
+				encoded = JSFuck.encode(c);
+			fs.writeSync(file, '`' + c + '` ' + encoded.length + '\n');
+		}
+
+		fs.closeSync(file);
+		test.done();
+	}
+};
 
 exports['encode_tests'] = {
 	'encode numbers': function(test) {
