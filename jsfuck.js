@@ -90,7 +90,7 @@
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '[[]]["concat"]([[]])+""',
-    '-':   '(+(.0000000001)+"")[2]',
+    '-':   '(+(.+[0000000001])+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
     '/':   '(false+[+false])["italics"]()[10]',
     ':':   'Function("return Date")()()[21]',
@@ -112,7 +112,7 @@
     '~':   USE_CHAR_CODE
   };
 
-  var GLOBAL = '[]["filter"]["constructor"]("return this")()';
+  var GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
     for (var key in MAPPING){
@@ -147,6 +147,20 @@
       );
     }
 
+    function digitReplacer(_,x) { return MAPPING[x]; }
+
+    function numberReplacer(_,y) {
+      var values = y.split("");
+      var head = +(values.shift());
+      var output = "+[]";
+
+      if (head > 0){ output = "+!" + output; }
+      for (i = 1; i < head; i++){ output = "+!+[]" + output; }
+      if (head > 1){ output = output.substr(1); }
+
+      return [output].concat(values).join("+").replace(/(\d)/g, digitReplacer);
+    }
+
     for (i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
       value = MAPPING[character];
@@ -161,9 +175,9 @@
         replace(key, SIMPLE[key]);
       }
 
-      for (key = 0; key < 10; key++){
-        replace(key, "+[" + MAPPING[key] + "]");
-      }
+      replace('(\\d\\d+)', numberReplacer);
+      replace('\\((\\d)\\)', digitReplacer);
+      replace('\\[(\\d)\\]', digitReplacer);
 
       replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
