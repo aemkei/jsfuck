@@ -31,7 +31,7 @@
     'f':   '("false")[0]',
     'g':   '(+false+[false]+String+"")[20]',
     'h':   '(+(17))["toString"](20)',
-    'i':   '("undefined")[5]',
+    'i':   '("false"+"undefined")[10]',
     'j':   '(+(19))["toString"](20)',
     'k':   '(+(20))["toString"](21)',
     'l':   '("false")[2]',
