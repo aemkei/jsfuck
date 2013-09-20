@@ -138,7 +138,7 @@
   }
 
   function replaceMap(){
-    var character = "", value, original;
+    var character = "", value, original, i, key;
 
     function replace(pattern, replacement){
       value = value.replace(
@@ -147,7 +147,7 @@
       );
     }
 
-    for (var i = MIN; i <= MAX; i++){
+    for (i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
       value = MAPPING[character];
       original = value;
@@ -175,10 +175,8 @@
 
   function replaceStrings(){
     var regEx = /[^\[\]\(\)\!\+]{1}/g,
-      all, value, missing;
-
+      all, value, missing,
       count = MAX - MIN;
-
 
     function findMissing(){
       var all, value, done = false;
@@ -198,24 +196,28 @@
       return done;
     }
 
+    function mappingReplacer(a, b){
+      return b.split("").join("+");
+    }
+
+    function valueReplacer(c) {
+      return missing[c] ? c : MAPPING[c];  
+    }
+
     for (all in MAPPING){
-      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, function(a, b){
-        return b.split("").join("+");
-      });
+      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, mappingReplacer);
     }
 
     while (findMissing()){
       for (all in missing){
         value = MAPPING[all];
-        value = value.replace(regEx, function(c){
-          return missing[c] ? c : MAPPING[c];
-        });
+        value = value.replace(regEx, valueReplacer);
 
         MAPPING[all] = value;
         missing[all] = value;
       }
 
-      if (count-- == 0){
+      if (count-- === 0){
         console.error("Could not compile the following chars:", missing);
       }
     }
@@ -255,7 +257,7 @@
     if (wrapWithEval){
       output = "[][" + encode("filter") + "]" +
         "[" + encode("constructor") + "]" +
-        "(" + output + ")()"
+        "(" + output + ")()";
     }
 
     return output;
@@ -269,4 +271,4 @@
   self.JSFuck = {
     encode: encode
   };
-})(typeof(exports) == "undefined" ? window : exports);
+})(typeof(exports) === "undefined" ? window : exports);

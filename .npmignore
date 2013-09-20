@@ -1,0 +1,8 @@
+docs
+test
+.DS_Store
+.editorconfig
+.gitattributes
+.jshintrc
+.travis.yml
+Gruntfile.js
