@@ -30,23 +30,23 @@
     'e':   '("true")[3]',
     'f':   '("false")[0]',
     'g':   '(+false+[false]+String)[20]',
-    'h':   '(+(17))["toString"](20)',
+    'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(+(19))["toString"](20)',
+    'j':   '(+(40))["toString"](21)[1]',
     'k':   '(+(20))["toString"](21)',
     'l':   '("false")[2]',
     'm':   '(Number+"")[11]',
     'n':   '("undefined")[1]',
     'o':   '(true+[]["filter"])[10]',
-    'p':   '(+(25))["toString"](30)',
-    'q':   '(+(26))["toString"](30)',
+    'p':   '(+(211))["toString"](31)[1]',
+    'q':   '(+(212))["toString"](31)[1]',
     'r':   '("true")[1]',
     's':   '("false")[3]',
     't':   '("true")[0]',
     'u':   '("undefined")[0]',
     'v':   '(+(31))["toString"](32)',
     'w':   '(+(32))["toString"](33)',
-    'x':   '(+(33))["toString"](34)',
+    'x':   '(+(101))["toString"](34)[1]',
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
@@ -196,12 +196,12 @@
       return done;
     }
 
-    function mappingReplacer(a, b){
+    function mappingReplacer(a, b) {
       return b.split("").join("+");
     }
 
     function valueReplacer(c) {
-      return missing[c] ? c : MAPPING[c];  
+      return missing[c] ? c : MAPPING[c];
     }
 
     for (all in MAPPING){
@@ -234,18 +234,18 @@
 
       var replacement = MAPPING[c];
 
-      if (replacement){
+      if (replacement) {
         output.push(MAPPING[c]); 
       } else {
-
-        replacement =
-          "([]+[])[" + encode("constructor") + "]" +
-          "[" + encode("fromCharCode") + "]" +
-          "(" + encode(c.charCodeAt(0) + "") + ")";
- 
-        output.push(replacement);
-        MAPPING[c] = replacement;
-      }
+     
+            replacement =
+              "([]+[])[" + encode("constructor") + "]" +
+              "[" + encode("fromCharCode") + "]" +
+              "(" + encode(c.charCodeAt(0) + "") + ")";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          }
     });
 
     output = output.join("+");
