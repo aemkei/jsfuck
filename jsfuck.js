@@ -106,7 +106,7 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(NaN+[]["filter"]+"")[21]',
+    '{':   '(NaN+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
     '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
