@@ -16,9 +16,9 @@
 
   var CONSTRUCTORS = {
     'Array':    '[]',
-    'Number':   '+[]',
-    'String':   '[]+[]',
-    'Boolean':  '![]',
+    'Number':   '(+[])',
+    'String':   '([]+[])',
+    'Boolean':  '(![])',
     'Function':  '[]["filter"]'
   };
 
@@ -153,7 +153,7 @@
       original = value;
 
       for (key in CONSTRUCTORS){
-        replace("\\b" + key, '(' + CONSTRUCTORS[key] + ')["constructor"]');
+        replace("\\b" + key, CONSTRUCTORS[key] + '["constructor"]');
       }
 
       for (key in SIMPLE){
