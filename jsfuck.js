@@ -52,9 +52,9 @@
 
     'A':   '(+false+Array)[10]',
     'B':   '(+false+Boolean)[10]',
-    'C':   'GLOBAL["escape"]("<")[2]',
-    'D':   'GLOBAL["escape"]("=")[2]',
-    'E':   'GLOBAL["escape"](">")[2]',
+    'C':   'Function("return escape")()("<")[2]',
+    'D':   'Function("return escape")()("=")[2]',
+    'E':   'Function("return escape")()(">")[2]',
     'F':   '(+false+Function)[10]',
     'G':   USE_CHAR_CODE,
     'H':   USE_CHAR_CODE,
@@ -82,7 +82,7 @@
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'GLOBAL["escape"]("<")[0]',
+    '%':   'Function("return escape")()("<")[0]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
     '(':   '(false+[]["filter"])[20]',
@@ -93,7 +93,7 @@
     '-':   '(+(.0000000001)+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
     '/':   '(false+[+false])["italics"]()[10]',
-    ':':   'GLOBAL["Date"]()[21]',
+    ':':   'Function("return Date")()()[21]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["italics"]()[0]',
     '=':   '("")["fontcolor"]()[11]',
@@ -117,7 +117,7 @@
   function fillMissingChars(){
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
-        MAPPING[key] = 'GLOBAL["unescape"]("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
+        MAPPING[key] = 'Function("return unescape")()("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
       }
     }
   }
