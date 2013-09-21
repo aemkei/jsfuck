@@ -19,7 +19,8 @@
     'Number':   '(+[])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
-    'Function':  '[]["filter"]'
+    'Function': '[]["filter"]',
+    'RegExp':   'Function("return /0/")()'
   };
 
   var MAPPING = {
@@ -54,7 +55,7 @@
     'B':   '(+false+Boolean)[10]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
-    'E':   'Function("return escape")()(">")[2]',
+    'E':   '(RegExp+"")[12]',
     'F':   '(+false+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
@@ -67,7 +68,7 @@
     //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   USE_CHAR_CODE,
+    'R':   '(+false+RegExp)[10]',
     'S':   '(+false+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
@@ -93,12 +94,12 @@
     '-':   '(+(.+[0000000001])+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
     '/':   '(false+[+false])["italics"]()[10]',
-    ':':   'Function("return Date")()()[21]',
+    ':':   '(RegExp()+"")[3]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["italics"]()[0]',
     '=':   '("")["fontcolor"]()[11]',
     '>':   '("")["italics"]()[2]',
-    '?':   USE_CHAR_CODE,
+    '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
     '[':   '(GLOBAL+"")[0]',
     '\\':  USE_CHAR_CODE,
