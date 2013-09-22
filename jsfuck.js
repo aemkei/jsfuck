@@ -16,60 +16,61 @@
 
   var CONSTRUCTORS = {
     'Array':    '[]',
-    'Number':   '+[]',
-    'String':   '[]+[]',
-    'Boolean':  '![]',
-    'Function':  '[]["filter"]'
+    'Number':   '(+[])',
+    'String':   '([]+[])',
+    'Boolean':  '(![])',
+    'Function': '[]["filter"]',
+    'RegExp':   'Function("return/0/")()'
   };
 
   var MAPPING = {
-    'a':   '("false")[1]',
+    'a':   '(false+"")[1]',
     'b':   '(+(11))["toString"](20)',
     'c':   '([]["filter"]+"")[3]',
-    'd':   '("undefined")[2]',
-    'e':   '("true")[3]',
-    'f':   '("false")[0]',
+    'd':   '(undefined+"")[2]',
+    'e':   '(true+"")[3]',
+    'f':   '(false+"")[0]',
     'g':   '(+false+[false]+String)[20]',
-    'h':   '(+(17))["toString"](20)',
+    'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(+(19))["toString"](20)',
+    'j':   '(+(40))["toString"](21)[1]',
     'k':   '(+(20))["toString"](21)',
-    'l':   '("false")[2]',
+    'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
-    'n':   '("undefined")[1]',
+    'n':   '(undefined+"")[1]',
     'o':   '(true+[]["filter"])[10]',
-    'p':   '(+(25))["toString"](30)',
-    'q':   '(+(26))["toString"](30)',
-    'r':   '("true")[1]',
-    's':   '("false")[3]',
-    't':   '("true")[0]',
-    'u':   '("undefined")[0]',
+    'p':   '(+(211))["toString"](31)[1]',
+    'q':   '(+(212))["toString"](31)[1]',
+    'r':   '(true+"")[1]',
+    's':   '(false+"")[3]',
+    't':   '(true+"")[0]',
+    'u':   '(undefined+"")[0]',
     'v':   '(+(31))["toString"](32)',
     'w':   '(+(32))["toString"](33)',
-    'x':   '(+(33))["toString"](34)',
+    'x':   '(+(101))["toString"](34)[1]',
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
     'A':   '(+false+Array)[10]',
     'B':   '(+false+Boolean)[10]',
-    'C':   'GLOBAL["escape"]("<")[2]',
-    'D':   'GLOBAL["escape"]("=")[2]',
-    'E':   'GLOBAL["escape"](">")[2]',
+    'C':   'Function("return escape")()("<")[2]',
+    'D':   'Function("return escape")()("=")[2]',
+    'E':   '(RegExp+"")[12]',
     'F':   '(+false+Function)[10]',
-    'G':   USE_CHAR_CODE,
+    'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
-    'I':   '("Infinity")[0]',
-    'J':   USE_CHAR_CODE,
+    'I':   '(Infinity+"")[0]',
+    //'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
     'L':   USE_CHAR_CODE,
-    'M':   USE_CHAR_CODE,
-    'N':   '("NaN")[0]',
-    'O':   USE_CHAR_CODE,
+    'M':   '(true+Function("return Date")()())[30]',
+    'N':   '(NaN+"")[0]',
+    //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   USE_CHAR_CODE,
+    'R':   '(+false+RegExp)[10]',
     'S':   '(+false+String)[10]',
-    'T':   USE_CHAR_CODE,
+    'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
@@ -82,23 +83,23 @@
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'GLOBAL["escape"]("<")[0]',
+    '%':   'Function("return escape")()("<")[0]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
     '(':   '(false+[]["filter"])[20]',
     ')':   '(true+[]["filter"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
-    ',':   '[[]]["concat"]([][[]])+""',
-    '-':   '(+(.0000000001)+"")[2]',
+    ',':   '[[]]["concat"]([[]])+""',
+    '-':   '(+(.+[0000000001])+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
     '/':   '(false+[+false])["italics"]()[10]',
-    ':':   'GLOBAL["Date"]()[21]',
+    ':':   '(RegExp()+"")[3]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["italics"]()[0]',
     '=':   '("")["fontcolor"]()[11]',
     '>':   '("")["italics"]()[2]',
-    '?':   USE_CHAR_CODE,
+    '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
     '[':   '(GLOBAL+"")[0]',
     '\\':  USE_CHAR_CODE,
@@ -112,12 +113,12 @@
     '~':   USE_CHAR_CODE
   };
 
-  var GLOBAL = '[]["filter"]["constructor"]("return this")()';
+  var GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
-        MAPPING[key] = 'GLOBAL["unescape"]("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
+        MAPPING[key] = 'Function("return unescape")()("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
       }
     }
   }
@@ -147,23 +148,37 @@
       );
     }
 
+    function digitReplacer(_,x) { return MAPPING[x]; }
+
+    function numberReplacer(_,y) {
+      var values = y.split("");
+      var head = +(values.shift());
+      var output = "+[]";
+
+      if (head > 0){ output = "+!" + output; }
+      for (i = 1; i < head; i++){ output = "+!+[]" + output; }
+      if (head > 1){ output = output.substr(1); }
+
+      return [output].concat(values).join("+").replace(/(\d)/g, digitReplacer);
+    }
+
     for (i = MIN; i <= MAX; i++){
       character = String.fromCharCode(i);
       value = MAPPING[character];
+      if(!value) {continue;}
       original = value;
 
       for (key in CONSTRUCTORS){
-        replace("\\b" + key, '(' + CONSTRUCTORS[key] + ')["constructor"]');
+        replace("\\b" + key, CONSTRUCTORS[key] + '["constructor"]');
       }
 
       for (key in SIMPLE){
-        replace('"' + key + '"', SIMPLE[key] + "+[]");
         replace(key, SIMPLE[key]);
       }
 
-      for (key = 0; key < 10; key++){
-        replace(key, "+[" + MAPPING[key] + "]");
-      }
+      replace('(\\d\\d+)', numberReplacer);
+      replace('\\((\\d)\\)', digitReplacer);
+      replace('\\[(\\d)\\]', digitReplacer);
 
       replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
@@ -196,12 +211,12 @@
       return done;
     }
 
-    function mappingReplacer(a, b){
+    function mappingReplacer(a, b) {
       return b.split("").join("+");
     }
 
     function valueReplacer(c) {
-      return missing[c] ? c : MAPPING[c];  
+      return missing[c] ? c : MAPPING[c];
     }
 
     for (all in MAPPING){
@@ -230,21 +245,47 @@
       return "";
     }
 
-    input.replace(/./g, function(c){
+    var r = "";
+    for (var i in SIMPLE) {
+      r += i + "|";
+    }
+    r+=".";
 
-      var replacement = MAPPING[c];
-
-      if (replacement){
-        output.push(MAPPING[c]); 
+    input.replace(new RegExp(r, 'g'), function(c) {
+      var replacement = SIMPLE[c];
+      if (replacement) {
+        output.push("[" + replacement + "]+[]");
       } else {
-
-        replacement =
-          "([]+[])[" + encode("constructor") + "]" +
-          "[" + encode("fromCharCode") + "]" +
-          "(" + encode(c.charCodeAt(0) + "") + ")";
- 
-        output.push(replacement);
-        MAPPING[c] = replacement;
+        replacement = MAPPING[c];
+        if (replacement){
+          output.push(replacement);
+        } else {
+          if (c === "J") {
+            replacement =
+              "([][" + encode("filter") + "]" +
+              "[" + encode("constructor") + "]" +
+              "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          } else if (c === "O") {
+            replacement =
+              "([][" + encode("filter") + "]" +
+              "[" + encode("constructor") + "]" +
+              "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          } else {
+            replacement =
+              "([]+[])[" + encode("constructor") + "]" +
+              "[" + encode("fromCharCode") + "]" +
+              "(" + encode(c.charCodeAt(0) + "") + ")";
+     
+            output.push(replacement);
+            MAPPING[c] = replacement;
+          }
+        }
       }
     });
 
