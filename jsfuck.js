@@ -69,7 +69,7 @@
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   '(+false+RegExp)[10]',
-    'S':   '(+false+String)[10]',
+    'S':   '(+([]["filter"]+[])[0]+(+(10))+String)[12]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
