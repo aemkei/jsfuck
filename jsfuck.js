@@ -30,7 +30,7 @@
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
-    'g':   '(+false+[false]+String)[20]',
+    'g':   '(+([]["filter"]+[])[0]+(+(10))+[NaN]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
     'j':   '(+(40))["toString"](21)[1]',
