@@ -26,7 +26,7 @@
   var MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '(+(11))["toString"](20)',
-    'c':   '([]["filter"]+"")[3]',
+    'c':   '(+([]["filter"]+[])[0]+(+(10))+[true]+[]["filter"])[10]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
