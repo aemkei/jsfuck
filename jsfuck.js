@@ -52,7 +52,7 @@
     'z':   '(+(35))["toString"](36)',
 
     'A':   '(+([]["filter"]+[])[0]+(+(10))+Array)[12]',
-    'B':   '(+false+Boolean)[10]',
+    'B':   '(+([]["filter"]+[])[0]+(+(10))+Boolean)[12]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
     'E':   '(RegExp+"")[12]',
