@@ -68,7 +68,7 @@
     //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   '(+false+RegExp)[10]',
+    'R':   '(+([]["filter"]+[])[0]+(+(10))+RegExp)[12]',
     'S':   '(+([]["filter"]+[])[0]+(+(10))+String)[12]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
