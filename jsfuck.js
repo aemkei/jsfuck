@@ -26,19 +26,19 @@
   var MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '(+(11))["toString"](20)',
-    'c':   '([]["filter"]+"")[3]',
+    'c':   '(+([]["filter"]+[])[0]+(+(10))+[true]+[]["filter"])[10]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
-    'g':   '(+false+[false]+String)[20]',
+    'g':   '(+([]["filter"]+[])[0]+(+(10))+[NaN]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
     'j':   '(+(40))["toString"](21)[1]',
     'k':   '(+(20))["toString"](21)',
     'l':   '(false+"")[2]',
-    'm':   '(Number+"")[11]',
+    'm':   '(+([]["filter"]+[])[0]+(+(10))+Number)[14]',
     'n':   '(undefined+"")[1]',
-    'o':   '(true+[]["filter"])[10]',
+    'o':   '(+([]["filter"]+[])[0]+(+(10))+[0]+[]["filter"])[10]',
     'p':   '(+(211))["toString"](31)[1]',
     'q':   '(+(212))["toString"](31)[1]',
     'r':   '(true+"")[1]',
@@ -51,26 +51,26 @@
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
-    'A':   '(+false+Array)[10]',
-    'B':   '(+false+Boolean)[10]',
+    'A':   '(+([]["filter"]+[])[0]+(+(10))+Array)[12]',
+    'B':   '(+([]["filter"]+[])[0]+(+(10))+Boolean)[12]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
-    'E':   '(RegExp+"")[12]',
-    'F':   '(+false+Function)[10]',
-    'G':   '(false+Function("return Date")()())[30]',
+    'E':   '(+([]["filter"]+[])[0]+(+(10))+[false]+RegExp)[20]',
+    'F':   '(+([]["filter"]+[])[0]+(+(10))+Function)[12]',
+    'G':   USE_CHAR_CODE,
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
-    //'J':   USE_CHAR_CODE,
+    'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
     'L':   USE_CHAR_CODE,
-    'M':   '(true+Function("return Date")()())[30]',
+    'M':   USE_CHAR_CODE,
     'N':   '(NaN+"")[0]',
-    //'O':   USE_CHAR_CODE,
+    'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   '(+false+RegExp)[10]',
-    'S':   '(+false+String)[10]',
-    'T':   '(NaN+Function("return Date")()())[30]',
+    'R':   '(+([]["filter"]+[])[0]+(+(10))+RegExp)[12]',
+    'S':   '(+([]["filter"]+[])[0]+(+(10))+String)[12]',
+    'T':   USE_CHAR_CODE,
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
@@ -78,7 +78,7 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["filter"])[11]',
+    ' ':   '(+([]["filter"]+[])[0]+(+(10))+[]["filter"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
@@ -86,8 +86,8 @@
     '%':   'Function("return escape")()("<")[0]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
-    '(':   '(false+[]["filter"])[20]',
-    ')':   '(true+[]["filter"])[20]',
+    '(':   '(+([]["filter"]+[])[0]+(+(10))+[00]+[]["filter"])[20]',
+    ')':   '(+([]["filter"]+[])[0]+(+(10))+[0]+[]["filter"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '[[]]["concat"]([[]])+""',
@@ -107,7 +107,7 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(NaN+[]["filter"])[21]',
+    '{':   '(+([]["filter"]+[])[0]+(+(10))+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
     '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
@@ -260,31 +260,13 @@
         if (replacement){
           output.push(replacement);
         } else {
-          if (c === "J") {
-            replacement =
-              "([][" + encode("filter") + "]" +
-              "[" + encode("constructor") + "]" +
-              "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          } else if (c === "O") {
-            replacement =
-              "([][" + encode("filter") + "]" +
-              "[" + encode("constructor") + "]" +
-              "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          } else {
-            replacement =
-              "([]+[])[" + encode("constructor") + "]" +
-              "[" + encode("fromCharCode") + "]" +
-              "(" + encode(c.charCodeAt(0) + "") + ")";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          }
+          replacement =
+            "([]+[])[" + encode("constructor") + "]" +
+            "[" + encode("fromCharCode") + "]" +
+            "(" + encode(c.charCodeAt(0) + "") + ")";
+
+          output.push(replacement);
+          MAPPING[c] = replacement;
         }
       }
     });
