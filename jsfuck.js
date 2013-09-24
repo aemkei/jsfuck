@@ -60,12 +60,12 @@
     'G':   USE_CHAR_CODE,
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
-    //'J':   USE_CHAR_CODE,
+    'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
     'L':   USE_CHAR_CODE,
     'M':   USE_CHAR_CODE,
     'N':   '(NaN+"")[0]',
-    //'O':   USE_CHAR_CODE,
+    'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   '(+([]["filter"]+[])[0]+(+(10))+RegExp)[12]',
@@ -260,31 +260,13 @@
         if (replacement){
           output.push(replacement);
         } else {
-          if (c === "J") {
-            replacement =
-              "([][" + encode("filter") + "]" +
-              "[" + encode("constructor") + "]" +
-              "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          } else if (c === "O") {
-            replacement =
-              "([][" + encode("filter") + "]" +
-              "[" + encode("constructor") + "]" +
-              "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          } else {
-            replacement =
-              "([]+[])[" + encode("constructor") + "]" +
-              "[" + encode("fromCharCode") + "]" +
-              "(" + encode(c.charCodeAt(0) + "") + ")";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          }
+          replacement =
+            "([]+[])[" + encode("constructor") + "]" +
+            "[" + encode("fromCharCode") + "]" +
+            "(" + encode(c.charCodeAt(0) + "") + ")";
+
+          output.push(replacement);
+          MAPPING[c] = replacement;
         }
       }
     });
