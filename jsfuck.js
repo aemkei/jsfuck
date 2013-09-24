@@ -55,7 +55,7 @@
     'B':   '(+([]["filter"]+[])[0]+(+(10))+Boolean)[12]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
-    'E':   '(RegExp+"")[12]',
+    'E':   '(+([]["filter"]+[])[0]+(+(10))+[false]+RegExp)[20]',
     'F':   '(+false+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
