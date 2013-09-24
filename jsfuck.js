@@ -78,7 +78,7 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["filter"])[11]',
+    ' ':   '(+([]["filter"]+[])[0]+(+(10))+[]["filter"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
