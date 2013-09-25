@@ -30,7 +30,7 @@
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
-    'g':   '(+false+[false]+String)[20]',
+    'g':   '(+[]+[false]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
     'j':   '(+(40))["toString"](21)[1]',
@@ -51,12 +51,12 @@
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
-    'A':   '(+false+Array)[10]',
-    'B':   '(+false+Boolean)[10]',
+    'A':   '(+[]+Array)[10]',
+    'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
     'E':   '(RegExp+"")[12]',
-    'F':   '(+false+Function)[10]',
+    'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
@@ -68,8 +68,8 @@
     //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   '(+false+RegExp)[10]',
-    'S':   '(+false+String)[10]',
+    'R':   '(+[]+RegExp)[10]',
+    'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
@@ -93,7 +93,7 @@
     ',':   '[[]]["concat"]([[]])+""',
     '-':   '(+(.+[0000000001])+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
-    '/':   '(false+[+false])["italics"]()[10]',
+    '/':   '(false+[+[]])["italics"]()[10]',
     ':':   '(RegExp()+"")[3]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["italics"]()[0]',
@@ -265,7 +265,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else if (c === "O") {
@@ -273,7 +273,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else {
@@ -281,7 +281,7 @@
               "([]+[])[" + encode("constructor") + "]" +
               "[" + encode("fromCharCode") + "]" +
               "(" + encode(c.charCodeAt(0) + "") + ")";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           }
