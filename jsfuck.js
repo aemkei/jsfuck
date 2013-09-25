@@ -48,7 +48,7 @@
     'v':   '(+(31))["toString"](32)',
     'w':   '(+(32))["toString"](33)',
     'x':   '(+(101))["toString"](34)[1]',
-    'y':   '(NaN+[Infinity])[10]',
+    'y':   '([]+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
     'A':   '(+false+Array)[10]',
@@ -68,9 +68,9 @@
     //'O':   USE_CHAR_CODE,
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
-    'R':   '(+false+RegExp)[10]',
-    'S':   '(+false+String)[10]',
-    'T':   '(NaN+Function("return Date")()())[30]',
+    'R':   '(+[]+RegExp)[10]',
+    'S':   '(+[]+String)[10]',
+    'T':   '([]+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
@@ -78,7 +78,7 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["filter"])[11]',
+    ' ':   '([]+[]["filter"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
@@ -112,8 +112,6 @@
     '}':   '([]["filter"]+[])[34]',
     '~':   USE_CHAR_CODE
   };
-
-  var GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
     for (var key in MAPPING){
@@ -180,7 +178,6 @@
       replace('\\((\\d)\\)', digitReplacer);
       replace('\\[(\\d)\\]', digitReplacer);
 
-      replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
       replace('""', "[]+[]");
 
