@@ -109,7 +109,7 @@
     '`':   USE_CHAR_CODE,
     '{':   '([]["filter"]+[])[21]',
     '|':   USE_CHAR_CODE,
-    '}':   USE_CHAR_CODE,
+    '}':   '([]["filter"]+[])[34]',
     '~':   USE_CHAR_CODE
   };
 
