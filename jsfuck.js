@@ -30,7 +30,7 @@
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
-    'g':   '(+false+[false]+String)[20]',
+    'g':   '(+[]+[false]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
     'j':   '(+(40))["toString"](21)[1]',
@@ -48,15 +48,15 @@
     'v':   '(+(31))["toString"](32)',
     'w':   '(+(32))["toString"](33)',
     'x':   '(+(101))["toString"](34)[1]',
-    'y':   '([]+[Infinity])[10]',
+    'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
-    'A':   '(+false+Array)[10]',
-    'B':   '(+false+Boolean)[10]',
+    'A':   '(+[]+Array)[10]',
+    'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()("<")[2]',
     'D':   'Function("return escape")()("=")[2]',
     'E':   '(RegExp+"")[12]',
-    'F':   '(+false+Function)[10]',
+    'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
@@ -70,7 +70,7 @@
     'Q':   USE_CHAR_CODE,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
-    'T':   '([]+Function("return Date")()())[30]',
+    'T':   '(NaN+Function("return Date")()())[30]',
     'U':   USE_CHAR_CODE,
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
@@ -78,7 +78,7 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '([]+[]["filter"])[11]',
+    ' ':   '(NaN+[]["filter"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
@@ -88,12 +88,12 @@
     '\'':  USE_CHAR_CODE,
     '(':   '(false+[]["filter"])[20]',
     ')':   '(true+[]["filter"])[20]',
-    '*':   '(Function("","")+[])[21]',
+    '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '[[]]["concat"]([[]])+""',
     '-':   '(+(.+[0000000001])+"")[2]',
     '.':   '(+(+!+[]+[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]])+[])[+!+[]]',
-    '/':   '(false+[+false])["italics"]()[10]',
+    '/':   '(false+[+[]])["italics"]()[10]',
     ':':   '(RegExp()+"")[3]',
     ';':   USE_CHAR_CODE,
     '<':   '("")["italics"]()[0]',
@@ -101,17 +101,19 @@
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
-    '[':   '([]["filter"]+[])[20]',
+    '[':   '(GLOBAL+"")[0]',
     '\\':  USE_CHAR_CODE,
-    ']':   '([]["filter"]+[])[32]',
+    ']':   USE_CHAR_CODE,
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '([]["filter"]+[])[21]',
+    '{':   '(NaN+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
-    '}':   '([]["filter"]+[])[34]',
+    '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
   };
+
+  var GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
     for (var key in MAPPING){
@@ -178,6 +180,7 @@
       replace('\\((\\d)\\)', digitReplacer);
       replace('\\[(\\d)\\]', digitReplacer);
 
+      replace("GLOBAL", GLOBAL);
       replace('\\+""', "+[]");
       replace('""', "[]+[]");
 
