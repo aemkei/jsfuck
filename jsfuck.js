@@ -107,7 +107,7 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(NaN+[]["filter"])[21]',
+    '{':   '([]["filter"]+[])[21]',
     '|':   USE_CHAR_CODE,
     '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
@@ -265,7 +265,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else if (c === "O") {
@@ -273,7 +273,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else {
@@ -281,7 +281,7 @@
               "([]+[])[" + encode("constructor") + "]" +
               "[" + encode("fromCharCode") + "]" +
               "(" + encode(c.charCodeAt(0) + "") + ")";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           }
