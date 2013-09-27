@@ -25,7 +25,7 @@
 
   var MAPPING = {
     'a':   '(false+"")[1]',
-    'b':   '(Function("return{}")()+"")[2]',
+    'b':   '(Function("return console")()+"")[2]',
     'c':   '([]["filter"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
@@ -33,7 +33,7 @@
     'g':   '(false+[0]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(Function("return{}")()+"")[10]',
+    'j':   '(Function("return console")()+"")[3]',
     'k':   '(+(20))["toString"](21)',
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
@@ -101,7 +101,7 @@
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
-    '[':   '(Function("return{}")()+"")[0]',
+    '[':   '(Function("return console")()+"")[0]',
     '\\':  USE_CHAR_CODE,
     ']':   '(Function("return{}")()+"")["slice"]("-1")',
     '^':   USE_CHAR_CODE,
