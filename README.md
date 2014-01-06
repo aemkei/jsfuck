@@ -59,3 +59,6 @@ See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js)
 
 * Follow [@aemkei](http://twitter.com/aemkei) (Martin Kleppe) <br>
 * Original discussion at [Sla.ckers.org](http://sla.ckers.org/forum/read.php?24,32930)
+
+
+[![Analytics](https://ga-beacon.appspot.com/UA-57649-14/jsfuck)](https://github.com/igrigorik/ga-beacon)
