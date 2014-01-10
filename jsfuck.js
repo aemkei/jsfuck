@@ -65,7 +65,7 @@
     'L':   USE_CHAR_CODE,
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
-    //'O':   USE_CHAR_CODE,
+    'O':   '(NaN+Function("return{}")())[11]',
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   '(+false+RegExp)[10]',
@@ -109,7 +109,7 @@
     '`':   USE_CHAR_CODE,
     '{':   '(NaN+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
-    '}':   USE_CHAR_CODE,
+    '}':   '([]["filter"]+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
     '~':   USE_CHAR_CODE
   };
 
@@ -265,14 +265,6 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
-            output.push(replacement);
-            MAPPING[c] = replacement;
-          } else if (c === "O") {
-            replacement =
-              "([][" + encode("filter") + "]" +
-              "[" + encode("constructor") + "]" +
-              "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
      
             output.push(replacement);
             MAPPING[c] = replacement;
