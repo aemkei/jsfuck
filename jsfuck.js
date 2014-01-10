@@ -103,7 +103,7 @@
     '@':   USE_CHAR_CODE,
     '[':   '(GLOBAL+"")[0]',
     '\\':  USE_CHAR_CODE,
-    ']':   USE_CHAR_CODE,
+    ']':   '(GLOBAL+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
