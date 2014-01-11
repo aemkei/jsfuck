@@ -25,7 +25,7 @@
 
   var MAPPING = {
     'a':   '(false+"")[1]',
-    'b':   '(+(11))["toString"](20)',
+    'b':   '(Function("return{}")()+"")[2]',
     'c':   '([]["filter"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
