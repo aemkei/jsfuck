@@ -101,15 +101,15 @@
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
-    '[':   '(GLOBAL+"")[0]',
+    '[':   '(Function("return{}")()+"")[0]',
     '\\':  USE_CHAR_CODE,
-    ']':   '(GLOBAL+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
+    ']':   '(Function("return{}")()+"")["slice"]("-1")',
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
     '{':   '(NaN+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
-    '}':   '([]["filter"]+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
+    '}':   '([]["filter"]+"")["slice"]("-1")',
     '~':   USE_CHAR_CODE
   };
 
