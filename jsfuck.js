@@ -33,7 +33,7 @@
     'g':   '(+false+[false]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(+(40))["toString"](21)[1]',
+    'j':   '(Function("return{}")()+"")[10]',
     'k':   '(+(20))["toString"](21)',
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
