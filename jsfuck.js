@@ -25,7 +25,7 @@
 
   var MAPPING = {
     'a':   '(false+"")[1]',
-    'b':   '(+(11))["toString"](20)',
+    'b':   '(Function("return{}")()+"")[2]',
     'c':   '([]["filter"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
@@ -33,7 +33,7 @@
     'g':   '(+false+[false]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(+(40))["toString"](21)[1]',
+    'j':   '(Function("return{}")()+"")[10]',
     'k':   '(+(20))["toString"](21)',
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
@@ -101,15 +101,15 @@
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
-    '[':   '(GLOBAL+"")[0]',
+    '[':   '(Function("return{}")()+"")[0]',
     '\\':  USE_CHAR_CODE,
-    ']':   '(GLOBAL+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
+    ']':   '(Function("return{}")()+"")["slice"]("-1")',
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
     '{':   '(NaN+[]["filter"])[21]',
     '|':   USE_CHAR_CODE,
-    '}':   '([]["filter"]+"")["slice"]((+(.+[0000000001])+"")[2]+1)',
+    '}':   '([]["filter"]+"")["slice"]("-1")',
     '~':   USE_CHAR_CODE
   };
 
