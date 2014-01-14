@@ -83,7 +83,7 @@
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'Function("return escape")()("<")[0]',
+    '%':   'Function("return escape")()([]["filter"])[20]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
     '(':   '(false+[]["filter"])[20]',
