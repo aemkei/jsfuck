@@ -30,7 +30,7 @@
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
-    'g':   '(+false+[false]+String)[20]',
+    'g':   '(false+[0]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
     'j':   '(Function("return{}")()+"")[10]',
