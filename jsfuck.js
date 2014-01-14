@@ -54,7 +54,7 @@
     'A':   '(+false+Array)[10]',
     'B':   '(+false+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
-    'D':   'Function("return escape")()("=")[2]',
+    'D':   'Function("return escape")()([]["filter"])["slice"]("-1")',
     'E':   '(RegExp+"")[12]',
     'F':   '(+false+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
