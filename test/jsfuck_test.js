@@ -8,7 +8,7 @@ var JSFuck = require('../jsfuck.js').JSFuck,
 
 		test.strictEqual(value, unencoded, 'encoding "' + value + '" failed');
 	};
-var MIN = 32, MAX = 126;
+var MIN = 32, MAX = 127;
 var fs = require('fs');
 
 exports['integration'] = {
