@@ -20,7 +20,7 @@
     'String':   '([]+[])',
     'Boolean':  '(![])',
     'Function': '[]["filter"]',
-    'RegExp':   'Function("return/0/")()'
+    'RegExp':   'Function("return/"+false+"/")()'
   };
 
   var MAPPING = {
