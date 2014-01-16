@@ -69,7 +69,7 @@
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   '(+[]+RegExp)[10]',
-    'S':   '(+false+String)[10]',
+    'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   '(NaN+Function("return{}")()["toString"]["call"]())[11]',
     'V':   USE_CHAR_CODE,
