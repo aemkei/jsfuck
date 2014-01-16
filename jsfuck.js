@@ -56,7 +56,7 @@
     'C':   'Function("return escape")()(("")["italics"]())[2]',
     'D':   'Function("return escape")()([]["filter"])["slice"]("-1")',
     'E':   '(RegExp+"")[12]',
-    'F':   '(+false+Function)[10]',
+    'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
     'H':   USE_CHAR_CODE,
     'I':   '(Infinity+"")[0]',
