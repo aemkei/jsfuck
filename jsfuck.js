@@ -51,7 +51,7 @@
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["toString"](36)',
 
-    'A':   '(+false+Array)[10]',
+    'A':   '(+[]+Array)[10]',
     'B':   '(+false+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
     'D':   'Function("return escape")()([]["filter"])["slice"]("-1")',
