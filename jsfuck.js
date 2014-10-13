@@ -288,7 +288,6 @@
     }
 
     if (wrapWithEval){
-
       if (runInParentScope){
         output = "[][" + encode("filter") + "]" +
           "[" + encode("constructor") + "]" +
