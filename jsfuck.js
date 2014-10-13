@@ -238,7 +238,7 @@
     }
   }
 
-  function encode(input, wrapWithEval){
+  function encode(input, wrapWithEval, runInParentScope){
     var output = [];
 
     if (!input){
@@ -288,9 +288,17 @@
     }
 
     if (wrapWithEval){
-      output = "[][" + encode("filter") + "]" +
-        "[" + encode("constructor") + "]" +
-        "(" + output + ")()";
+
+      if (runInParentScope){
+        output = "[][" + encode("filter") + "]" +
+          "[" + encode("constructor") + "]" +
+          "(" + encode("return eval") +  ")()" +
+          "(" + output + ")";
+      } else {
+        output = "[][" + encode("filter") + "]" +
+          "[" + encode("constructor") + "]" +
+          "(" + output + ")()";
+      }
     }
 
     return output;
