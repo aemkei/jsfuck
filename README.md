@@ -50,7 +50,8 @@ The following source will do an `alert(1)`:
     String      =>  []+[]
     Boolean     =>  ![]
     Function    =>  []["filter"]
-    eval        =>  []["filter"]["constructor"]( CODE )()
+    run         =>  []["filter"]["constructor"]( CODE )()
+    eval        =>  []["filter"]["constructor"]("return eval")()( CODE )
     window      =>  []["filter"]["constructor"]("return this")()
     
 See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).

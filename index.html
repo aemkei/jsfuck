@@ -90,6 +90,10 @@
     <input id="eval" type="checkbox" checked />
     <label for="eval">Eval Source</label>
   </div>
+    <div class="checkbox">
+    <input id="scope" type="checkbox" checked />
+    <label for="scope">Run In Parent Scope</label>
+  </div>
   
   <textarea id="output"></textarea>
   <div class="actions">
@@ -148,13 +152,14 @@
     }
     
     function encode(){
-      var output = JSFuck.encode($("input").value, $("eval").checked);
+      var output = JSFuck.encode($("input").value, $("eval").checked, $("scope").checked);
       $("output").value = output;
       $("stats").innerHTML = output.length + " chars";
     }
   
     $("encode").onclick = encode;
     $("eval").onchange = encode;
+    $("scope").onchange = encode;
     
     encode();
     
