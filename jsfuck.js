@@ -19,14 +19,14 @@
     'Number':   '(+[])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
-    'Function': '[]["filter"]',
+    'Function': '[]["fill"]',
     'RegExp':   'Function("return/"+false+"/")()'
   };
 
   var MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '(Function("return{}")()+"")[2]',
-    'c':   '([]["filter"]+"")[3]',
+    'c':   '([]["fill"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
@@ -38,7 +38,7 @@
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
     'n':   '(undefined+"")[1]',
-    'o':   '(true+[]["filter"])[10]',
+    'o':   '(true+[]["fill"])[10]',
     'p':   '(+(211))["toString"](31)[1]',
     'q':   '(+(212))["toString"](31)[1]',
     'r':   '(true+"")[1]',
@@ -54,7 +54,7 @@
     'A':   '(+[]+Array)[10]',
     'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
-    'D':   'Function("return escape")()([]["filter"])["slice"]("-1")',
+    'D':   'Function("return escape")()([]["fill"])["slice"]("-1")',
     'E':   '(RegExp+"")[12]',
     'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
@@ -78,16 +78,16 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["filter"])[11]',
+    ' ':   '(NaN+[]["fill"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'Function("return escape")()([]["filter"])[20]',
+    '%':   'Function("return escape")()([]["fill"])[21]',
     '&':   '("")["link"](0+")[10]',
     '\'':  USE_CHAR_CODE,
-    '(':   '(false+[]["filter"])[20]',
-    ')':   '(true+[]["filter"])[20]',
+    '(':   '(undefined+[]["fill"])[22]',
+    ')':   '([0]+false+[]["fill"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '([]["slice"]["call"](false+"")+"")[1]',
@@ -107,9 +107,9 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(NaN+[]["filter"])[21]',
+    '{':   '(true+[]["fill"])[20]',
     '|':   USE_CHAR_CODE,
-    '}':   '([]["filter"]+"")["slice"]("-1")',
+    '}':   '([]["fill"]+"")["slice"]("-1")',
     '~':   USE_CHAR_CODE
   };
 
@@ -279,12 +279,12 @@
 
     if (wrapWithEval){
       if (runInParentScope){
-        output = "[][" + encode("filter") + "]" +
+        output = "[][" + encode("fill") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + encode("return eval") +  ")()" +
           "(" + output + ")";
       } else {
-        output = "[][" + encode("filter") + "]" +
+        output = "[][" + encode("fill") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + output + ")()";
       }
