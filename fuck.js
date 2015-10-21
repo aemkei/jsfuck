@@ -5,7 +5,7 @@ var util = require('util');
 var lib = require("./jsfuck.js");
 var repl = require('repl');
 
-if(process.argv.length !== 3) {
+if(process.argv.length < 3 || process.argv.length > 4) {
 
   function Stream() {
     stream.Transform.call(this);
@@ -31,8 +31,13 @@ if(process.argv.length !== 3) {
   });
 
   process.stdin.pipe(fuckScript);
-} else {
+} else if (process.argv.length === 3) {
   var data = require("fs").readFileSync(process.argv[2], "utf8");
   var output = lib.JSFuck.encode(data, false);
+  console.log(output);
+} else if (process.argv.length === 4) {
+  var bool = process.argv[3] === "true";
+  var data = require("fs").readFileSync(process.argv[2], "utf8");
+  var output = lib.JSFuck.encode(data, bool);
   console.log(output);
 }
