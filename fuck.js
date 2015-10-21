@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/// Usage: jsfuck inputfile.js [true|false] > outputfile.js
+
 var stream = require('stream');
 var util = require('util');
 var lib = require("./jsfuck.js");
