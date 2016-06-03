@@ -25,7 +25,7 @@
 
   var MAPPING = {
     'a':   '(false+"")[1]',
-    'b':   '(+(11))["toString"](20)',
+    'b':   '([]["entries"]()+"")[2]',
     'c':   '([]["filter"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
@@ -33,7 +33,7 @@
     'g':   '(+false+[false]+String)[20]',
     'h':   '(+(101))["toString"](21)[1]',
     'i':   '([false]+undefined)[10]',
-    'j':   '(+(40))["toString"](21)[1]',
+    'j':   '([]["entries"]()+"")[3]',
     'k':   '(+(20))["toString"](21)',
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
@@ -101,9 +101,9 @@
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
-    '[':   '(GLOBAL+"")[0]',
+    '[':   '([]["entries"]()+"")[0]',
     '\\':  USE_CHAR_CODE,
-    ']':   USE_CHAR_CODE,
+    ']':   '([]["entries"]()+"")[22]',
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
@@ -265,7 +265,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else if (c === "O") {
@@ -273,7 +273,7 @@
               "([][" + encode("filter") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           } else {
@@ -281,7 +281,7 @@
               "([]+[])[" + encode("constructor") + "]" +
               "[" + encode("fromCharCode") + "]" +
               "(" + encode(c.charCodeAt(0) + "") + ")";
-     
+
             output.push(replacement);
             MAPPING[c] = replacement;
           }
