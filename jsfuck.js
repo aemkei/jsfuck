@@ -19,14 +19,14 @@
     'Number':   '(+[])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
-    'Function': '[]["filter"]',
+    'Function': '[]["fill"]',
     'RegExp':   'Function("return/0/")()'
   };
 
   var MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '([]["entries"]()+"")[2]',
-    'c':   '([]["filter"]+"")[3]',
+    'c':   '([]["fill"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
@@ -38,7 +38,7 @@
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
     'n':   '(undefined+"")[1]',
-    'o':   '(true+[]["filter"])[10]',
+    'o':   '(true+[]["fill"])[10]',
     'p':   '(+(211))["toString"](31)[1]',
     'q':   '(+(212))["toString"](31)[1]',
     'r':   '(true+"")[1]',
@@ -78,7 +78,7 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["filter"])[11]',
+    ' ':   '(NaN+[]["fill"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
@@ -86,8 +86,8 @@
     '%':   'Function("return escape")()("<")[0]',
     '&':   USE_CHAR_CODE,
     '\'':  USE_CHAR_CODE,
-    '(':   '(false+[]["filter"])[20]',
-    ')':   '(true+[]["filter"])[20]',
+    '(':   '(false+[]["fill"])[18]',
+    ')':   '(true+[]["fill"])[18]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '[[]]["concat"]([[]])+""',
@@ -107,7 +107,7 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(NaN+[]["filter"])[21]',
+    '{':   '(NaN+[]["fill"])[19]',
     '|':   USE_CHAR_CODE,
     '}':   USE_CHAR_CODE,
     '~':   USE_CHAR_CODE
@@ -262,7 +262,7 @@
         } else {
           if (c === "J") {
             replacement =
-              "([][" + encode("filter") + "]" +
+              "([][" + encode("fill") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(200000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
 
@@ -270,7 +270,7 @@
             MAPPING[c] = replacement;
           } else if (c === "O") {
             replacement =
-              "([][" + encode("filter") + "]" +
+              "([][" + encode("fill") + "]" +
               "[" + encode("constructor") + "]" +
               "(" + encode("return new Date(24000000000)") + ")()+[])[!+[]+!+[]+!+[]+!+[]]";
 
@@ -296,7 +296,7 @@
     }
 
     if (wrapWithEval){
-      output = "[][" + encode("filter") + "]" +
+      output = "[][" + encode("fill") + "]" +
         "[" + encode("constructor") + "]" +
         "(" + output + ")()";
     }
