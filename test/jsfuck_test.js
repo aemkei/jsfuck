@@ -13,15 +13,24 @@ var fs = require('fs');
 
 exports['integration'] = {
 	'test': function(test) {
-		var file = fs.openSync('output.txt', 'w+');
+		var file = fs.openSync('output.txt', 'w+'),
+			simple = "";
 
 		for (var i = MIN; i < MAX; i++) {
 			var c = String.fromCharCode(i),
 				encoded = JSFuck.encode(c);
+
+			if (/^[\[\]\+\=]+$/.test(encoded)){
+				simple += c;
+			}
+
 			fs.writeSync(file, '`' + c + '` ' + encoded.length + '\n');
 		}
 
 		fs.closeSync(file);
+
+		console.log("\nSIMPLE CHARS:" + simple);
+
 		test.done();
 	}
 };
