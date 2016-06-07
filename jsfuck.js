@@ -11,7 +11,7 @@
     'true':       '[+[]==+[]][+[]]',
     'undefined':  '[][[]]',
     'NaN':        '+[[]==[]]',
-    'Infinity':   '+[+true+(true+[])[true+true+true]+[+true]+[+[]]+[+[]]+[+[]]]' // +"1e1000"
+    'Infinity':   '+[+true+[true+[]][+[]][true+true+true]+[+true]+[+[]]+[+[]]+[+[]]]' // +"1e1000"
   };
 
   var CONSTRUCTORS = {
