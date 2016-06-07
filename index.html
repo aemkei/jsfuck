@@ -1,4 +1,4 @@
-<html>
+ <html>
 <head>
   <title>JSFuck - Write any JavaScript with 6 Characters: []()!+</title>
   <meta name="description" content="JSFuck is an esoteric and educational programming style based on the atomic parts of JavaScript. It uses only six different characters to execute code.">
@@ -6,17 +6,17 @@
   <meta property="og:image" content="http://www.jsfuck.com/preview.png" />
   <meta name="viewport" content="width=device-width" />
   <style>
-    
+
     body {
       padding: 20px;
     }
-    
+
     body, * {
       font-family: monospace;
       font-size: 14px;
       line-height: 1.4em;
     }
-    
+
     h1 {
       font-size: 2em;
       position: absolute;
@@ -24,7 +24,7 @@
       font-weight: normal;
       left: 140px;
     }
-    
+
     h2 {
       width: 90px;
       text-align: right;
@@ -35,94 +35,94 @@
       font-size: 20px;
       line-height: 1em;
     }
-    
+
     h3 {
       font-weight: bold;
     }
-        
+
     p, li, textarea, .actions {
       width: 100%;
       max-width: 600px;
     }
-    
+
     textarea {
       display: block;
       height: 200px;
       margin: 1em 0;
     }
-    
+
     ul.pre li{
       white-space: pre;
     }
-    
+
     .checkbox {
       display: inline-block;
     }
-    
+
     .actions a {
       float: right;
     }
-    
+
     .actions {
       clear: both;
     }
-    
+
   </style>
 </head>
 <body>
   <h1>JSFuck</h1>
-  
+
   <h2>()+<br>[]!</h2>
-  
+
   <p>JSFuck is an esoteric and educational programming style based on the
   atomic parts of JavaScript. It uses only six different characters to
   write and execute code.</p>
-  
+
   <p>It does not depend on a browser, so you can even run it on Node.js.</p>
-  
+
   <p>Use the form below to convert your own script. Uncheck "eval source" to
   get back a plain string.</p>
 
-  <input id="input" type="text" value="alert(1)"/> 
+  <input id="input" type="text" value="alert(1)"/>
   <button id="encode" type="text">Encode</button>
-  
+
   <div class="checkbox">
-    <input id="eval" type="checkbox" checked />
+    <input id="eval" type="checkbox" />
     <label for="eval">Eval Source</label>
   </div>
     <div class="checkbox">
-    <input id="scope" type="checkbox" checked />
+    <input id="scope" type="checkbox" />
     <label for="scope">Run In Parent Scope</label>
   </div>
-  
+
   <textarea id="output"></textarea>
   <div class="actions">
     <span id="stats">…</span>
     <a id="run" href="#">Run This</a>
   </div>
-  
+
   <h3>Links</h3>
-  
+
   <ul>
     <li>
-      Share on 
-      <a href="https://twitter.com/intent/tweet?text=This%20project%20is%20crazy:%20http://jsfuck.com%20%E2%80%93%20Write%20any%20JavaScript%20with%206%20characters%20[]()!+%20//%20via%20@aemkei" target="_blank">Twitter</a>, 
+      Share on
+      <a href="https://twitter.com/intent/tweet?text=This%20project%20is%20crazy:%20http://jsfuck.com%20%E2%80%93%20Write%20any%20JavaScript%20with%206%20characters%20[]()!+%20//%20via%20@aemkei" target="_blank">Twitter</a>,
       <a href="https://plus.google.com/share?url=http://www.jsfuck.com" target="_blank">Google+</a>
     </li>
     <li>View source on <a href="http://github.com/aemkei/jsfuck">GitHub</a></li>
     <li>Follow <a href="http://twitter.com/aemkei">@aemkei</a> (Martin Kleppe)</li>
     <li>Original discussion at <a href="http://sla.ckers.org/forum/read.php?24,32930">Sla.ckers.org</a></li>
   </ul>
-  
+
   <h3>Alternatives</h3>
   <ul>
     <li><a href="http://patriciopalladino.com/files/hieroglyphy/">Hieroglyphy</a> (8 chars, browser only)</li>
     <li><a href="http://utf-8.jp/public/jsfuck.html">utf-8.jp</a> (broken)</li>
     <li><a href="http://discogscounter.getfreehosting.co.uk/js-noalnum.php">JS-NoAlnum</a> (broken)</li>
   </ul>
-  
+
   <h3>Basics</h3>
-  
+
   <ul class="pre">
     <li>false       =>  ![]</li>
     <li>true        =>  !![]</li>
@@ -150,19 +150,19 @@
     function $(id){
       return document.getElementById(id);
     }
-    
+
     function encode(){
       var output = JSFuck.encode($("input").value, $("eval").checked, $("scope").checked);
       $("output").value = output;
       $("stats").innerHTML = output.length + " chars";
     }
-  
+
     $("encode").onclick = encode;
     $("eval").onchange = encode;
     $("scope").onchange = encode;
-    
+
     encode();
-    
+
     $("run").onclick = function(){
       value = eval($("output").value);
 
@@ -172,7 +172,7 @@
       return false;
     };
   </script>
-  
+
   <script type="text/javascript">
 
     var _gaq = _gaq || [];

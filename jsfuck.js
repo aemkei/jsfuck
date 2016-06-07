@@ -7,18 +7,18 @@
   var MIN = 32, MAX = 126;
 
   var SIMPLE = {
-    'false':      '![]',
-    'true':       '!![]',
+    'false':      '[[]==[]][+[]]',
+    'true':       '[+[]==+[]][+[]]',
     'undefined':  '[][[]]',
-    'NaN':        '+[![]]',
-    'Infinity':   '+[+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]]]' // +"1e1000"
+    'NaN':        '+[[]==[]]',
+    'Infinity':   '+[+true+(true+[])[true+true+true]+[+true]+[+[]]+[+[]]+[+[]]]' // +"1e1000"
   };
 
   var CONSTRUCTORS = {
     'Array':    '[]',
     'Number':   '[+[]][+[]]',
     'String':   '[[]+[]][+[]]',
-    'Boolean':  '[![]][+[]]',
+    'Boolean':  '[[]==[]][+[]]',
     'Function': '[]["fill"]',
     'RegExp':   'Function("return/"+false+"/")``'
   };
@@ -89,10 +89,10 @@
     '(':   '[undefined+[]["fill"]][+[]][22]',
     ')':   '[[0]+false+[]["fill"]][+[]][20]',
     '*':   USE_CHAR_CODE,
-    '+':   '[+[+!+[]+[!+[]+[]][+[]][!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]]+[]][+[]][2]',
+    '+':   '[+[+true+[true+[]][+[]][true+true+true]+[+true]+[+[]]+[+[]]]+[]][+[]][2]',
     ',':   '[[]["slice"]["call"](false+"")+""][+[]][1]',
     '-':   '[+[.+[0000000001]]+""][+[]][2]',
-    '.':   '[+[+!+[]+[+!+[]]+[!![]+[]][+[]][!+[]+!+[]+!+[]]+[!+[]+!+[]]+[+[]]]+[]][+[]][+!+[]]',
+    '.':   '[+[+true+[+true]+[true+[]][+[]][true+true+true]+[true+true]+[+[]]]+[]][+[]][+true]',
     '/':   '[false+[0]][+[]]["italics"]``[10]',
     ':':   '[RegExp()+""][+[]][3]',
     ';':   '[""][+[]]["link"](")[14]',
@@ -130,8 +130,8 @@
 
       output = "+[]";
 
-      if (number > 0){ output = "+!" + output; }
-      for (i = 1; i < number; i++){ output = "+!+[]" + output; }
+      if (number > 0){ output = "+" + SIMPLE.true; }
+      for (i = 1; i < number; i++){ output = "+" + SIMPLE.true + output; }
       if (number > 1){ output = output.substr(1); }
 
       MAPPING[number] = "[" + output + "]";
@@ -155,8 +155,8 @@
       var head = +(values.shift());
       var output = "+[]";
 
-      if (head > 0){ output = "+!" + output; }
-      for (i = 1; i < head; i++){ output = "+!+[]" + output; }
+      if (head > 0){ output = "+" + SIMPLE.true; }
+      for (i = 1; i < head; i++){ output = "+" + SIMPLE.true + output; }
       if (head > 1){ output = output.substr(1); }
 
       return [output].concat(values).join("+").replace(/(\d)/g, digitReplacer);
@@ -189,7 +189,7 @@
   }
 
   function replaceStrings(){
-    var regEx = /[^\[\]\(\)\!\+\`]{1}/g,
+    var regEx = /[^\[\]\(\)\+\`\=]{1}/g,
       all, value, missing,
       count = MAX - MIN;
 
