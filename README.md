@@ -48,7 +48,7 @@ The following source will do an `alert(1)`:
     eval        =>  []["filter"]["constructor"]("return eval")()( CODE )
     window      =>  []["filter"]["constructor"]("return this")()
     
-See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).
+See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js) and read the [Wiki](https://github.com/aemkei/jsfuck/wiki) for a detailed explanation.  
 
 ### Links
 
