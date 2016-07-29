@@ -459,7 +459,7 @@ The possibilities of backticks were discussed in detail [in the Gitter chat room
 
 ### Mapping `toString`
 
-Another approach executing functions without parentheses would be to map the `.toString` or `.toValue` method and call implicitly.
+Another approach executing functions without parentheses would be to map the `.toString` or `.valueOf` method and call implicitly.
 
 ```js
 A=[]
