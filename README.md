@@ -439,9 +439,17 @@ Problem: Some number (like `5`) are harder to get. But it is possible when using
 
 ## Execute Function
 
+Other ways of executing functions:
+
+1. using backticks: `` ` ``
+2. handle events: `on...`
+3. constructor: `new ...`
+4. type conversion: `toString|valueOf`
+5. symbol datatype: `[Symbol...]`
+
 ### Using Backticks
 
-Instead of using opening and closing parentheses, we could use backticks ` to execute functions. In ES6 they can be used to interpolate strings and tagged template literals.
+Instead of using opening and closing parentheses, we could use backticks ` to execute functions. In ES6 they can be used to interpolate strings and serve an expression for tagged template literals.
 
 ```js
 ([]["entries"]``).constructor // Object
@@ -453,7 +461,7 @@ Unfortunately, we can only pass a single string (from our basic alphabet eg. `[]
 
 The possibilities of backticks were discussed in detail [in the Gitter chat room](https://gitter.im/aemkei/jsfuck).
 
-### Mapping `toString`
+### Mapping Type Conversion
 
 Another approach executing functions without parentheses would be to map the `.toString` or `.valueOf` method and call implicitly.
 
@@ -467,6 +475,40 @@ Note: There is no way to pass arguments and it requires to `=` be present in our
 
 So far the only use-case is to wire `.toSource` in Firefox to get special characters like the backslash `\`. 
 
+### Trigger Event Handler
+
+Function or methods could also be executed by assinging them to an event hander. There are several ways to do that, e.g.
+
+```js
+// override onload event on start
+onload=f
+
+// write image tags
+document.body.innerHTML='<img onerror=f src=X />'
+
+// throw and handle error
+onerror=f; throw 'x'
+
+// trigger event
+onhashchange=f;location.hash=1;
+```
+
+### Constructor
+
+We could also use the `new` operator to call the function as a pseudo object type:
+
+```js
+new f
+```
+
+### Symbol
+
+A symbol is a unique and immutable data type and may be used as an identifier for object properties. This can be used to implicitly call function.
+
+```js
+f[Symbol.toPrimitive]=f;f++;
+f[Symbol.iterator]=f;[...f]
+```
 
 # Further Readings
 
