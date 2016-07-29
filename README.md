@@ -58,7 +58,10 @@ See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js)
 
 ## `[]` – Brackets
 
-Let's start with the opening and closing brackets and see what is possible here. They are super useful for this project and it are considered as a core element because they provide a way to 1. deal with arrays and 2. access properties and methods.
+Let's start with the opening and closing brackets and see what is possible here. They are super useful for this project and are considered as a core element because they provide a way to:
+
+1. deal with arrays 
+2. access properties and methods.
 
 
 ### `[]` – Array Literals
@@ -66,14 +69,14 @@ Let's start with the opening and closing brackets and see what is possible here.
 Create new arrays:
 
 ```js
-[] // an empty array
+[]   // an empty array
 [[]] // an array with one element (another array) 
 ```
 
 ### `[X][i]` – Array / Object Access
 
 ```js
-[][[]]   // undefined, same as [][""]
+[][[]] // undefined, same as [][""]
 ```
 
 Later we will be able to do this:
@@ -86,7 +89,7 @@ Later we will be able to do this:
 
 ### `[X][0]` - Array wrapping trick
 
-By wrapping an expression in an array then getting the element at index zero, you can apply several operators on one expression. This means brackets `[]` can replace parenthesis `()` to isolate expressions:
+By wrapping an expression in an array and then getting the element at index zero, we can apply several operators on one expression. This means brackets `[]` can replace parenthesis `()` to isolate expressions:
 
 ```js
           [X][0]           // X
@@ -95,7 +98,12 @@ By wrapping an expression in an array then getting the element at index zero, yo
 
 ## `+` – Plus Sign
 
-This symbol is useful, because it allows us to create number, add two values, concatenating strings and (combined with '[]') create strings.
+This symbol is useful, because it allows us to:
+
+1. create numbers
+2. add two values
+3. concatenating strings 
+4. create strings
 
 The current version of JSFuck uses it a lot but we not sure if they are fundamental.
 
@@ -106,7 +114,8 @@ The current version of JSFuck uses it a lot but we not sure if they are fundamen
 ```
 
 ### Increment Numbers
-using the Array wrapping trick
+
+Using the array wrapping trick mentioned above:
 
 ```
 ++[ 0  ][  0  ] // 1
@@ -115,12 +124,12 @@ using the Array wrapping trick
 
 ### Getting `undefined`
 
-Getting an element by index in an empty array will return undefined:
+Getting an element by index in an empty array will return `undefined`:
 
 ```js
 [][   0 ] // undefined
 [][ +[] ] // get first element (undefined)
-[][  [] ] // will look for property _empty string_ in the array
+[][  [] ] // look for property ""
 ```
 
 ### Getting `NaN`
@@ -152,26 +161,25 @@ Using this technique, we are able to access all digits:
 
 ### `+[]` – Casting to String
 
-Combining the brackets and the plus sign, allows us to turn other values into strings.
-
-Casts to String:
+Combining the plus sign and brackets will turn other values into strings:
 
 ```js
-[]          +[] // "" - empty string
-+[]         +[] // "0"
-[][[]]      +[] // "undefined"
+  []        +[] // "" - empty string
+ +[]        +[] // "0"
+  [][[]]    +[] // "undefined"
 ++[][[]]    +[] // "NaN
 ++[[]][+[]] +[] // "1"
 ```
 
 ### `"word"[i]` – Get Single Characters
 
-As we have strings, we can get single characters:
+As we have strings, we can also get single characters:
 
 ```js
- "undefined"      [  0] // "u"
-["undefined"][  0][  0] // "u"
-[[][+[]]+[] ][+[]][+[]] // "u"
+  "undefined"          [  0] // "u"
+[ "undefined"    ][  0][  0] // "u"
+[  undefined +[] ][+[]][+[]] // "u"
+[  [][+[]]   +[] ][+[]][+[]] // "u"
 ```
 
 ```js
@@ -242,7 +250,7 @@ This will return the following String:
 "function find() { [native code] }"
 ```
 
-*Note*: String representations of native functions are not part of the ECMAScript standard and slightly differ between browsers. For example, Firefox will output a slightly different string with additional line breaks using `\n`.
+*Note*: String representations of native functions are not part of the ECMAScript standard and differ between browsers. For example, Firefox will output a slightly different string with additional line breaks using `\n`.
 
 Resulting characters: 
 
@@ -258,13 +266,14 @@ Resulting methods:
 
 This is the fourth character in the original JSFuck set and used to create booleans. 
 
+Note: This symbol could also be replaced by others, like `<` or `=`. See the section "Alternatives" below.
 
 ### `!X` – Cast to Boolean
 
 The logical "Not" operator can be used to create booelans `false` and `true`:
 
 ```js
-![]  // false
+ ![] // false
 !![] // true
 ```
 
@@ -273,7 +282,7 @@ The logical "Not" operator can be used to create booelans `false` and `true`:
 Booleans can be casted to string:
 
 ```js
-![]  +[] // "false"
+ ![] +[] // "false"
 !![] +[] // "true"
 ```
 
@@ -281,7 +290,7 @@ This will give us access to more characters:
 
 `a`, `e`, `f`, `l`, `r`, `s`, `t`, `u`.
 
-And together with the set above, we will have `{}()[]+. INacdefilnorstuvy` with access to these methods:
+Together with the set above, we will have `{}()[]+. INacdefilnorstuvy` with access to these methods:
 
 * `call` 
 * `concat`
@@ -299,7 +308,7 @@ And together with the set above, we will have `{}()[]+. INacdefilnorstuvy` with 
 * `slice` 
 * `sort`
 
-*Important:* We should better take one of the symbols `=`, `>` or `<` to create booleans, because they are more powerful (see section "Alternatives" below).
+*Important:* We might use another symbols like `=` to create booleans, because they are more powerful (see section "Alternatives" below).
 
 ## `X["constructor"]` – Primitive wrappers names
 
@@ -358,49 +367,49 @@ New characters:
 
 ### `number.toString(x)` – Getting any lowercase letter
 
-Number's `toString` method has an optional argument specifying the base to use, between 2 and 36. With base 36, the output is displayed with every number and lowercase letter, so we can retrieve any *lowercase* letter from base 36:
+Number's `toString` method has an optional argument specifying the base to use (between 2 and 36). With base 36 we can retrieve any *lowercase* letter:
 
 ```js
-17["toString"](36) // "h"
-33["toString"](36) // "x"
+10["toString"](36) // "a"
+11["toString"](36) // "z"
 ...
+34["toString"](36) // "y"
+35["toString"](36) // "z"
 ```
 Exposed characters: `abcdefghijklmnopqrstuvwxyz`
 
 ### `Function("code")()` – Evaluate Code
 
-Function constructor is the master key : it takes a String as argument and returns a new anonymous function with this string as the function body. So it basically lets you evaluate any code as a String. This is like `eval`, without the need for a reference to the global scope (a.k.a. `window`). We can get it with `[].find ["constructor"]`.
+The Function constructor is the master key in JSFuck: It takes a String as an argument and returns a new anonymous function with this string as the function body. So it basically lets you evaluate any code as a String. This is like `eval`, without the need for a reference to the global scope (a.k.a. `window`). We can get the Function constructor e.g. with `[]["find"]["constructor"]`.
 
 This is the first major step and an essential part of a JS-to-JSFuck compiler.
 ...
 
 ### `Function("return this")()` – window 
 
-When evaluating a fresh new `function anonymous() { return this }`, we get in return the invocation context which is a reference to the global scope here: `window`
+When evaluating `function anonymous() { return this }`, we get the invocation context which is a reference to the global scope here: `window`!
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
-
 ---
  
-
 
 # Alternatives
 
 
 ## Combine Characters
 
-Use `.concat` to combine strings:
+Instead of `+` we could use `.concat` to combine strings:
 
 ```js
 "f"["concat"]("i")["concat"]("l")["concat"]("l") // fill
 ```
 
-Problem: We need to combibe "c", "o", "n", "c", "a" and "t" to get "concat". 
+Problem: We need to combine "c", "o", "n", "c", "a" and "t" to get "concat". 
 
 ## Booleans
 
-The `!` might be replaced by with more "powerful" characters:
+The `!` might be replaced with more "powerful" characters that have more than one use.
 
 ### `=` – Boolean + Assign Values
 
@@ -429,7 +438,7 @@ A more complex example is to get character "f" with `[]>+` only:
 
 ## Numbers
 
-Use booleans and bitshift operators to create numbers:
+Instead of `+` we could use booleans and bitshift operators to create numbers:
 
 ```js
 true >> false         // 1
@@ -439,9 +448,9 @@ true << true << true  // 4
 
 Problem: Some number (like `5`) are harder to get. But it is possible when using strings, eg `"11" >> true`. 
 
-## Execute Function
+## Execute Functions
 
-Other ways of executing functions:
+Other ways of executing functions than using `()`:
 
 1. using backticks: `` ` ``
 2. handle events: `on...`
@@ -459,17 +468,17 @@ Instead of using opening and closing parentheses, we could use backticks ` to ex
 
 This would give us characters from "Object" and access to its methods.
 
-Unfortunately, we can only pass a single string (from our basic alphabet eg. `[]!+`) as the parameter. It is not possible to call methods with multiple arguments or precompiled string. To do that, we have to use expression interpolation using `${}` which would introduce new characters.
+Unfortunately, we can only pass a single string (from our basic alphabet eg. `[]!+`) as the parameter. It is not possible to call methods with multiple arguments or a precompiled string. To do that, we have to use expression interpolation using `${}` which would introduce new characters.
 
 The possibilities of backticks were discussed in detail [in the Gitter chat room](https://gitter.im/aemkei/jsfuck).
 
 ### Mapping Type Conversion
 
-Another approach executing functions without parentheses would be to map the `.toString` or `.valueOf` method and call implicitly.
+Another approach to execute functions without parentheses would be to map the `.toString` or `.valueOf` method and call them implicitly.
 
 ```js
-A=[]
-A["toString"]=A["pop"]
+A = []
+A["toString"] = A["pop"]
 A+"" // will execute A.pop
 ```
 
@@ -477,24 +486,22 @@ Note: There is no way to pass arguments and it requires to `=` be present in our
 
 So far the only use-case is to wire `.toSource` in Firefox to get special characters like the backslash `\`. 
 
-Note: We need `=` to map the methods.
-
 ### Trigger Event Handler
 
 Function or methods could also be executed by assinging them to an event hander. There are several ways to do that, e.g:
 
 ```js
 // override onload event on start
-onload=f
+onload = f
 
 // write image tags
-document.body.innerHTML='<img onerror=f src=X />'
+document.body.innerHTML = '<img onerror=f src=X />'
 
 // throw and handle error
 onerror=f; throw 'x'
 
 // trigger event
-onhashchange=f;location.hash=1;
+onhashchange = f; location.hash = 1;
 ```
 
 Note: We need `=` to assign the handler.
@@ -509,15 +516,15 @@ We could also use the `new` operator to call the function as a pseudo object typ
 new f
 ```
 
-Problem: The `new` operator is not available with the simple set of symbols.
+Problem: The `new` operator is not (yet) available with our basic set of symbols.
 
 ### Symbol
 
-A symbol is a unique and immutable data type and may be used as an identifier for object properties. This can be used to implicitly call function.
+A symbol is a unique and immutable data type and may be used as an identifier for object properties. This can be used to implicitly call a function.
 
 ```js
-f[Symbol.toPrimitive]=f;f++;
-f[Symbol.iterator]=f;[...f]
+f[Symbol.toPrimitive] = f;  f++;
+f[Symbol.iterator]    = f; [...f];
 ```
 
 Note: We need `=` to assign the function.
@@ -526,7 +533,7 @@ Problem: We do not have access to `Symbol` using our reduced character set.
 
 # Further Readings
 
-JSFuck was not the first approach! Many people around the world are trying to break the so-called "Wall".
+JSFuck was not the first approach! Many people around the world are trying to break the so-called "Wall". Read more here:
 
 * [Esolang Wiki: JSFuck](https://esolangs.org/wiki/JSFuck) 
 * [sla.ckers.org](http://sla.ckers.org/forum/read.php?24,32930) – Original Discussion
