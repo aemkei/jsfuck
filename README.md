@@ -89,8 +89,8 @@ Later we will be able to do this:
 By wrapping an expression in an array then getting the element at index zero, you can apply several operators on one expression. This means brackets `[]` can replace parenthesis `()` to isolate expressions:
 
 ```js
-[X][0] === X
-++[ ++[ ++[X][0] ][0] ][0] === X + 3
+          [X][0]           // X
+++[ ++[ ++[X][0] ][0] ][0] // X + 3
 ```
 
 ## `+` – Plus Sign
@@ -116,10 +116,11 @@ using the Array wrapping trick
 ### Getting `undefined`
 
 Getting an element by index in an empty array will return undefined:
+
 ```js
-undefined === [][0]
-undefined === [][ +[] ]
-undefined === [][ [] ] // will look for property _empty string_ in the array
+[][   0 ] // undefined
+[][ +[] ] // get first element (undefined)
+[][  [] ] // will look for property _empty string_ in the array
 ```
 
 ### Getting `NaN`
@@ -141,6 +142,7 @@ A shorter way using ++:
 
 ```js
 ++[          1][  0] // 2
+++[++[[]][  0]][  0] // 2
 ++[++[[]][+[]]][+[]] // 2
 ```
 
@@ -202,9 +204,9 @@ As we have the character "e" from "undefined", we can use exponential notation t
 
 ```js
 +("1e309")         //  Infinity
-+("1e309") +[]     // "Infinity"
++("1e309")     +[] // "Infinity"
 +("11e100")        //  1.1+e101
-+("11e100") +[]    // "1.1+e101"   (gives us `.`)
++("11e100")    +[] // "1.1+e101"   (gives us `.`)
 +("0.0000001")     //  1e-7
 +("0.0000001") +[] // "1e-7"       (gives us `-`)
 ```
@@ -314,7 +316,7 @@ false   ["constructor"] // Boolean
 Use `+[]` to convert them to strings and retrieve their function name in order to get more chars: 
 
 ```js
-0["constructor"]+[] === "function Number() { ..." // gives chars m and b
+0["constructor"]+[] // "function Number() { ... }"
 ```
 
 New chars available :
@@ -359,8 +361,8 @@ New characters:
 Number's `toString` method has an optional argument specifying the base to use, between 2 and 36. With base 36, the output is displayed with every number and lowercase letter, so we can retrieve any *lowercase* letter from base 36:
 
 ```js
-"h" === 17["toString"](36)
-"x" === 33["toString"](36)
+17["toString"](36) // "h"
+33["toString"](36) // "x"
 ...
 ```
 Exposed characters: `abcdefghijklmnopqrstuvwxyz`
@@ -475,9 +477,11 @@ Note: There is no way to pass arguments and it requires to `=` be present in our
 
 So far the only use-case is to wire `.toSource` in Firefox to get special characters like the backslash `\`. 
 
+Note: We need `=` to map the methods.
+
 ### Trigger Event Handler
 
-Function or methods could also be executed by assinging them to an event hander. There are several ways to do that, e.g.
+Function or methods could also be executed by assinging them to an event hander. There are several ways to do that, e.g:
 
 ```js
 // override onload event on start
@@ -493,6 +497,10 @@ onerror=f; throw 'x'
 onhashchange=f;location.hash=1;
 ```
 
+Note: We need `=` to assign the handler.
+
+Problem: We do not have access to `window` or DOM elements to attatch the event handlers. 
+
 ### Constructor
 
 We could also use the `new` operator to call the function as a pseudo object type:
@@ -500,6 +508,8 @@ We could also use the `new` operator to call the function as a pseudo object typ
 ```js
 new f
 ```
+
+Problem: The `new` operator is not available with the simple set of symbols.
 
 ### Symbol
 
@@ -509,6 +519,10 @@ A symbol is a unique and immutable data type and may be used as an identifier fo
 f[Symbol.toPrimitive]=f;f++;
 f[Symbol.iterator]=f;[...f]
 ```
+
+Note: We need `=` to assign the function.
+
+Problem: We do not have access to `Symbol` using our reduced character set.
 
 # Further Readings
 
