@@ -423,7 +423,7 @@ X << Y // number
 A more complex example is to get character "f" with `[]>+` only:
 
 ```js
-[[ []&lt;[] ] + [] ] [[]&lt;&lt;[]] [[]&lt;&lt;[]]
+[[ []<[] ] + [] ] [[]<<[]] [[]<<[]]
 [[ false ] + [] ] [     0] [     0]
 [ "false"       ] [     0] [     0]
   "false"                  [     0]
