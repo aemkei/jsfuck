@@ -450,7 +450,7 @@ Problem: Some number (like `5`) are harder to get. But it is possible when using
 
 ## Execute Functions
 
-Other ways of executing functions than using `()`:
+Ways of executing functions other than using `()`:
 
 1. using backticks: `` ` ``
 2. handle events: `on...`
