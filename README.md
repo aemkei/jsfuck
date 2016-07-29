@@ -415,15 +415,15 @@ X = Y  // assign a new value
 ### `>` – Boolean + Create Numbers
 
 ```js 
-X < Y  // true
-X < X  // false
-X << Y // number
+X > Y  // true
+X > X  // false
+X >> Y // number
 ```
 
 A more complex example is to get character "f" with `[]>+` only:
 
 ```js
-[[ []&lt;[] ] + [] ] [[]&lt;&lt;[]] [[]&lt;&lt;[]]
+[[ []>[] ] + [] ] [[]>>[]] [[]>>[]]
 [[ false ] + [] ] [     0] [     0]
 [ "false"       ] [     0] [     0]
   "false"                  [     0]
@@ -459,7 +459,7 @@ The possibilities of backticks were discussed in detail [in the Gitter chat room
 
 ### Mapping `toString`
 
-Another approach executing functions without parentheses would be to map the `.toString` or `.toValue` method and call implicitly.
+Another approach executing functions without parentheses would be to map the `.toString` or `.valueOf` method and call implicitly.
 
 ```js
 A=[]
