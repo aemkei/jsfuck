@@ -415,15 +415,15 @@ X = Y  // assign a new value
 ### `>` – Boolean + Create Numbers
 
 ```js 
-X < Y  // true
-X < X  // false
-X << Y // number
+X > Y  // true
+X > X  // false
+X >> Y // number
 ```
 
 A more complex example is to get character "f" with `[]>+` only:
 
 ```js
-[[ []<[] ] + [] ] [[]<<[]] [[]<<[]]
+[[ []>[] ] + [] ] [[]>>[]] [[]>>[]]
 [[ false ] + [] ] [     0] [     0]
 [ "false"       ] [     0] [     0]
   "false"                  [     0]
