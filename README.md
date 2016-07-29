@@ -52,11 +52,7 @@ The following source will do an `alert(1)`:
     
 See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).  
 
-### Links
-
-# JSFuck - How it Works
-
-This wiki should document the different approaches to run any JavaScript with the smallest subset of characters.
+# How it Works
 
 **Note:** Feel free to join the discussion here: https://gitter.im/aemkei/jsfuck
 
@@ -99,7 +95,7 @@ By wrapping an expression in an array then getting the element at index zero, yo
 
 ## `+` – Plus Sign
 
-This symbol is useful two, because it allows us to create number, add two values, concatenating strings and (combined with '[]') create strings.
+This symbol is useful, because it allows us to create number, add two values, concatenating strings and (combined with '[]') create strings.
 
 The current version of JSFuck uses it a lot but we not sure if they are fundamental.
 
