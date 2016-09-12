@@ -29,10 +29,10 @@ The following source will do an `alert(1)`:
 [+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(
 !![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[
 ])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()
-``` 
+```
 
 ### Basics
-              
+
     false       =>  ![]
     true        =>  !![]
     undefined   =>  [][[]]
@@ -49,7 +49,7 @@ The following source will do an `alert(1)`:
     run         =>  []["filter"]["constructor"]( CODE )()
     eval        =>  []["filter"]["constructor"]("return eval")()( CODE )
     window      =>  []["filter"]["constructor"]("return this")()
-    
+
 See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).  
 
 # How it Works
@@ -60,7 +60,7 @@ See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js)
 
 Let's start with the opening and closing brackets and see what is possible here. They are super useful for this project and are considered as a core element because they provide a way to:
 
-1. deal with arrays 
+1. deal with arrays
 2. access properties and methods.
 
 
@@ -70,7 +70,7 @@ Create new arrays:
 
 ```js
 []   // an empty array
-[[]] // an array with one element (another array) 
+[[]] // an array with one element (another array)
 ```
 
 ### `[X][i]` – Array / Object Access
@@ -102,7 +102,7 @@ This symbol is useful, because it allows us to:
 
 1. create numbers
 2. add two values
-3. concatenating strings 
+3. concatenating strings
 4. create strings
 
 The current version of JSFuck uses it a lot but we not sure if they are fundamental.
@@ -187,7 +187,7 @@ As we have strings, we can also get single characters:
 [[][+[]]+[]][+[]][ ++[[]][+[]] ] // n
 ```
 
-Since we have "NaN" and "undefined", we got the following characters: 
+Since we have "NaN" and "undefined", we got the following characters:
 
 `N`,`a`,`d`,`e`,`f`,`i`,`n`,`u`.
 
@@ -219,7 +219,7 @@ As we have the character "e" from "undefined", we can use exponential notation t
 +("0.0000001") +[] // "1e-7"       (gives us `-`)
 ```
 
-Resulting chars: 
+Resulting chars:
 
 `I`,`f`,`i`,`n`,`t`,`y`,`.`,`+`,`-`.
 
@@ -252,19 +252,19 @@ This will return the following String:
 
 *Note*: String representations of native functions are not part of the ECMAScript standard and differ between browsers. For example, Firefox will output a slightly different string with additional line breaks using `\n`.
 
-Resulting characters: 
+Resulting characters:
 
 * `a`,`c`,`d`,`e`,`f`,`i`,`n`,`o`,`t`,`u`,`v`
 * ` `, `{`, `}`, `(`, `)`, `[`,`]`
 
-Resulting methods: 
+Resulting methods:
 
-* `.concat` 
+* `.concat`
 * `.find`.
 
 ## `!` – Logical NOT operator
 
-This is the fourth character in the original JSFuck set and used to create booleans. 
+This is the fourth character in the original JSFuck set and used to create booleans.
 
 Note: This symbol could also be replaced by others, like `<` or `=`. See the section "Alternatives" below.
 
@@ -292,7 +292,7 @@ This will give us access to more characters:
 
 Together with the set above, we will have `{}()[]+. INacdefilnorstuvy` with access to these methods:
 
-* `call` 
+* `call`
 * `concat`
 * `constructor`
 * `entries`
@@ -305,7 +305,7 @@ Together with the set above, we will have `{}()[]+. INacdefilnorstuvy` with acce
 * `italics`
 * `reduce`
 * `reverse`
-* `slice` 
+* `slice`
 * `sort`
 
 *Important:* We might use another symbols like `=` to create booleans, because they are more powerful (see section "Alternatives" below).
@@ -322,7 +322,7 @@ false   ["constructor"] // Boolean
 [].find ["constructor"] // Function
 ```
 
-Use `+[]` to convert them to strings and retrieve their function name in order to get more chars: 
+Use `+[]` to convert them to strings and retrieve their function name in order to get more chars:
 
 ```js
 0["constructor"]+[] // "function Number() { ... }"
@@ -343,11 +343,11 @@ New chars available :
 * `sub`
 * `substr`
 * `substring`
-* `toString` 
+* `toString`
 * `trim`
 
 
-## `()` – Parenthesis 
+## `()` – Parenthesis
 
 ### Calling Methods
 
@@ -371,7 +371,7 @@ Number's `toString` method has an optional argument specifying the base to use (
 
 ```js
 10["toString"](36) // "a"
-11["toString"](36) // "z"
+11["toString"](36) // "b"
 ...
 34["toString"](36) // "y"
 35["toString"](36) // "z"
@@ -385,14 +385,14 @@ The Function constructor is the master key in JSFuck: It takes a String as an ar
 This is the first major step and an essential part of a JS-to-JSFuck compiler.
 ...
 
-### `Function("return this")()` – window 
+### `Function("return this")()` – window
 
 When evaluating `function anonymous() { return this }`, we get the invocation context which is a reference to the global scope here: `window`!
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
 ---
- 
+
 
 # Alternatives
 
@@ -405,7 +405,7 @@ Instead of `+` we could use `.concat` to combine strings:
 "f"["concat"]("i")["concat"]("l")["concat"]("l") // fill
 ```
 
-Problem: We need to combine "c", "o", "n", "c", "a" and "t" to get "concat". 
+Problem: We need to combine "c", "o", "n", "c", "a" and "t" to get "concat".
 
 ## Booleans
 
@@ -421,7 +421,7 @@ X = Y  // assign a new value
 
 ### `>` – Boolean + Create Numbers
 
-```js 
+```js
 X > Y  // true
 X > X  // false
 X >> Y // number
@@ -446,7 +446,7 @@ true << true          // 2
 true << true << true  // 4
 ```
 
-Problem: Some number (like `5`) are harder to get. But it is possible when using strings, eg `"11" >> true`. 
+Problem: Some number (like `5`) are harder to get. But it is possible when using strings, eg `"11" >> true`.
 
 ## Execute Functions
 
@@ -484,7 +484,7 @@ A+"" // will execute A.pop
 
 Note: There is no way to pass arguments and it requires to `=` be present in our basic alphabet. And it only works for methods that return basic types.
 
-So far the only use-case is to wire `.toSource` in Firefox to get special characters like the backslash `\`. 
+So far the only use-case is to wire `.toSource` in Firefox to get special characters like the backslash `\`.
 
 ### Trigger Event Handler
 
@@ -506,7 +506,7 @@ onhashchange = f; location.hash = 1;
 
 Note: We need `=` to assign the handler.
 
-Problem: We do not have access to `window` or DOM elements to attatch the event handlers. 
+Problem: We do not have access to `window` or DOM elements to attatch the event handlers.
 
 ### Constructor
 
@@ -535,7 +535,7 @@ Problem: We do not have access to `Symbol` using our reduced character set.
 
 JSFuck was not the first approach! Many people around the world are trying to break the so-called "Wall". Read more here:
 
-* [Esolang Wiki: JSFuck](https://esolangs.org/wiki/JSFuck) 
+* [Esolang Wiki: JSFuck](https://esolangs.org/wiki/JSFuck)
 * [sla.ckers.org](http://sla.ckers.org/forum/read.php?24,32930) – Original Discussion
 * [Xchars.js](http://slides.com/sylvainpv/xchars-js/) – Sylvain Pollet-Villard
 * [Non Alphanumeric JavaScript](http://patriciopalladino.com/blog/2012/08/09/non-alphanumeric-javascript.html) – Patricio Palladino
