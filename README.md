@@ -117,7 +117,7 @@ The current version of JSFuck uses it a lot but we not sure if they are fundamen
 
 Using the array wrapping trick mentioned above:
 
-```
+```js
 ++[ 0  ][  0  ] // 1
 ++[ [] ][ +[] ] // 1
 ```
@@ -136,7 +136,7 @@ Getting an element by index in an empty array will return `undefined`:
 
 Casting `undefined` to Number will result in not-a-number:
 
-```
+```js
 +[][[]]    // +undefined = NaN
 ```
 
