@@ -40,7 +40,7 @@ The following source will do an `alert(1)`:
     0           =>  +[]
     1           =>  +!+[]
     2           =>  !+[]+!+[]
-    10          =>  [+!+[]]+[+[]]
+    10          =>  +[[+!+[]]+[+[]]]
     Array       =>  []
     Number      =>  +[]
     String      =>  []+[]
