@@ -214,7 +214,7 @@ As we have the character "e" from "undefined", we can use exponential notation t
 +("1e309")         //  Infinity
 +("1e309")     +[] // "Infinity"
 +("11e100")        //  1.1e+101
-+("11e100")    +[] // "1.1e+101"   (gives us `.`)
++("11e100")    +[] // "1.1e+101"   (gives us `.` and `+`)
 +("0.0000001")     //  1e-7
 +("0.0000001") +[] // "1e-7"       (gives us `-`)
 ```
