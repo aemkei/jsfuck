@@ -131,7 +131,7 @@
       output = "+[]";
 
       if (number > 0){ output = "+!" + output; }
-      for (i = 1; i < number; i++){ output = "+!+[]" + output; }
+      for (var i = 1; i < number; i++){ output = "+!+[]" + output; }
       if (number > 1){ output = output.substr(1); }
 
       MAPPING[number] = "[" + output + "]";
@@ -139,7 +139,7 @@
   }
 
   function replaceMap(){
-    var character = "", value, original, i, key;
+    var value;
 
     function replace(pattern, replacement){
       value = value.replace(
@@ -156,22 +156,34 @@
       var output = "+[]";
 
       if (head > 0){ output = "+!" + output; }
-      for (i = 1; i < head; i++){ output = "+!+[]" + output; }
+      for (var i = 1; i < head; i++){ output = "+!+[]" + output; }
       if (head > 1){ output = output.substr(1); }
 
       return [output].concat(values).join("+").replace(/(\d)/g, digitReplacer);
     }
 
-    for (i = MIN; i <= MAX; i++){
-      character = String.fromCharCode(i);
+    for (var i = MIN; i <= MAX; i++){
+      var character = String.fromCharCode(i);
       value = MAPPING[character];
       if(!value) {continue;}
-      original = value;
+      var original = value;
 
-      for (key in CONSTRUCTORS){
-        replace("\\b" + key, CONSTRUCTORS[key] + '["constructor"]');
-      }
+      // Due to mutual dependencies of CONSTRUCTORS replacements, 
+      // iterate until no more matches can be replaced.
+      var changed = false;
+      do {
+        changed = false;
+        for (key in CONSTRUCTORS){
+          function detect_changed(match){
+            changed = true;
+            return CONSTRUCTORS[key] + '["constructor"]';
+            }
+            replace("\\b" + key, detect_changed);
+          }
+      } while(changed);
 
+      // Change handling like CONSTRUCTORS is not necessary
+      // since SIMPLE has no mutual dependencie
       for (key in SIMPLE){
         replace(key, SIMPLE[key]);
       }
