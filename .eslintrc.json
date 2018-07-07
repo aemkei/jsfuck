@@ -1,0 +1,12 @@
+{
+	"rules": {
+		"no-use-before-define": 2,
+		"no-caller": 2,
+		"no-eq-null": 2
+	},
+	"parserOptions": { "ecmaVersion": 6 },
+	"env": {
+		"browser": true,
+		"node": true
+	}
+}
