@@ -2,11 +2,11 @@
 
 (function(self){
 
-  var USE_CHAR_CODE = "USE_CHAR_CODE";
+  const USE_CHAR_CODE = Symbol('USE_CHAR_CODE');
 
-  var MIN = 32, MAX = 126;
+  const MIN = 32, MAX = 126;
 
-  var SIMPLE = {
+  const SIMPLE = {
     'false':      '![]',
     'true':       '!![]',
     'undefined':  '[][[]]',
@@ -14,7 +14,7 @@
     'Infinity':   '+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]]+[+[]])' // +"1e1000"
   };
 
-  var CONSTRUCTORS = {
+  const CONSTRUCTORS = {
     'Array':    '[]',
     'Number':   '(+[])',
     'String':   '([]+[])',
@@ -23,7 +23,7 @@
     'RegExp':   'Function("return/"+false+"/")()'
   };
 
-  var MAPPING = {
+  const MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '([]["entries"]()+"")[2]',
     'c':   '([]["fill"]+"")[3]',
@@ -113,7 +113,7 @@
     '~':   USE_CHAR_CODE
   };
 
-  var GLOBAL = 'Function("return this")()';
+  const GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
     for (var key in MAPPING){
