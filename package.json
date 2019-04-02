@@ -31,7 +31,6 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "~1.2.0",
-    "grunt-contrib-eslint": "~0.6.4",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-watch": "~0.5.3",
     "gruntify-eslint": "^5.0.0"
