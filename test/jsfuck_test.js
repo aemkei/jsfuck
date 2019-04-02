@@ -41,6 +41,7 @@ createTest('false');
 createTest('falsefalsetrue');
 createTest('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 createTest('abcdefghijklmnopqrstuvwxyz');
+createTest(';&');
 
 for(var i=MIN; i<MAX ;i++) {
 	createTest(String.fromCharCode(i));
