@@ -254,7 +254,7 @@
     input.replace(new RegExp(r, 'g'), function(c) {
       var replacement = SIMPLE[c];
       if (replacement) {
-        output.push("[" + replacement + "]+[]");
+        output.push("(" + replacement + "+[])");
       } else {
         replacement = MAPPING[c];
         if (replacement){

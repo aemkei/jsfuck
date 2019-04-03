@@ -42,6 +42,22 @@ createTest('falsefalsetrue');
 createTest('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 createTest('abcdefghijklmnopqrstuvwxyz');
 createTest(';&');
+createTest('false');
+createTest('true');
+createTest('undefined');
+createTest('NaN');
+createTest('Infinity');
+createTest('undefinedundefined');
+createTest('0undefined0');
+createTest('undefinedArray');
+createTest('ArrayundefinedBoolean');
+createTest('undefinedBooleanArray');
+createTest('NaNNaN');
+createTest('InfinityInfinity');
+createTest('InfinityInfinity');
+createTest('NaNtrue');
+createTest('trueNaN');
+createTest('undefinedNaN');
 
 for(var i=MIN; i<MAX ;i++) {
 	createTest(String.fromCharCode(i));
