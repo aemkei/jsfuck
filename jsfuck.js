@@ -251,7 +251,7 @@
     }
     r+=".";
 
-    input.replace(new RegExp(r, 'g'), function(c) {
+    input.replace(new RegExp(r, 'gs'), function(c) {
       var replacement = SIMPLE[c];
       if (replacement) {
         output.push("(" + replacement + "+[])");
