@@ -45,6 +45,7 @@ createTest(';&');
 createTest('\n');
 createTest('\r');
 createTest('\r\n');
+createTest('\u2028\u2029');
 createTest('false');
 createTest('true');
 createTest('undefined');
