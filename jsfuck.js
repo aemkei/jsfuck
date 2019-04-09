@@ -249,9 +249,9 @@
     for (var i in SIMPLE) {
       r += i + "|";
     }
-    r+=".";
+    r+= "\n|\r|\u2028|\u2029|.";
 
-    input.replace(new RegExp(r, 'gs'), function(c) {
+    input.replace(new RegExp(r, 'g'), function(c) {
       var replacement = SIMPLE[c];
       if (replacement) {
         output.push("(" + replacement + "+[])");
