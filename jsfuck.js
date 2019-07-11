@@ -102,7 +102,7 @@
     '?':   '(RegExp()+"")[2]',
     '@':   USE_CHAR_CODE,
     '[':   '([]["entries"]()+"")[0]',
-    '\\':  USE_CHAR_CODE,
+    '\\':  '(RegExp("/")+"")[1]',
     ']':   '([]["entries"]()+"")[22]',
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
