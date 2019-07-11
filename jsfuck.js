@@ -117,9 +117,13 @@
   const GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
+    var base16code, escape;
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
-        MAPPING[key] = 'Function("return unescape")()("%"'+ key.charCodeAt(0).toString(16).replace(/(\d+)/g, "+($1)+\"") + '")';
+        //Function('return"\\uXXXX"')()
+        base16code = key.charCodeAt(0).toString(16);
+        escape = ('0000'+base16code).substring(base16code.length).split('').join('+');
+        MAPPING[key] = 'Function("return"+' + MAPPING['"'] + '+"\\u"+' + escape + '+' + MAPPING['"'] + ')()';
       }
     }
   }
@@ -261,10 +265,11 @@
         if (replacement){
           output.push(replacement);
         } else {
+          var cc16 = c.charCodeAt(0).toString(16);
           replacement =
-            "([]+[])[" + encode("constructor") + "]" +
-            "[" + encode("fromCharCode") + "]" +
-            "(" + encode(c.charCodeAt(0) + "") + ")";
+            "[][" + encode("fill") + "]"+
+            "[" + encode("constructor") + "]" +
+            "(" + encode("return\"\\u"+("0000"+cc16).substring(cc16.length)+"\"") + ")()";
 
           output.push(replacement);
           MAPPING[c] = replacement;
