@@ -132,7 +132,7 @@
   }
 
   function replaceMap(){
-    var character = "", value, original, i, key;
+    var character = "", value, i, key;
 
     function replace(pattern, replacement){
       value = value.replace(
@@ -159,7 +159,6 @@
       character = String.fromCharCode(i);
       value = MAPPING[character];
       if(!value) {continue;}
-      original = value;
 
       for (key in CONSTRUCTORS){
         replace("\\b" + key, CONSTRUCTORS[key] + '["constructor"]');
