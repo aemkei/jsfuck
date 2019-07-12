@@ -59,37 +59,37 @@
     'E':   '(RegExp+"")[12]',
     'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
-    'H':   USE_CHAR_CODE,
+    'H':   null,
     'I':   '(Infinity+"")[0]',
-    'J':   USE_CHAR_CODE,
-    'K':   USE_CHAR_CODE,
-    'L':   USE_CHAR_CODE,
+    'J':   null,
+    'K':   null,
+    'L':   null,
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
     'O':   '(+[]+Object)[10]',
-    'P':   USE_CHAR_CODE,
-    'Q':   USE_CHAR_CODE,
+    'P':   null,
+    'Q':   null,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
-    'V':   USE_CHAR_CODE,
-    'W':   USE_CHAR_CODE,
-    'X':   USE_CHAR_CODE,
-    'Y':   USE_CHAR_CODE,
-    'Z':   USE_CHAR_CODE,
+    'V':   null,
+    'W':   null,
+    'X':   null,
+    'Y':   null,
+    'Z':   null,
 
     ' ':   '(NaN+[]["fill"])[11]',
-    '!':   USE_CHAR_CODE,
+    '!':   null,
     '"':   '("")["fontcolor"]()[12]',
-    '#':   USE_CHAR_CODE,
-    '$':   USE_CHAR_CODE,
+    '#':   null,
+    '$':   null,
     '%':   'Function("return escape")()([]["fill"])[21]',
     '&':   '("")["fontcolor"](")[13]',
-    '\'':  USE_CHAR_CODE,
+    '\'':  null,
     '(':   '([]["fill"]+"")[13]',
     ')':   '([0]+false+[]["fill"])[20]',
-    '*':   USE_CHAR_CODE,
+    '*':   null,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '([]["slice"]["call"](false+"")+"")[1]',
     '-':   '(+(.+[0000000001])+"")[2]',
@@ -101,32 +101,20 @@
     '=':   '("")["fontcolor"]()[11]',
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
-    '@':   USE_CHAR_CODE,
+    '@':   null,
     '[':   '([]["entries"]()+"")[0]',
     '\\':  '(RegExp("/")+"")[1]',
     ']':   '([]["entries"]()+"")[22]',
-    '^':   USE_CHAR_CODE,
-    '_':   USE_CHAR_CODE,
-    '`':   USE_CHAR_CODE,
+    '^':   null,
+    '_':   null,
+    '`':   null,
     '{':   '(true+[]["fill"])[20]',
-    '|':   USE_CHAR_CODE,
+    '|':   null,
     '}':   '([]["fill"]+"")["slice"]("-1")',
-    '~':   USE_CHAR_CODE
+    '~':   null
   };
 
   const GLOBAL = 'Function("return this")()';
-
-  function fillMissingChars(){
-    var base16code, escape;
-    for (var key in MAPPING){
-      if (MAPPING[key] === USE_CHAR_CODE){
-        //Function('return"\\uXXXX"')()
-        base16code = key.charCodeAt(0).toString(16);
-        escape = ('0000'+base16code).substring(base16code.length).split('').join('+');
-        MAPPING[key] = 'Function("return"+' + MAPPING['"'] + '+"\\u"+' + escape + '+' + MAPPING['"'] + ')()';
-      }
-    }
-  }
 
   function fillMissingDigits(){
     var output, number, i;
@@ -207,7 +195,7 @@
 
         value = MAPPING[all];
 
-        if (value.match(regEx)){
+        if (value && value.match(regEx)){
           missing[all] = value;
           done = true;
         }
@@ -225,7 +213,9 @@
     }
 
     for (all in MAPPING){
-      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, mappingReplacer);
+      if (MAPPING[all]){
+        MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, mappingReplacer);
+      }
     }
 
     while (findMissing()){
@@ -256,6 +246,8 @@
     }
     r+= "\n|\r|\u2028|\u2029|.";
 
+    var needWrap = false;
+
     input.replace(new RegExp(r, 'g'), function(c) {
       var replacement = SIMPLE[c];
       if (replacement) {
@@ -265,14 +257,11 @@
         if (replacement){
           output.push(replacement);
         } else {
-          var cc16 = c.charCodeAt(0).toString(16);
-          replacement =
-            "[][" + encode("fill") + "]"+
-            "[" + encode("constructor") + "]" +
-            "(" + encode("return\"\\u"+("0000"+cc16).substring(cc16.length)+"\"") + ")()";
+          var cc16 = c.charCodeAt(0).toString(16),
+              cc16p = "\\u" + ("0000" + cc16).substring(cc16.length);
 
-          output.push(replacement);
-          MAPPING[c] = replacement;
+          needWrap = true;
+          output.push(encode(cc16p));
         }
       }
     });
@@ -283,11 +272,17 @@
       output += "+[]";
     }
 
+    if (needWrap) {
+      output = "[][" + encode("fill") + "]"+
+      "[" + encode("constructor") + "]" +
+      "(" + encode("return\"") + "+" + output + "+" + encode("\"") + ")()";
+    }
+
     if (wrapWithEval){
       if (runInParentScope){
         output = "[][" + encode("fill") + "]" +
           "[" + encode("constructor") + "]" +
-          "(" + encode("return eval") +  ")()" +
+          "(" + encode("return eval") + ")()" +
           "(" + output + ")";
       } else {
         output = "[][" + encode("fill") + "]" +
@@ -300,7 +295,6 @@
   }
 
   fillMissingDigits();
-  fillMissingChars();
   replaceMap();
   replaceStrings();
 
