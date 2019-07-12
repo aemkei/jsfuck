@@ -20,7 +20,8 @@
     'String':   '([]+[])',
     'Boolean':  '(![])',
     'Function': '[]["fill"]',
-    'RegExp':   'Function("return/"+false+"/")()'
+    'RegExp':   'Function("return/"+false+"/")()',
+    'Object':	'[]["entries"]()'
   };
 
   const MAPPING = {
@@ -65,7 +66,7 @@
     'L':   USE_CHAR_CODE,
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
-    'O':   '(NaN+Function("return{}")())[11]',
+    'O':   '(+[]+Object)[10]',
     'P':   USE_CHAR_CODE,
     'Q':   USE_CHAR_CODE,
     'R':   '(+[]+RegExp)[10]',
@@ -86,7 +87,7 @@
     '%':   'Function("return escape")()([]["fill"])[21]',
     '&':   '("")["link"](0+")[10]',
     '\'':  USE_CHAR_CODE,
-    '(':   '(undefined+[]["fill"])[22]',
+    '(':   '([]["fill"]+"")[13]',
     ')':   '([0]+false+[]["fill"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
