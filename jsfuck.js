@@ -72,7 +72,7 @@
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
-    'U':   '(NaN+Function("return{}")()["to"+String["name"]]["call"]())[11]',
+    'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
     'X':   USE_CHAR_CODE,
