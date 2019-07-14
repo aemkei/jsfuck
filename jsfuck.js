@@ -232,6 +232,11 @@
     }
   }
 
+  function unicodeEncode(c) {
+    var cc16 = c.charCodeAt(0).toString(16);
+    return '\\u' + ('0000' + cc16).substring(cc16.length);
+  }
+
   function encode(input, wrapWithEval, runInParentScope){
     var output = [];
 
@@ -239,13 +244,34 @@
       return "";
     }
 
+    var unmappped = ''
+    for(var k in MAPPING) {
+      if (MAPPING[k]){
+        unmappped += k;
+      }
+    }
+    unmappped = unmappped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    unmappped = new RegExp('[^' + unmappped + ']','g');
+    var hasUnmappedCharacters = unmappped.test(input);
+    if (hasUnmappedCharacters) {
+      //Because we will wrap the input into a string we need to escape Backslash 
+      // and Double quote characters (we do not need to worry about other characters 
+      // because they are not mapped explicitly).
+      // The JSFuck-encoded representation of `\` is 2121 symbols,
+      // so esacped `\` is 4243 symbols and escaped `"` is 2261 symbols
+      // however the unicode escape sequence of that characters would be 
+      // 2284 and 2174 symbols respectively, so it's more practical to 
+      // do rewrite them as unicode escape sequences.
+      input = input.replace(/["\\]/g, unicodeEncode);
+      //Convert all unmapped characters to unicode escape sequence
+      input = input.replace(unmappped, unicodeEncode);
+    }
+
     var r = "";
     for (var i in SIMPLE) {
       r += i + "|";
     }
-    r+= "\n|\r|\u2028|\u2029|.";
-
-    var needWrap = false;
+    r+= ".";
 
     input.replace(new RegExp(r, 'g'), function(c) {
       var replacement = SIMPLE[c];
@@ -256,11 +282,7 @@
         if (replacement){
           output.push(replacement);
         } else {
-          var cc16 = c.charCodeAt(0).toString(16),
-              cc16p = "\\u" + ("0000" + cc16).substring(cc16.length);
-
-          needWrap = true;
-          output.push(encode(cc16p));
+          throw new Error('Found unmapped character');
         }
       }
     });
@@ -271,7 +293,7 @@
       output += "+[]";
     }
 
-    if (needWrap) {
+    if (hasUnmappedCharacters) {
       output = "[][" + encode("fill") + "]"+
       "[" + encode("constructor") + "]" +
       "(" + encode("return\"") + "+" + output + "+" + encode("\"") + ")()";
