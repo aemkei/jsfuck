@@ -279,7 +279,7 @@
         if (replacement){
           output.push(replacement);
         } else {
-          throw new Error('Found unmapped character');
+          throw new Error('Found unmapped character: ' + c);
         }
       }
     });
