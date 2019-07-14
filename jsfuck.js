@@ -1,9 +1,6 @@
 /*! JSFuck 0.4.0 - http://jsfuck.com */
 
 (function(self){
-
-  const USE_CHAR_CODE = Symbol('USE_CHAR_CODE');
-
   const MIN = 32, MAX = 126;
 
   const SIMPLE = {
