@@ -230,8 +230,13 @@
   }
 
   function unicodeEncode(c) {
-    var cc16 = c.charCodeAt(0).toString(16);
-    return '\\u' + ('0000' + cc16).substring(cc16.length);
+    var cc = c.charCodeAt(0);
+    if (cc < 256) {
+      return '\\' + cc.toString(8);
+    } else {
+      var cc16 = cc.toString(16);
+      return '\\u' + ('0000' + cc16).substring(cc16.length);  
+    }
   }
 
   function encode(input, wrapWithEval, runInParentScope){
