@@ -229,7 +229,7 @@
     }
   }
 
-  function unicodeEncode(c) {
+  function escapeSequence(c) {
     var cc = c.charCodeAt(0);
     if (cc < 256) {
       return '\\' + cc.toString(8);
@@ -261,12 +261,12 @@
       // because they are not mapped explicitly).
       // The JSFuck-encoded representation of `\` is 2121 symbols,
       // so esacped `\` is 4243 symbols and escaped `"` is 2261 symbols
-      // however the unicode escape sequence of that characters would be 
-      // 2284 and 2174 symbols respectively, so it's more practical to 
-      // do rewrite them as unicode escape sequences.
-      input = input.replace(/["\\]/g, unicodeEncode);
-      //Convert all unmapped characters to unicode escape sequence
-      input = input.replace(unmappped, unicodeEncode);
+      // however the escape sequence of that characters are 
+      // 2168 and 2155 symbols respectively, so it's more practical to 
+      // rewrite them as escape sequences.
+      input = input.replace(/["\\]/g, escapeSequence);
+      //Convert all unmapped characters to escape sequence
+      input = input.replace(unmappped, escapeSequence);
     }
 
     var r = "";
