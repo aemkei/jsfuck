@@ -267,7 +267,7 @@
         } else {
           var cc16 = c.charCodeAt(0).toString(16);
           replacement =
-            "[][" + encode("fill") + "]"+
+            "[][" + encode("flat") + "]"+
             "[" + encode("constructor") + "]" +
             "(" + encode("return\"\\u"+("0000"+cc16).substring(cc16.length)+"\"") + ")()";
 
@@ -285,12 +285,12 @@
 
     if (wrapWithEval){
       if (runInParentScope){
-        output = "[][" + encode("fill") + "]" +
+        output = "[][" + encode("flat") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + encode("return eval") +  ")()" +
           "(" + output + ")";
       } else {
-        output = "[][" + encode("fill") + "]" +
+        output = "[][" + encode("flat") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + output + ")()";
       }
