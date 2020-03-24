@@ -263,11 +263,22 @@
         if (replacement){
           output.push(replacement);
         } else {
-          var cc16 = c.charCodeAt(0).toString(16);
+          var cc = c.charCodeAt(0);
+          var escape;
+
+          if (cc < 256) { // Unicode code point between U+0000 and U+00FF
+            // Function('return"\\XXX"')()
+            escape = cc.toString(8);
+          } else {
+            // Function('return"\\uXXXX"')()
+            var cc16 = cc.toString(16);
+            escape = "u" + ('0000'+cc16).substring(cc16.length);
+          }
+
           replacement =
             "[][" + encode("fill") + "]"+
             "[" + encode("constructor") + "]" +
-            "(" + encode("return\"\\u"+("0000"+cc16).substring(cc16.length)+"\"") + ")()";
+            "(" + encode("return\"\\"+escape+"\"") + ")()";
 
           output.push(replacement);
           MAPPING[c] = replacement;
