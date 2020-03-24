@@ -117,21 +117,11 @@
   const GLOBAL = 'Function("return this")()';
 
   function fillMissingChars(){
-    var charcode, base16code, escape;
     for (var key in MAPPING){
       if (MAPPING[key] === USE_CHAR_CODE){
-        charcode = key.charCodeAt(0);
 
-        if (charcode < 256) { // Unicode code point between U+0000 and U+00FF
-          // Function('return"\\XXX"')()
-          escape = '+"\\"+' + charcode.toString(8).split('').join('+');
-        } else {
-          // Function('return"\\uXXXX"')()
-          base16code = charcode.toString(16);
-          escape = '+"\\u"+' + ('0000'+base16code).substring(base16code.length).split('').join('+');
-        }
-
-        MAPPING[key] = 'Function("return"+' + MAPPING['"'] + escape + '+' + MAPPING['"'] + ')()';
+        // Function('return"\\XXX"')()
+        MAPPING[key] = 'Function("return"+' + MAPPING['"'] + '+"\\"+' + key.charCodeAt(0).toString(8).split('').join('+') + '+' + MAPPING['"'] + ')()';
       }
     }
   }
