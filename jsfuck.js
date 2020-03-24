@@ -19,7 +19,7 @@
     'Number':   '(+[])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
-    'Function': '[]["fill"]',
+    'Function': '[]["flat"]',
     'RegExp':   'Function("return/"+false+"/")()',
     'Object':	'[]["entries"]()'
   };
@@ -27,7 +27,7 @@
   const MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '([]["entries"]()+"")[2]',
-    'c':   '([]["fill"]+"")[3]',
+    'c':   '([]["flat"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
@@ -39,7 +39,7 @@
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
     'n':   '(undefined+"")[1]',
-    'o':   '(true+[]["fill"])[10]',
+    'o':   '(true+[]["flat"])[10]',
     'p':   '(+(211))["to"+String["name"]](31)[1]',
     'q':   '("")["fontcolor"]([0]+false+")[20]',
     'r':   '(true+"")[1]',
@@ -55,7 +55,7 @@
     'A':   '(+[]+Array)[10]',
     'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
-    'D':   'Function("return escape")()([]["fill"])["slice"]("-1")',
+    'D':   'Function("return escape")()([]["flat"])["slice"]("-1")',
     'E':   '(RegExp+"")[12]',
     'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
@@ -79,16 +79,16 @@
     'Y':   USE_CHAR_CODE,
     'Z':   USE_CHAR_CODE,
 
-    ' ':   '(NaN+[]["fill"])[11]',
+    ' ':   '(NaN+[]["flat"])[11]',
     '!':   USE_CHAR_CODE,
     '"':   '("")["fontcolor"]()[12]',
     '#':   USE_CHAR_CODE,
     '$':   USE_CHAR_CODE,
-    '%':   'Function("return escape")()([]["fill"])[21]',
+    '%':   'Function("return escape")()([]["flat"])[21]',
     '&':   '("")["fontcolor"](")[13]',
     '\'':  USE_CHAR_CODE,
-    '(':   '([]["fill"]+"")[13]',
-    ')':   '([0]+false+[]["fill"])[20]',
+    '(':   '([]["flat"]+"")[13]',
+    ')':   '([0]+false+[]["flat"])[20]',
     '*':   USE_CHAR_CODE,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '([]["slice"]["call"](false+"")+"")[1]',
@@ -108,9 +108,9 @@
     '^':   USE_CHAR_CODE,
     '_':   USE_CHAR_CODE,
     '`':   USE_CHAR_CODE,
-    '{':   '(true+[]["fill"])[20]',
+    '{':   '(true+[]["flat"])[20]',
     '|':   USE_CHAR_CODE,
-    '}':   '([]["fill"]+"")["slice"]("-1")',
+    '}':   '([]["flat"]+"")["slice"]("-1")',
     '~':   USE_CHAR_CODE
   };
 
