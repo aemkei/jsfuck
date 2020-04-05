@@ -270,7 +270,7 @@ Note: This symbol could also be replaced by others, like `<` or `=`. See the sec
 
 ### `!X` – Cast to Boolean
 
-The logical "Not" operator can be used to create booelans `false` and `true`:
+The logical "Not" operator can be used to create booleans `false` and `true`:
 
 ```js
  ![] // false
