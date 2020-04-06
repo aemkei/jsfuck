@@ -63,7 +63,7 @@
     'I':   '(Infinity+"")[0]',
     'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
-    'L':   USE_CHAR_CODE,
+    'L':   'Function("return Object.entries(Error)")()[0][0][10]', // []["fill"]["constructor"]("return Object.entries(Error)")()[0][0][10] returns a capital L
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
     'O':   '(+[]+Object)[10]',
