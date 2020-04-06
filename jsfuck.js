@@ -71,7 +71,7 @@
     'Q':   USE_CHAR_CODE,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
-    'T':   '(""+Object["entries"](Function("return Error")()))[5]',
+    'T':   '(false+Object["entries"](Function("return Error")()))[10]',
     'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
