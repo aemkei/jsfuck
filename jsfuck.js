@@ -63,7 +63,7 @@
     'I':   '(Infinity+"")[0]',
     'J':   USE_CHAR_CODE,
     'K':   USE_CHAR_CODE,
-    'L':   'Function("return Object.entries(Error)")()[0][0][10]', // []["fill"]["constructor"]("return Object.entries(Error)")()[0][0][10] returns a capital L
+    'L':   '(""+Object["entries"](Function("return Error")()))[10]',
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
     'O':   '(+[]+Object)[10]',
@@ -71,7 +71,7 @@
     'Q':   USE_CHAR_CODE,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
-    'T':   '(NaN+Function("return Date")()())[30]',
+    'T':   '(""+Object["entries"](Function("return Error")()))[5]',
     'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
     'V':   USE_CHAR_CODE,
     'W':   USE_CHAR_CODE,
