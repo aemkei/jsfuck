@@ -416,6 +416,13 @@ You can create regular expression e.g. `/pattern/g` as follows
 ```js
 []["fill"]["constructor"]("return RegExp")()("pattern","g")
 ```
+
+wchich after remove comma (by using multi-arguments technique without `bind`ing) looks as follows
+
+```js
+["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
+```
+
 ---
 
 # Alternatives
