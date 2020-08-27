@@ -365,13 +365,13 @@ New characters:
 `j`, `<`, `>`, `=`, `"`, `/`
 
 ### Calling method with more than one argument
----
 
 Calling method with more than one argument is non trivial - to do it you can use following [technique](https://stackoverflow.com/q/63601330/860099) (discovered by trincot) - for example  example: `"truefalse".replace("true","1")` can be written as follows:
 
 ```js
 ["true"]["concat"]("1")["reduce"](""["replace"]["bind"]("truefalse"))
 ```
+
 ### Calling method with more than one argument in "flow way"
 
 To be able to call mehod (with multiple arguments) in right side on results of previous method you can use this [technique](https://stackoverflow.com/q/63604058/860099) (discovered by trincot) - for example: `"truefalse".replace("true","1").replace("false","0")` can be written as follows:
@@ -416,6 +416,7 @@ You can create regular expression e.g. `/pattern/g` as follows
 ```js
 []["fill"]["constructor"]("return RegExp")()("pattern","g")
 ```
+---
 
 # Alternatives
 
