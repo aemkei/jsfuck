@@ -402,7 +402,7 @@ and finally:
 
 ### Calling array method with more than one argument in "flow way"
 
-To call array methods in righthand side (flow) way" we use similar technique like for strings but with additional tricks (details [here](https://stackoverflow.com/q/63631908/860099)) presented in following example: `[3,4,5].slice(1).concat(6)` can be written as `[[3,4,5]].concat([[1,2]]).reduce([].slice.apply.bind([].slice)).concat(6)` (similar like for strings) but now we need to find right-hand side way to wrap array `[3,4,5]` and get `[[3,4,5]]` which can be done as follows `[3,4,5].map([].constructor).concat([[[]]])[0].slice(-1)` so we get
+To call array methods in righthand side (flow) way" we use similar technique like for strings but with additional tricks (details [here](https://stackoverflow.com/q/63631908/860099)) presented in following example: `[3,4,5].slice(1,2).concat(6)` can be written as `[[3,4,5]].concat([[1,2]]).reduce([].slice.apply.bind([].slice)).concat(6)` (similar like for strings) but now we need to find right-hand side way to wrap array `[3,4,5]` and get `[[3,4,5]]` which can be done as follows `[3,4,5].map([].constructor).concat([[[]]])[0].slice(-1)` so we get
 
 ```js
 [3,4,5]
