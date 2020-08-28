@@ -62,6 +62,7 @@ createTest('InfinityInfinity');
 createTest('NaNtrue');
 createTest('trueNaN');
 createTest('undefinedNaN');
+createTest('~\\"');
 
 for(var i=MIN; i<MAX ;i++) {
 	createTest(String.fromCharCode(i));

@@ -1,9 +1,6 @@
 /*! JSFuck 0.4.0 - http://jsfuck.com */
 
 (function(self){
-
-  const USE_CHAR_CODE = Symbol('USE_CHAR_CODE');
-
   const MIN = 32, MAX = 126;
 
   const SIMPLE = {
@@ -59,37 +56,37 @@
     'E':   '(RegExp+"")[12]',
     'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
-    'H':   USE_CHAR_CODE,
+    'H':   null,
     'I':   '(Infinity+"")[0]',
-    'J':   USE_CHAR_CODE,
-    'K':   USE_CHAR_CODE,
-    'L':   USE_CHAR_CODE,
+    'J':   null,
+    'K':   null,
+    'L':   null,
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
     'O':   '(+[]+Object)[10]',
-    'P':   USE_CHAR_CODE,
-    'Q':   USE_CHAR_CODE,
+    'P':   null,
+    'Q':   null,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
     'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
-    'V':   USE_CHAR_CODE,
-    'W':   USE_CHAR_CODE,
-    'X':   USE_CHAR_CODE,
-    'Y':   USE_CHAR_CODE,
-    'Z':   USE_CHAR_CODE,
+    'V':   null,
+    'W':   null,
+    'X':   null,
+    'Y':   null,
+    'Z':   null,
 
     ' ':   '(NaN+[]["flat"])[11]',
-    '!':   USE_CHAR_CODE,
+    '!':   null,
     '"':   '("")["fontcolor"]()[12]',
-    '#':   USE_CHAR_CODE,
-    '$':   USE_CHAR_CODE,
+    '#':   null,
+    '$':   null,
     '%':   'Function("return escape")()([]["flat"])[21]',
     '&':   '("")["fontcolor"](")[13]',
-    '\'':  USE_CHAR_CODE,
+    '\'':  null,
     '(':   '([]["flat"]+"")[13]',
     ')':   '([0]+false+[]["flat"])[20]',
-    '*':   USE_CHAR_CODE,
+    '*':   null,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '([]["slice"]["call"](false+"")+"")[1]',
     '-':   '(+(.+[0000001])+"")[2]',
@@ -101,32 +98,20 @@
     '=':   '("")["fontcolor"]()[11]',
     '>':   '("")["italics"]()[2]',
     '?':   '(RegExp()+"")[2]',
-    '@':   USE_CHAR_CODE,
+    '@':   null,
     '[':   '([]["entries"]()+"")[0]',
     '\\':  '(RegExp("/")+"")[1]',
     ']':   '([]["entries"]()+"")[22]',
-    '^':   USE_CHAR_CODE,
-    '_':   USE_CHAR_CODE,
-    '`':   USE_CHAR_CODE,
+    '^':   null,
+    '_':   null,
+    '`':   null,
     '{':   '(true+[]["flat"])[20]',
-    '|':   USE_CHAR_CODE,
+    '|':   null,
     '}':   '([]["flat"]+"")["slice"]("-1")',
-    '~':   USE_CHAR_CODE
+    '~':   null
   };
 
   const GLOBAL = 'Function("return this")()';
-
-  function fillMissingChars(){
-    var base16code, escape;
-    for (var key in MAPPING){
-      if (MAPPING[key] === USE_CHAR_CODE){
-        //Function('return"\\uXXXX"')()
-        base16code = key.charCodeAt(0).toString(16);
-        escape = ('0000'+base16code).substring(base16code.length).split('').join('+');
-        MAPPING[key] = 'Function("return"+' + MAPPING['"'] + '+"\\u"+' + escape + '+' + MAPPING['"'] + ')()';
-      }
-    }
-  }
 
   function fillMissingDigits(){
     var output, number, i;
@@ -144,7 +129,7 @@
   }
 
   function replaceMap(){
-    var character = "", value, original, i, key;
+    var character = "", value, i, key;
 
     function replace(pattern, replacement){
       value = value.replace(
@@ -171,7 +156,6 @@
       character = String.fromCharCode(i);
       value = MAPPING[character];
       if(!value) {continue;}
-      original = value;
 
       for (key in CONSTRUCTORS){
         replace("\\b" + key, CONSTRUCTORS[key] + '["constructor"]');
@@ -207,7 +191,7 @@
 
         value = MAPPING[all];
 
-        if (value.match(regEx)){
+        if (value && value.match(regEx)){
           missing[all] = value;
           done = true;
         }
@@ -225,7 +209,9 @@
     }
 
     for (all in MAPPING){
-      MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, mappingReplacer);
+      if (MAPPING[all]){
+        MAPPING[all] = MAPPING[all].replace(/\"([^\"]+)\"/gi, mappingReplacer);
+      }
     }
 
     while (findMissing()){
@@ -243,6 +229,16 @@
     }
   }
 
+  function escapeSequence(c) {
+    var cc = c.charCodeAt(0);
+    if (cc < 256) {
+      return '\\' + cc.toString(8);
+    } else {
+      var cc16 = cc.toString(16);
+      return '\\u' + ('0000' + cc16).substring(cc16.length);  
+    }
+  }
+
   function encode(input, wrapWithEval, runInParentScope){
     var output = [];
 
@@ -250,11 +246,34 @@
       return "";
     }
 
+    var unmappped = ''
+    for(var k in MAPPING) {
+      if (MAPPING[k]){
+        unmappped += k;
+      }
+    }
+    unmappped = unmappped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    unmappped = new RegExp('[^' + unmappped + ']','g');
+    var hasUnmappedCharacters = unmappped.test(input);
+    if (hasUnmappedCharacters) {
+      //Because we will wrap the input into a string we need to escape Backslash 
+      // and Double quote characters (we do not need to worry about other characters 
+      // because they are not mapped explicitly).
+      // The JSFuck-encoded representation of `\` is 2121 symbols,
+      // so esacped `\` is 4243 symbols and escaped `"` is 2261 symbols
+      // however the escape sequence of that characters are 
+      // 2168 and 2155 symbols respectively, so it's more practical to 
+      // rewrite them as escape sequences.
+      input = input.replace(/["\\]/g, escapeSequence);
+      //Convert all unmapped characters to escape sequence
+      input = input.replace(unmappped, escapeSequence);
+    }
+
     var r = "";
     for (var i in SIMPLE) {
       r += i + "|";
     }
-    r+= "\n|\r|\u2028|\u2029|.";
+    r+= ".";
 
     input.replace(new RegExp(r, 'g'), function(c) {
       var replacement = SIMPLE[c];
@@ -265,14 +284,7 @@
         if (replacement){
           output.push(replacement);
         } else {
-          var cc16 = c.charCodeAt(0).toString(16);
-          replacement =
-            "[][" + encode("flat") + "]"+
-            "[" + encode("constructor") + "]" +
-            "(" + encode("return\"\\u"+("0000"+cc16).substring(cc16.length)+"\"") + ")()";
-
-          output.push(replacement);
-          MAPPING[c] = replacement;
+          throw new Error('Found unmapped character: ' + c);
         }
       }
     });
@@ -283,11 +295,17 @@
       output += "+[]";
     }
 
+    if (hasUnmappedCharacters) {
+      output = "[][" + encode("flat") + "]"+
+      "[" + encode("constructor") + "]" +
+      "(" + encode("return\"") + "+" + output + "+" + encode("\"") + ")()";
+    }
+
     if (wrapWithEval){
       if (runInParentScope){
         output = "[][" + encode("flat") + "]" +
           "[" + encode("constructor") + "]" +
-          "(" + encode("return eval") +  ")()" +
+          "(" + encode("return eval") + ")()" +
           "(" + output + ")";
       } else {
         output = "[][" + encode("flat") + "]" +
@@ -300,7 +318,6 @@
   }
 
   fillMissingDigits();
-  fillMissingChars();
   replaceMap();
   replaceStrings();
 
