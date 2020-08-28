@@ -364,6 +364,41 @@ New characters:
 
 `j`, `<`, `>`, `=`, `"`, `/`
 
+### Calling method with more than one argument
+
+Calling a method with more than one argument is non trivial - to do it you can use the following [technique](https://stackoverflow.com/q/63601330/860099) (discovered by trincot) - for example: 
+
+calling string method `"truefalse".replace("true","1")` can be written as `["true", "1"].reduce("".replace.bind("truefalse"))` and finally:
+
+```js
+["true"]["concat"]("1")["reduce"](""["replace"]["bind"]("truefalse"))
+```
+
+calling array method `[1,2,3].slice(1,2)` can be written as `[1,2].reduce([].slice.bind([1,2,3]))` and finally:
+
+```js
+[1]["concat"](2)["reduce"]([]["slice"]["bind"]([1,2,3]))
+```
+
+
+### Calling string method with more than one argument in "flow way"
+
+To be able to call a method (with multiple arguments) in right side on results of previous method you can use this [technique](https://stackoverflow.com/q/63604058/860099) (discovered by trincot) - for example: `"truefalse".replace("true","1").replace("false","0")` can be written as 
+
+```js
+"truefalse"
+    .split().concat([["true", "1"]]).reduce("".replace.apply.bind("".replace))
+    .split().concat([["false", "0"]]).reduce("".replace.apply.bind("".replace))
+``` 
+
+and finally:
+
+```js
+"truefalse"
+  ["split"]()["concat"]([["true"]["concat"]("1")])["reduce"](""["replace"]["apply"]["bind"](""["replace"]))
+  ["split"]()["concat"]([["false"]["concat"]("0")])["reduce"](""["replace"]["apply"]["bind"](""["replace"]))
+
+```
 
 ### `number.toString(x)` – Getting any lowercase letter
 
@@ -391,8 +426,21 @@ When evaluating `function anonymous() { return this }`, we get the invocation co
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
----
+### Create regular expression object
 
+You can create regular expression e.g. `/pattern/g` as follows
+
+```js
+[]["fill"]["constructor"]("return RegExp")()("pattern","g")
+```
+
+which after removing the comma (by using [multi-arguments technique](#calling-method-with-more-than-one-argument) without `bind`ing) looks as follows
+
+```js
+["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
+```
+
+---
 
 # Alternatives
 
