@@ -406,10 +406,10 @@ To call array methods in righthand side (flow) way" we use similar technique lik
 
 ```js
 [3,4,5]
-    // call slice with 2 params (repeat this pattern for multi-param methods)
+    // call: slice(1,2) 
     .map([].constructor).concat([[[]]])[0].slice(-1)
     .concat([[1,2]]).reduce([].slice.apply.bind([].slice))
-    // next method call in "flow" style
+    // call next method (in flow)
     .concat(6) 
 ```
 and finally (after remove dots and commas)
