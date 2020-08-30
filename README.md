@@ -426,6 +426,19 @@ When evaluating `function anonymous() { return this }`, we get the invocation co
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
+### Create arbitrary function witch arguments
+
+Use following technique showed on below example to crete multi-argument function which return result: to run `[1,2,3].map( (f,t)=>f+t )` convert function inside map as follows
+
+```js
+[]["fill"]["constructor"]("return (f,t)=>f+t")()
+```
+full code 
+```js
+[1]["concat"](2)["concat"](3).map([]["fill"]["constructor"]("return (f,t)=>f+t")())
+```
+
+
 ### Create regular expression object
 
 You can create regular expression e.g. `/pattern/g` as follows
