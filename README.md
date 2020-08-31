@@ -437,6 +437,7 @@ full code
 ```js
 [1]["concat"](2)["concat"](3).map([]["flat"]["constructor"]("return (x,i)=>x+i")())
 ```
+For size optimization we can change `"return (x,i)=>x+i"` to following code `"return(" + []["slice"]["call"](false+"") + ")=>f+a"` which gives ~3x smaller jsf code
 
 
 ### Create regular expression object
