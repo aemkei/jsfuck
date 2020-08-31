@@ -426,16 +426,16 @@ When evaluating `function anonymous() { return this }`, we get the invocation co
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
-### Create arbitrary function witch arguments
+### Create arbitrary function with arguments
 
-Use following technique showed on below example to crete multi-argument function which return result: to run `[1,2,3].map( (f,t)=>f+t )` convert function inside map as follows
+Use following technique showed below example to create multi-argument function which return result: to run `[1,2,3].map( (x,i)=>x+i )` convert function inside map as follows
 
 ```js
-[]["fill"]["constructor"]("return (f,t)=>f+t")()
+[]["fill"]["constructor"]("return (x,i)=>x+i")()
 ```
 full code 
 ```js
-[1]["concat"](2)["concat"](3).map([]["fill"]["constructor"]("return (f,t)=>f+t")())
+[1]["concat"](2)["concat"](3).map([]["fill"]["constructor"]("return (x,i)=>x+i")())
 ```
 
 
@@ -452,6 +452,11 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 ```js
 ["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
 ```
+you can also [this](#create-arbitrary-function-with-arguments) technique to get RegExp in more direct way
+```js
+[]["fill"]["constructor"]("return /..../g")()
+```
+
 
 ---
 
