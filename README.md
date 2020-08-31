@@ -431,11 +431,11 @@ Getting a reference to `window` is another huge step forward for JSFuck. With th
 Use following technique showed below example to create multi-argument function which return result: to run `[1,2,3].map( (x,i)=>x+i )` convert function inside map as follows
 
 ```js
-[]["fill"]["constructor"]("return (x,i)=>x+i")()
+[]["flat"]["constructor"]("return (x,i)=>x+i")()
 ```
 full code 
 ```js
-[1]["concat"](2)["concat"](3).map([]["fill"]["constructor"]("return (x,i)=>x+i")())
+[1]["concat"](2)["concat"](3).map([]["flat"]["constructor"]("return (x,i)=>x+i")())
 ```
 
 
@@ -444,17 +444,17 @@ full code
 You can create regular expression e.g. `/pattern/g` as follows
 
 ```js
-[]["fill"]["constructor"]("return RegExp")()("pattern","g")
+[]["flat"]["constructor"]("return RegExp")()("pattern","g")
 ```
 
 which after removing the comma (by using [multi-arguments technique](#calling-method-with-more-than-one-argument) without `bind`ing) looks as follows
 
 ```js
-["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
+["pattern"]["concat"]("g")["reduce"]([]["flat"]["constructor"]("return RegExp")())
 ```
 you can also [this](#create-arbitrary-function-with-arguments) technique to get RegExp in more direct way
 ```js
-[]["fill"]["constructor"]("return /..../g")()
+[]["flat"]["constructor"]("return /..../g")()
 ```
 
 
