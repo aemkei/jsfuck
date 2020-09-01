@@ -465,7 +465,7 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 
 # (un)escape - gate for all
 
-Having following characters: `123456789aceflnmoprstu` (wchich can be acheved one by one) we are able to get otcher lower/upper case letters and some characters without using deprecated methods like [italics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/italics). Do do this we can use `escape` and `unescape` method - this discovery based on this [question and answer](https://stackoverflow.com/q/63673610/860099). We can do it by e.g. for letter `C` (which has hexadecimal escape code 43) as follows (we show 5 steps of formula evolution towards jsf)
+Having following characters: `123456789 aceflnmoprstu` (wchich can be acheved one by one) we are able to get otcher lower/upper case letters and some characters without using deprecated methods like [italics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/italics). Deprecated methods was used in jsfuck for size-optimizations. To avoid them we can use `escape` and `unescape` methods - technique base on this [question and answer](https://stackoverflow.com/q/63673610/860099). We can do it by e.g. for letter `C` (which has hexadecimal escape code 43) as follows (we show 5 steps of formula evolution towards jsf)
 
 ```js
 step1:  unescape("%43")
