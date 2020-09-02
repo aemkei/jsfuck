@@ -239,6 +239,10 @@
     }
   }
 
+  function escapeSequenceForReplace(c) {
+    return escapeSequence(c).replace('\\', 't');
+  }
+
   function encode(input, wrapWithEval, runInParentScope){
     var output = [];
 
@@ -254,8 +258,24 @@
     }
     unmappped = unmappped.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     unmappped = new RegExp('[^' + unmappped + ']','g');
-    var hasUnmappedCharacters = unmappped.test(input);
-    if (hasUnmappedCharacters) {
+    var unmappedCharactersCount = (input.match(unmappped) || []).length;
+    if (unmappedCharactersCount > 1) {
+      // Without this optimization one unmapped caracter has encoded length
+      // of about 3600 characters. Every additional unmapped character adds 
+      // 2000 to the total length. For example, the lenght of `~` is 3605, 
+      // `~~` is 5600, and `~~~` is 7595.
+      // 
+      // The loader with replace has encoded length of about 5300 characters
+      // and every additional character adds 100 to the total length. 
+      // In the same example the length of `~~` becomes 5371 and `~~~` -- 5463.
+      // 
+      // So, when we have more than one unmapped character we want to encode whole input
+      // except select characters (that have encoded length less than about 70)
+      // into an escape sequence.
+      //
+      // NOTE: `t` should be escaped!
+      input = input.replace(/[^0123456789.adefilnrsuN]/g, escapeSequenceForReplace);
+    } else if (unmappedCharactersCount > 0) {
       //Because we will wrap the input into a string we need to escape Backslash 
       // and Double quote characters (we do not need to worry about other characters 
       // because they are not mapped explicitly).
@@ -295,7 +315,12 @@
       output += "+[]";
     }
 
-    if (hasUnmappedCharacters) {
+    if (unmappedCharactersCount > 1) {
+      // replace `t` with `\\`
+      output = "(" + output + ")[" + encode("split") + "](" + encode ("t") + ")[" + encode("join") +"](" + encode("\\") + ")";
+    }
+
+    if (unmappedCharactersCount > 0) {
       output = "[][" + encode("flat") + "]"+
       "[" + encode("constructor") + "]" +
       "(" + encode("return\"") + "+" + output + "+" + encode("\"") + ")()";

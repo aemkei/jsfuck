@@ -63,6 +63,11 @@ createTest('NaNtrue');
 createTest('trueNaN');
 createTest('undefinedNaN');
 createTest('~\\"');
+createTest('t~');
+createTest('~t');
+createTest('[(~t~)]');
+createTest('~0123456789 abcdefghijklmnopqrstuvwxyz()+.~');
+createTest('~0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ()+.~');
 
 for(var i=MIN; i<MAX ;i++) {
 	createTest(String.fromCharCode(i));
