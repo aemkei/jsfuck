@@ -49,7 +49,7 @@
     'y':   '(NaN+[Infinity])[10]',
     'z':   '(+(35))["to"+String["name"]](36)',
 
-    'A':   '(+[]+Array)[10]',
+    'A':   '(NaN+[]["entries"]())[11]',
     'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
     'D':   'Function("return escape")()([]["flat"])["slice"]("-1")',
