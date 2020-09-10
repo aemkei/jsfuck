@@ -347,6 +347,12 @@ New chars available :
 * `trim`
 
 
+## More letters
+```js
+(""+""["matchAll"](""))[11]   // E
+(NaN+""["matchAll"](""))[11]  // R
+```
+
 ## `()` – Parenthesis
 
 ### Calling Methods
