@@ -498,6 +498,11 @@ This allows to get upper-case characters witout using buil-in methods like: `esc
   ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1],
 ```
 
+Using this we can chave access to any character by `String.fromCharCode` - e.g for `"!"` (code 33):
+
+```js
+String[Function(("return Object.entries({from"+false+"har"+false+"ode"+":")["split"](false)["join"]("\\u0043")+false+"})")()[0][0]](33)
+```
 
 ## Combine Characters
 
