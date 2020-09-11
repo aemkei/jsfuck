@@ -467,6 +467,21 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 
 # Alternatives
 
+## Get arbitrary character
+
+You can use following [technique](https://stackoverflow.com/a/63850312/860099) 
+(is based on that JS objects can have defined fields without quotes) to get `A-Za-z$_` and many utf8 characters
+
+```js
+Function("return Object.entries({\\u0043:false})")()[0][0]
+```
+
+after partial transformation it looks like
+
+```js
+[]["flat"]["constructor"]("return"+" "+"Object"+"."+"entries"+"("+"{"+"\\"+"u0043"+":"+false+"}"+")")()[0][0]
+```
+This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features.
 
 ## Combine Characters
 
