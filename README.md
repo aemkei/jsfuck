@@ -481,7 +481,7 @@ after partial transformation it looks like
 ```js
 []["flat"]["constructor"]("return"+" "+"Object"+"."+"entries"+"("+"{"+"\\"+"u0043"+":"+false+"}"+")")()[0][0]
 ```
-This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features - when we use following code to get RegExp string, shlash, colon and finlly backslash
+This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features - but we also need use following codes to get RegExp string, shlash, colon and finlly backslash
 
 ```js
    // "RegExp" string: (""+"".matchAll()).split(" ")[1]
@@ -497,9 +497,6 @@ This allows to get upper-case characters witout using buil-in methods like: `esc
   // (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
   ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1],
 ```
-
-to get backslash
-
 
 
 ## Combine Characters
