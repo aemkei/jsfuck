@@ -467,7 +467,7 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 
 # Alternatives
 
-## Get arbitrary character
+## Get arbitrary character - at lower level
 
 You can use following [technique](https://stackoverflow.com/a/63850312/860099) 
 (is based on that JS objects can have defined fields without quotes) to get `A-Za-z$_` and many utf8 characters
@@ -494,7 +494,7 @@ This allows to get upper-case characters witout using buil-in methods like: `esc
   ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[0], 
     
   // "\" - backslash: (Function("return RegExp(RegExp()+[])")()+[])[1]
-  // (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
+  //       optimized: (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
   ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1],
 ```
 
