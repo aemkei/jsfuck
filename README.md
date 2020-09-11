@@ -481,7 +481,26 @@ after partial transformation it looks like
 ```js
 []["flat"]["constructor"]("return"+" "+"Object"+"."+"entries"+"("+"{"+"\\"+"u0043"+":"+false+"}"+")")()[0][0]
 ```
-This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features.
+This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features - when we use following code to get RegExp string, shlash, colon and finlly backslash
+
+```js
+   // "RegExp" string: (""+"".matchAll()).split(" ")[1]
+  ([]+("")["matchAll"]())["split"](" ")[1],
+
+  // ":" - colon: (Function("return RegExp")()()+"")[3]
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[3],
+
+  // "/" - slash: (Function("return RegExp")()()+"")[0]
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[0], 
+    
+  // "\" - backslash: (Function("return RegExp(RegExp()+[])")()+[])[1]
+  // (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
+  ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1],
+```
+
+to get backslash
+
+
 
 ## Combine Characters
 
