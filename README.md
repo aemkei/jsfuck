@@ -485,22 +485,25 @@ This allows to get upper-case characters witout using buil-in methods like: `esc
 
 ```js
    // "RegExp" string: (""+"".matchAll()).split(" ")[1]
-  ([]+("")["matchAll"]())["split"](" ")[1],
+  ([]+("")["matchAll"]())["split"](" ")[1]
 
   // ":" - colon: (Function("return RegExp")()()+"")[3]
-  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[3],
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[3]
 
   // "/" - slash: (Function("return RegExp")()()+"")[0]
-  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[0], 
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[0]
     
   // "\" - backslash: (Function("return RegExp(RegExp()+[])")()+[])[1]
   //       optimized: (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
-  ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1],
+  ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1]
 ```
 
 Using this we can chave access to any character by `String.fromCharCode` - e.g for `"!"` (code 33):
 
 ```js
+String[Function("return Object.entries({from\\u0043har\\u0043ode:false})")()[0][0]](33)
+
+// after optimization:
 String[Function(("return Object.entries({from"+false+"har"+false+"ode"+":")["split"](false)["join"]("\\u0043")+false+"})")()[0][0]](33)
 ```
 
