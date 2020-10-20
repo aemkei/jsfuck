@@ -13,7 +13,7 @@
 
   const CONSTRUCTORS = {
     'Array':    '[]',
-    'Number':   '(+[])',
+    'Number':   '(+![])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
     'Function': '[]["flat"]',
@@ -108,7 +108,9 @@
     '{':   '(true+[]["flat"])[20]',
     '|':   null,
     '}':   '([]["flat"]+"")["slice"]("-1")',
-    '~':   null
+    '~':   null,
+
+    '0':   '[+![]]'
   };
 
   const GLOBAL = 'Function("return this")()';
@@ -116,13 +118,10 @@
   function fillMissingDigits(){
     var output, number, i;
 
-    for (number = 0; number < 10; number++){
+    for (number = 1; number < 10; number++){
+      output = "";
 
-      output = "+[]";
-
-      if (number > 0){ output = "+!" + output; }
-      for (i = 1; i < number; i++){ output = "+!+[]" + output; }
-      if (number > 1){ output = output.substr(1); }
+      for (i = 0; i < number; i++){ output = "+!![]" + output; }
 
       MAPPING[number] = "[" + output + "]";
     }
