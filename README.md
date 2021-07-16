@@ -179,7 +179,7 @@ As we have strings, we can also get single characters:
   "undefined"          [  0] // "u"
 [ "undefined"    ][  0][  0] // "u"
 [  undefined +[] ][+[]][+[]] // "u"
-[  [][+[]]   +[] ][+[]][+[]] // "u"
+[  [][[]]    +[] ][+[]][+[]] // "u"
 ```
 
 ```js
