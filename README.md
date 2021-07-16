@@ -167,7 +167,7 @@ Combining the plus sign and brackets will turn other values into strings:
   []        +[] // "" - empty string
  +[]        +[] // "0"
   [][[]]    +[] // "undefined"
-++[][[]]    +[] // "NaN
+++[][[]]    +[] // "NaN"
 ++[[]][+[]] +[] // "1"
 ```
 
