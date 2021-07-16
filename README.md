@@ -183,8 +183,8 @@ As we have strings, we can also get single characters:
 ```
 
 ```js
-[[][+[]]+[]][+[]][           1 ] // n
-[[][+[]]+[]][+[]][ ++[[]][+[]] ] // n
+[[][[]]+[]][+[]][           1 ] // n
+[[][[]]+[]][+[]][ ++[[]][+[]] ] // n
 ```
 
 Since we have "NaN" and "undefined", we got the following characters:
