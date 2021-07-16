@@ -183,7 +183,7 @@ As we have strings, we can also get single characters:
 ```
 
 ```js
-[[][[]]+[]][+[]][           1 ] // "n"
+  "undefined"   [           1 ] // "n"
 [[][[]]+[]][+[]][ ++[[]][+[]] ] // "n"
 ```
 
