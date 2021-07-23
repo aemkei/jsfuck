@@ -167,7 +167,7 @@ Combining the plus sign and brackets will turn other values into strings:
   []        +[] // "" - empty string
  +[]        +[] // "0"
   [][[]]    +[] // "undefined"
-++[][[]]    +[] // "NaN
+++[][[]]    +[] // "NaN"
 ++[[]][+[]] +[] // "1"
 ```
 
@@ -179,12 +179,12 @@ As we have strings, we can also get single characters:
   "undefined"          [  0] // "u"
 [ "undefined"    ][  0][  0] // "u"
 [  undefined +[] ][+[]][+[]] // "u"
-[  [][+[]]   +[] ][+[]][+[]] // "u"
+[  [][[]]    +[] ][+[]][+[]] // "u"
 ```
 
 ```js
-[[][+[]]+[]][+[]][           1 ] // n
-[[][+[]]+[]][+[]][ ++[[]][+[]] ] // n
+  "undefined"   [           1 ] // "n"
+[[][[]]+[]][+[]][ ++[[]][+[]] ] // "n"
 ```
 
 Since we have "NaN" and "undefined", we got the following characters:
