@@ -81,7 +81,7 @@
     '"':   '("")["fontcolor"]()[12]',
     '#':   null,
     '$':   null,
-    '%':   'Function("return escape")()([]["at"])[19]',
+    '%':   'Function("return escape")()([]["at"])[22]',
     '&':   '("")["fontcolor"](")[13]',
     '\'':  null,
     '(':   '([]["at"]+"")[11]',
@@ -105,7 +105,7 @@
     '^':   null,
     '_':   null,
     '`':   null,
-    '{':   '(true+[]["at"])[18]',
+    '{':   '(undefined+[]["at"])[23]',
     '|':   null,
     '}':   '([]["at"]+"")["at"]("-1")',
     '~':   null
