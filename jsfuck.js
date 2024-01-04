@@ -260,9 +260,9 @@
     unmappped = new RegExp('[^' + unmappped + ']','g');
     var unmappedCharactersCount = (input.match(unmappped) || []).length;
     if (unmappedCharactersCount > 1) {
-      // Without this optimization one unmapped caracter has encoded length
+      // Without this optimization one unmapped character has encoded length
       // of about 3600 characters. Every additional unmapped character adds 
-      // 2000 to the total length. For example, the lenght of `~` is 3605, 
+      // 2000 to the total length. For example, the length of `~` is 3605,
       // `~~` is 5600, and `~~~` is 7595.
       // 
       // The loader with replace has encoded length of about 5300 characters
@@ -280,7 +280,7 @@
       // and Double quote characters (we do not need to worry about other characters 
       // because they are not mapped explicitly).
       // The JSFuck-encoded representation of `\` is 2121 symbols,
-      // so esacped `\` is 4243 symbols and escaped `"` is 2261 symbols
+      // so escaped `\` is 4243 symbols and escaped `"` is 2261 symbols
       // however the escape sequence of that characters are 
       // 2168 and 2155 symbols respectively, so it's more practical to 
       // rewrite them as escape sequences.
