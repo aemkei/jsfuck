@@ -127,12 +127,12 @@
     <li>true        =>  !![]</li>
     <li>undefined   =>  [][[]]</li>
     <li>NaN         =>  +[![]]</li>
-    <li>0           =>  +[]</li>
-    <li>1           =>  +!+[]</li>
-    <li>2           =>  !+[]+!+[]</li>
-    <li>10          =>  [+!+[]]+[+[]]</li>
+    <li>0           =>  +![]</li>
+    <li>1           =>  +!![]</li>
+    <li>2           =>  !![]+!![]</li>
+    <li>10          =>  [+!![]]+[+![]]</li>
     <li>Array       =>  []</li>
-    <li>Number      =>  +[]</li>
+    <li>Number      =>  +![]</li>
     <li>String      =>  []+[]</li>
     <li>Boolean     =>  ![]</li>
     <li>Function    =>  []["filter"]</li>
