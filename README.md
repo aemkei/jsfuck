@@ -45,10 +45,10 @@ The following source will do an `alert(1)`:
     Number      =>  +[]
     String      =>  []+[]
     Boolean     =>  ![]
-    Function    =>  []["filter"]
-    run         =>  []["filter"]["constructor"]( CODE )()
-    eval        =>  []["filter"]["constructor"]("return eval")()( CODE )
-    window      =>  []["filter"]["constructor"]("return this")()
+    Function    =>  []["flat"]
+    run         =>  []["flat"]["constructor"]( CODE )()
+    eval        =>  []["flat"]["constructor"]("return eval")()( CODE )
+    window      =>  []["flat"]["constructor"]("return this")()
 
 See the full list [here](https://github.com/aemkei/jsfuck/blob/master/jsfuck.js).  
 
