@@ -463,6 +463,27 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 ["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
 ```
 
+# (un)escape - gate for all
+
+Having following characters: `123456789 aceflnmoprstu` (which can be acheved one by one) we are able to get other lower/upper case letters and some characters without using deprecated methods like [italics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/italics). Deprecated methods was used in jsfuck for size-optimizations. To avoid them we can use `escape` and `unescape` methods - technique base on this [forum (2013)](https://news.ycombinator.com/item?id=6379732). We can do it by e.g. for letter `C` (which has hexadecimal escape code 43) as follows (we show 5 steps of formula evolution towards jsf)
+
+```js
+step1:  unescape("%43")
+step2:  unescape(escape(" ")[0]+43)
+step3:  unescape(escape((NaN+[]["flat"])[11])[0]+43)
+step4:  Function("return unescape")()(Function("return escape")()(" ")[0]+43)
+step5:  []["flat"]["constructor"]("return unescape")()([]["flat"]["constructor"]("return escape")()((NaN+[]["flat"])[11])[0]+43)
+```
+
+Using this approach we have access to: `!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_ abcdefghijklmnopqrstuvwxyz{|}~` + tilde character and more. Using this technique we don't need to use `String.fromCharCode` (which in old approach forced to use deprecated methods like 'italics' or 'fontcolor' etc.)
+
+For letter "C" we can also use below shortcut based on `escape` only discovered by [Siguza](https://stackoverflow.com/a/63675158/860099) 
+```js
+step1: Function("return escape")()(",")[2]
+step2: []["flat"]["constructor"]("return escape")()([[]]["concat"]([[]])+[])[2]
+```
+
+
 ---
 
 # Alternatives
