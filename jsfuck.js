@@ -16,7 +16,7 @@
     'Number':   '(+[])',
     'String':   '([]+[])',
     'Boolean':  '(![])',
-    'Function': '[]["flat"]',
+    'Function': '[]["at"]',
     'RegExp':   'Function("return/"+false+"/")()',
     'Object':	'[]["entries"]()'
   };
@@ -24,7 +24,7 @@
   const MAPPING = {
     'a':   '(false+"")[1]',
     'b':   '([]["entries"]()+"")[2]',
-    'c':   '([]["flat"]+"")[3]',
+    'c':   '([]["at"]+"")[3]',
     'd':   '(undefined+"")[2]',
     'e':   '(true+"")[3]',
     'f':   '(false+"")[0]',
@@ -36,7 +36,7 @@
     'l':   '(false+"")[2]',
     'm':   '(Number+"")[11]',
     'n':   '(undefined+"")[1]',
-    'o':   '(true+[]["flat"])[10]',
+    'o':   '(true+[]["at"])[10]',
     'p':   '(+(211))["to"+String["name"]](31)[1]',
     'q':   '("")["fontcolor"]([0]+false+")[20]',
     'r':   '(true+"")[1]',
@@ -52,7 +52,7 @@
     'A':   '(NaN+[]["entries"]())[11]',
     'B':   '(+[]+Boolean)[10]',
     'C':   'Function("return escape")()(("")["italics"]())[2]',
-    'D':   'Function("return escape")()([]["flat"])["slice"]("-1")',
+    'D':   'Function("return escape")()([]["at"])["at"]("-1")',
     'E':   '(RegExp+"")[12]',
     'F':   '(+[]+Function)[10]',
     'G':   '(false+Function("return Date")()())[30]',
@@ -76,16 +76,16 @@
     'Y':   null,
     'Z':   null,
 
-    ' ':   '(NaN+[]["flat"])[11]',
+    ' ':   '(NaN+[]["at"])[11]',
     '!':   null,
     '"':   '("")["fontcolor"]()[12]',
     '#':   null,
     '$':   null,
-    '%':   'Function("return escape")()([]["flat"])[21]',
+    '%':   'Function("return escape")()([]["at"])[22]',
     '&':   '("")["fontcolor"](")[13]',
     '\'':  null,
-    '(':   '([]["flat"]+"")[13]',
-    ')':   '([0]+false+[]["flat"])[20]',
+    '(':   '([]["at"]+"")[11]',
+    ')':   '(""+[]["at"])[12]',
     '*':   null,
     '+':   '(+(+!+[]+(!+[]+[])[!+[]+!+[]+!+[]]+[+!+[]]+[+[]]+[+[]])+[])[2]',
     ',':   '[[]]["concat"]([[]])+""',
@@ -105,9 +105,9 @@
     '^':   null,
     '_':   null,
     '`':   null,
-    '{':   '(true+[]["flat"])[20]',
+    '{':   '([0]+false+[]["at"])[20]',
     '|':   null,
-    '}':   '([]["flat"]+"")["slice"]("-1")',
+    '}':   '([]["at"]+"")["at"]("-1")',
     '~':   null
   };
 
@@ -321,19 +321,19 @@
     }
 
     if (unmappedCharactersCount > 0) {
-      output = "[][" + encode("flat") + "]"+
+      output = "[][" + encode("at") + "]"+
       "[" + encode("constructor") + "]" +
       "(" + encode("return\"") + "+" + output + "+" + encode("\"") + ")()";
     }
 
     if (wrapWithEval){
       if (runInParentScope){
-        output = "[][" + encode("flat") + "]" +
+        output = "[][" + encode("at") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + encode("return eval") + ")()" +
           "(" + output + ")";
       } else {
-        output = "[][" + encode("flat") + "]" +
+        output = "[][" + encode("at") + "]" +
           "[" + encode("constructor") + "]" +
           "(" + output + ")()";
       }
