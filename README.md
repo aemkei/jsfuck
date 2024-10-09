@@ -467,6 +467,45 @@ which after removing the comma (by using [multi-arguments technique](#calling-me
 
 # Alternatives
 
+## Get arbitrary character - at lower level
+
+You can use following [technique](https://stackoverflow.com/a/63850312/860099) 
+(is based on that JS objects can have defined fields without quotes) to get `A-Za-z$_` and many utf8 characters
+
+```js
+Function("return Object.entries({\\u0043:false})")()[0][0]
+```
+
+after partial transformation it looks like
+
+```js
+[]["flat"]["constructor"]("return"+" "+"Object"+"."+"entries"+"("+"{"+"\\"+"u0043"+":"+false+"}"+")")()[0][0]
+```
+This allows to get upper-case characters witout using buil-in methods like: `escape, unescape, italics, fontcolor...` but by using more 'low-level" language features - but we also need use following codes to get RegExp string, shlash, colon and finlly backslash
+
+```js
+   // "RegExp" string: (""+"".matchAll()).split(" ")[1]
+  ([]+("")["matchAll"]())["split"](" ")[1]
+
+  // ":" - colon: (Function("return RegExp")()()+"")[3]
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[3]
+
+  // "/" - slash: (Function("return RegExp")()()+"")[0]
+  ([]["flat"]["constructor"]("return "+([]+("")["matchAll"]())["split"](" ")[1])()()+[])[0]
+    
+  // "\" - backslash: (Function("return RegExp(RegExp()+[])")()+[])[1]
+  //       optimized: (Function(("return "+false+"("+false+"()+[])").split(false).join("RegExp"))()+[])[1]
+  ([]["flat"]["constructor"](("return "+false+"("+false+"()+[])")["split"](false)["join"](([]+("")["matchAll"]())["split"](" ")[1]))()+[])[1]
+```
+
+Using this we can chave access to any character by `String.fromCharCode` - e.g for `"!"` (code 33):
+
+```js
+String[Function("return Object.entries({from\\u0043har\\u0043ode:false})")()[0][0]](33)
+
+// after optimization:
+String[Function(("return Object.entries({from"+false+"har"+false+"ode"+":")["split"](false)["join"]("\\u0043")+false+"})")()[0][0]](33)
+```
 
 ## Combine Characters
 
