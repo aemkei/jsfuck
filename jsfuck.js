@@ -17,8 +17,7 @@
     'String':   '([]+[])',
     'Boolean':  '(![])',
     'Function': '[]["flat"]',
-    'RegExp':   'Function("return/"+false+"/")()',
-    'Object':	'[]["entries"]()'
+    'RegExp':   'Function("return/"+false+"/")()'
   };
 
   const MAPPING = {
@@ -63,13 +62,13 @@
     'L':   null,
     'M':   '(true+Function("return Date")()())[30]',
     'N':   '(NaN+"")[0]',
-    'O':   '(+[]+Object)[10]',
+    'O':   null,
     'P':   null,
     'Q':   null,
     'R':   '(+[]+RegExp)[10]',
     'S':   '(+[]+String)[10]',
     'T':   '(NaN+Function("return Date")()())[30]',
-    'U':   '(NaN+Object()["to"+String["name"]]["call"]())[11]',
+    'U':   null,
     'V':   null,
     'W':   null,
     'X':   null,
