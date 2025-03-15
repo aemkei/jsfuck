@@ -449,19 +449,38 @@ When evaluating `function anonymous() { return this }`, we get the invocation co
 
 Getting a reference to `window` is another huge step forward for JSFuck. With the brackets characters, we could only dig in the available objects: numbers, arrays, some functions... With a reference to the global scope, we now have access to any global variable and the inner properties of these globals.
 
+### Create arbitrary function with arguments
+
+Use following technique showed below example to create multi-argument function which return result: to run `[1,2,3].map( (x,i)=>x+i )` convert function inside map as follows
+
+```js
+[]["flat"]["constructor"]("return (x,i)=>x+i")()
+```
+full code 
+```js
+[1]["concat"](2)["concat"](3).map([]["flat"]["constructor"]("return (x,i)=>x+i")())
+```
+For size optimization we can change `"return (x,i)=>x+i"` to following code `"return(" + []["slice"]["call"](false+"") + ")=>f+a"` which gives ~3x smaller jsf code
+
+
 ### Create regular expression object
 
 You can create regular expression e.g. `/pattern/g` as follows
 
 ```js
-[]["fill"]["constructor"]("return RegExp")()("pattern","g")
+[]["flat"]["constructor"]("return RegExp")()("pattern","g")
 ```
 
 which after removing the comma (by using [multi-arguments technique](#calling-method-with-more-than-one-argument) without `bind`ing) looks as follows
 
 ```js
-["pattern"]["concat"]("g")["reduce"]([]["fill"]["constructor"]("return RegExp")())
+["pattern"]["concat"]("g")["reduce"]([]["flat"]["constructor"]("return RegExp")())
 ```
+you can also [this](#create-arbitrary-function-with-arguments) technique to get RegExp in more direct way
+```js
+[]["flat"]["constructor"]("return /..../g")()
+```
+
 
 ---
 
